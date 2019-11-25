@@ -1,0 +1,103 @@
+.register-mat-card{
+  margin-top: 1.6rem;
+  margin-left: 1.9rem;
+  margin-right: 1.9rem;
+  margin-bottom: .4rem;
+  border: 1px rgba(20, 20, 20, 0.438) solid;
+  border-radius: 10px;
+}
+// header related
+.mat-card-header{
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+.register-text{
+  font-size: 24px;
+  margin-left: 13px;
+  margin-top: -2px;
+}
+.continue-text{
+  margin-left: 13px;
+  margin-top: -10px;
+}
+
+// content related
+.name-field{
+  width: 100%;
+  mat-form-field{
+      width: 100%;
+  }
+}
+.username-field{
+  width: 100%;
+  mat-form-field{
+      width: 100%;
+  }
+}
+.email-field {
+  width: 100%;
+  mat-form-field{
+      width: 100%;
+  }
+  // background-color: chartreuse;
+}
+.password-field{
+  width: 100%;
+  mat-form-field{
+      width: 100%;
+  }
+  
+}
+::ng-deep .mat-form-field-flex > .mat-form-field-infix { padding: 0.6em 0px !important;}
+::ng-deep .mat-form-field-label-wrapper { top: -1.3em; }
+
+::ng-deep .mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label {
+  transform: translateY(-1.1em) scale(.75);
+  width: 133.33333%;
+}
+// actions related
+.mat-card-actions{
+  display: flex;
+  justify-content: space-between;
+  margin-left: 13px;
+  margin-right: 13px;
+
+}
+.mat-raised-button{
+  background-color: #1a73e8;
+  color: white;
+  padding-left:20px;
+  padding-right: 20px;
+  margin-right: 20px;
+}
+
+@media only screen and (max-width: 600px) {
+  .register-mat-card{
+      height: 100%;
+      border: hidden;
+
+      margin-top: 1.6rem;
+      margin-left: 1.9rem;
+      margin-right: 1.9rem;
+      // border: 1px rgba(20, 20, 20, 0.438) solid;
+      // border-radius: 10px;
+  }
+}
+@media only screen and (max-width: 425px) {
+  .register-mat-card{
+      // height: 100vh;
+      margin-left: 0.09rem;
+      margin-right: 0.09rem;
+      // border: 1px rgba(20, 20, 20, 0.438) solid;
+      border-block: inherit;
+      // border-radius: 10px;
+  }
+  .mat-card-actions{
+      display: flex;
+      justify-content: space-between;
+      // margin-left: 13px;
+      // margin-right: 13px;
+      // margin-top: -20px;
+  }
+}
