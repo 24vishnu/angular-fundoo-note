@@ -35,6 +35,7 @@ export class LoginComponent implements OnInit {
             duration: 2000
           });
           localStorage.setItem('userIdToken', response.data);
+          console.log('ressssssssssssssss: ',response)
           this.router.navigate(['/dashboard']);
         },
         err => this.snackBar.open('login failed', 'close', {

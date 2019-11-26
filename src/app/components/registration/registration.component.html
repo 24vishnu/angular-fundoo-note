@@ -70,7 +70,7 @@
                             [ngClass]="{'is-invalid':form.get('password').touched && form.get('password').invalid}"
                             [type]="hide ? 'password': 'text' ">
                         <button mat-icon-button matSuffix (click)="hide=!hide">
-                            <mat-icon>{{hide ? visibility_off: visibility}}</mat-icon>
+                            <mat-icon>{{hide ? "visibility_off": "visibility"}}</mat-icon>
                         </button>
                         <mat-error *ngIf="form.get('password').touched && form.get('password').invalid">
                             <div *ngIf="form.get('password').errors.required">Password is required</div>
@@ -86,7 +86,7 @@
                             [ngClass]="{'is-invalid':form.get('cpassword').touched && form.get('cpassword').invalid}"
                             [type]="hide1 ? 'password': 'text' ">
                         <button mat-icon-button matSuffix (click)="hide1=!hide1">
-                            <mat-icon>{{hide1 ? visibility_off: visibility}}</mat-icon>
+                            <mat-icon>{{hide1 ? "visibility_off": "visibility"}}</mat-icon>
                         </button>
                         <mat-error *ngIf="form.get('cpassword').touched && form.get('cpassword').invalid">
                             <div *ngIf="form.get('cpassword').errors.required">Password is required</div>

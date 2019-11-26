@@ -29,7 +29,6 @@ mat-form-field{
 }
 
 mat-sidenav{
-    // background-color: rgba(241, 237, 237, 0.678);
     width: 250px;
     display: flex;
     flex-direction: column;
@@ -43,4 +42,7 @@ mat-sidenav div{
 }
 .mat-sidenav-content{
     padding-top: 10px;
+}
+.search-container {
+    color: rgb(109, 109, 109);
 }

@@ -1,0 +1,25 @@
+$border-color: rgb(250, 175, 125);
+
+.container{
+    margin-top: 30px;
+    .mat-grid-tile {
+        .one-note {
+            border-top: 1px solid $border-color;
+            border-left: 1px solid $border-color;
+            border-right: 1px solid $border-color;
+            border-radius: 10px;
+            width: 100%;
+            margin: 5px;
+            word-break: break-all;
+            }
+        .hoverWrapper #hover-show-content {
+            display: none;
+            position: absolute;
+        }
+        .hoverWrapper:hover #hover-show-content {
+            display: flex;
+            justify-content: space-between;
+            width: 90%;
+        }
+    }
+}

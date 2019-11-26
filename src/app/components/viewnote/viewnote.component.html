@@ -1,0 +1,29 @@
+    
+<div class="container">
+    <mat-grid-list cols="3" rowHeight="100px">
+        <mat-grid-tile *ngFor="let note of notes">
+            <mat-card class="one-note">
+                <div>
+                    {{note.title}}
+                </div>
+                <div style="margin-bottom: 10px;">
+                    {{note.description}}
+                </div>
+                <div id="hover-show-content">
+                    <span matTooltip="reminder" [matMenuTriggerFor]="matMenuReminder"> <mat-icon>add_alert</mat-icon> </span>
+                    <span matTooltip="Collaborate"> <mat-icon>person_add</mat-icon> </span>
+                    <span matTooltip="Change color" [matMenuTriggerFor]="matMenuChangeColor"> <mat-icon>color_lens</mat-icon> </span>
+                    <span matTooltip="Add image"> <mat-icon>image</mat-icon> </span>
+                    <span matTooltip="Archive"> <mat-icon>archive</mat-icon> </span>
+                    <span matTooltip="More" [matMenuTriggerFor]="matMenuMore"> <mat-icon>more_vert</mat-icon> </span>
+                </div>
+            </mat-card>
+        </mat-grid-tile>
+    </mat-grid-list>
+    <ng-template #no_note>
+            <div class="no-note-div">
+                <img src="assets/images/note.svg" alt="logo" class="logo-img">
+                Notes you add appear here
+            </div>
+    </ng-template>
+</div>

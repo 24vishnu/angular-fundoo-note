@@ -11,7 +11,7 @@ import { EditLabelComponent } from '../edit-label/edit-label.component';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  username = 'Vishn Kumar';
+  username = 'Vishnu Kumar';
   email = 'vishnu23kumar@gmail.com';
   token = localStorage.getItem('userIdToken');
   private links;
@@ -28,9 +28,12 @@ export class DashboardComponent implements OnInit {
     this.getLabel();
   }
   getLabel() {
+    console.log("TOKEN : -> ",localStorage.getItem('userIdToken'))
+    console.log("TOKEN : -> 'userIdToken'")
     this.labelService.getLabels(this.token).subscribe(
       result => {
         this.links = result.data;
+        console.log(this.links)
       },
       err => console.log('failed to load labels' + err)
 

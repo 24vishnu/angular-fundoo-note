@@ -73,31 +73,29 @@
 }
 
 @media only screen and (max-width: 600px) {
+  .container{
+    width: 100%;
+    height: 92vh;
+  }
   .register-mat-card{
       height: 100%;
-      border: hidden;
-
-      margin-top: 1.6rem;
-      margin-left: 1.9rem;
-      margin-right: 1.9rem;
-      // border: 1px rgba(20, 20, 20, 0.438) solid;
-      // border-radius: 10px;
+      width: 100%;
+      border: none;
+      box-shadow: none;
   }
 }
 @media only screen and (max-width: 425px) {
+  .container{
+    width: 100%;
+    height: 90vh;
+  }
   .register-mat-card{
-      // height: 100vh;
       margin-left: 0.09rem;
       margin-right: 0.09rem;
-      // border: 1px rgba(20, 20, 20, 0.438) solid;
       border-block: inherit;
-      // border-radius: 10px;
   }
   .mat-card-actions{
       display: flex;
       justify-content: space-between;
-      // margin-left: 13px;
-      // margin-right: 13px;
-      // margin-top: -20px;
   }
 }

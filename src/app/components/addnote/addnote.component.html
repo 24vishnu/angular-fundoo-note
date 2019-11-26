@@ -1,0 +1,68 @@
+<div class="container">
+    <mat-card class="create-note-button" *ngIf="showNoteContent">
+            <!-- <mat-card class="create-note-button"> -->
+        <span (click)="showHideButton()">Take a note...</span>
+        <div>
+            <span matTooltip="New list">
+                <mat-icon>check</mat-icon>
+            </span>
+            <span matTooltip="New note with drowing">
+                <mat-icon>brush</mat-icon>
+            </span>
+            <span matTooltip="New note with image">
+                <mat-icon>insert_photo</mat-icon>
+            </span>
+        </div>
+    </mat-card>
+    <mat-card class="create-note" *ngIf="!showHideContent">
+        <div>
+           <textarea matInput cdkTextareaAutosize 
+                type="text" 
+                placeholder="title" 
+                [formControl]="title" 
+                name="title">
+           </textarea> 
+        </div>
+        <div>
+            <textarea matInput cdkTextareaAutosize 
+                 type="text" 
+                 placeholder="Take a note..." 
+                 [formControl]="description" 
+                 name="description">
+            </textarea> 
+         </div>
+         <div class="create-note-toolbar" fxLayout="row" fxLaoutAline="space-between center">
+            <div class="create-note-menu" fxLayout="row" fxLaoutAline="space-between center" fxFlex="90">
+                <span matTooltip="reminder" [matMenuTriggerFor]="matMenuReminder"> <mat-icon>add_alert</mat-icon> </span>
+                <span matTooltip="Collaborate"> <mat-icon>person_add</mat-icon> </span>
+                <span matTooltip="Change color" [matMenuTriggerFor]="matMenuChangeColor"> <mat-icon>color_lens</mat-icon> </span>
+                <span matTooltip="Add image"> <mat-icon>image</mat-icon> </span>
+                <span matTooltip="Archive"> <mat-icon>archive</mat-icon> </span>
+                <span matTooltip="More" [matMenuTriggerFor]="matMenuMore"> <mat-icon>more_vert</mat-icon> </span>
+            </div>
+            <div>
+                <span> <mat-icon matTooltip="undo">undo</mat-icon> </span>
+                <span> <mat-icon matTooltip="redo">redo</mat-icon> </span>                    
+                <button mat-button>Close</button>        
+            </div>
+         </div>
+    </mat-card>
+    <mat-menu #matMenuReminder="matMenu">
+        <div ><span>Reminder: </span>
+            <button mat-menu-item>Latest Today</button>
+            <button mat-menu-item>Tomorrow</button>
+            <button mat-menu-item>Next Week</button>
+            <button mat-menu-item>Home</button>
+            <button mat-menu-item>Work</button>
+            <button mat-menu-item><mat-icon>access_time</mat-icon>Pick date & time</button>
+            <button mat-menu-item><mat-icon> place</mat-icon>Pick place</button>           
+
+        </div>
+    </mat-menu>
+    <mat-menu #matMenuChangeColor="matMenu">Change Color</mat-menu>
+    <mat-menu #matMenuMore="matMenu">
+        <button mat-menu-item>Add label</button>
+        <button mat-menu-item>Add drowing</button>
+        <button mat-menu-item>Show checkboxes</button>
+    </mat-menu>
+</div>

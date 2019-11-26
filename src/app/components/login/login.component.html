@@ -37,7 +37,7 @@
                                 [type]="hide ? 'password': 'text' "
                                 >
                                 <button mat-icon-button matSuffix (click)="hide=!hide">
-                                    <mat-icon>{{hide ? visibility_off: visibility}}</mat-icon>
+                                    <mat-icon>{{hide ? "visibility_off": "visibility"}}</mat-icon>
                                 </button>
                             <mat-error *ngIf="form.get('password').touched && form.get('password').invalid">
                                 <div *ngIf="form.get('password').errors.required">Password is required</div>
