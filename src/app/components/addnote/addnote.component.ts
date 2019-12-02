@@ -9,11 +9,11 @@ import { MatSnackBar } from '@angular/material';
   styleUrls: ['./addnote.component.scss']
 })
 export class AddnoteComponent implements OnInit {
-  private show_note_content = false;
+  private show_note_content = true;
   private note_data: any;
   private title = new FormControl();
-  private description = new FormControl();
-  private token = localStorage.getItem("userIdToken");
+  private content = new FormControl();
+  private token = localStorage.getItem("token");
   
   constructor(private noteService: NoteServiceService, private snackBar: MatSnackBar) { }
 
@@ -31,12 +31,12 @@ export class AddnoteComponent implements OnInit {
     if(this.show_note_content){
       this.note_data = {
         title : this.title.value,
-        description : this.description.value
+        content : this.content.value
       };
       // show data on console
       console.log(this.note_data);
       // if user enter note title or note description then add note
-      if(this.note_data.title != null || this.note_data.description != null)
+      if(this.note_data.title != null || this.note_data.content != null)
       {
         // post data on backend api
         this.noteService.addNote(this.note_data, this.token).subscribe(
@@ -58,7 +58,7 @@ export class AddnoteComponent implements OnInit {
           Resets the form control, marking it pristine and untouched, and setting the value to null.
         */
          this.title.reset();
-         this.description.reset();
+         this.content.reset();
       }
     }
   }

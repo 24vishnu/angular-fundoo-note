@@ -3,7 +3,16 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  apiBaseUrl: 'http://127.0.0.1:8000/',
+  apiRegisterUrl: 'signup/',
+  apiLoginUrl: 'login/',
+  apiForgotPassUrl: 'forgotpassword/',
+  apiResetPassUrl: 'resetpassword/',
+  apiLabelsUrl: 'api/labels/',
+  apiNoteUrl: 'api/notes/',
+  apiUserPicUrl: 'profilepic/',
+  apiDetailLabelUrl: 'api/label/'
 };
 
 /*

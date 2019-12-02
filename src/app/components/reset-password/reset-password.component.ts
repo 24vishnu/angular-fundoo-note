@@ -27,7 +27,7 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   setPassword() {
-    this.passToken['token'] = this.token
+    this.passToken['token'] = this.token;
     this.userService.setPasswordUser(this.userData, this.passToken).subscribe(
       res => this.snackBar.open('set password success', 'close', {
         duration: 2000

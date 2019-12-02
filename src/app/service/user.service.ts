@@ -1,16 +1,18 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  private baseUrl = 'http://127.0.0.1:8000/';
-  private loginUrl = 'sessionlogin/';
-  private forgotPasswordUrl = 'forgotpassword/';
-  private resetPassword = 'resetpassword/';
-  private signupUrl = 'signup/'
+  private baseUrl = environment.apiBaseUrl;
+  private loginUrl = environment.apiLoginUrl;
+  private forgotPasswordUrl = environment.apiForgotPassUrl;
+  private resetPassword = environment.apiResetPassUrl;
+  private signupUrl = environment.apiRegisterUrl;
+  private picUrl = environment.apiUserPicUrl;
 
   constructor(private http: HttpClient) { }
 
@@ -19,6 +21,7 @@ export class UserService {
   }
   
   loginUser(user): Observable<any> {
+    console.log("in userlogin service :", user, (this.baseUrl + this.loginUrl))
     return this.http.post<any>(this.baseUrl + this.loginUrl, user);
   }
   forgotPasswordUser(user): Observable<any>{
@@ -27,8 +30,14 @@ export class UserService {
     return this.http.post<any>(this.baseUrl + this.forgotPasswordUrl, user);
   }
   setPasswordUser(user, token): Observable<any>{
-    console.log(user);
-    console.log(token);
-    return this.http.post<any>(this.baseUrl + this.resetPassword, user, token);
+    console.log(token['token']);
+    return this.http.post<any>(this.baseUrl + this.resetPassword + token['token'], user, token);
+  }
+
+  getProfilePic(token){
+    return this.http.get<any>(this.baseUrl + this.picUrl,
+      {
+       headers: new HttpHeaders().append('Authorization', 'Bearer '+token)
+     });
   }
 }

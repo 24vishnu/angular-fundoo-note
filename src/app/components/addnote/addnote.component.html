@@ -1,6 +1,5 @@
 <div class="container">
-    <mat-card class="create-note-button" *ngIf="showNoteContent">
-            <!-- <mat-card class="create-note-button"> -->
+    <mat-card class="create-note-button" *ngIf="show_note_content">
         <span (click)="showHideButton()">Take a note...</span>
         <div>
             <span matTooltip="New list">
@@ -14,11 +13,11 @@
             </span>
         </div>
     </mat-card>
-    <mat-card class="create-note" *ngIf="!showHideContent">
+    <mat-card class="create-note" *ngIf="!show_note_content">
         <div>
            <textarea matInput cdkTextareaAutosize 
                 type="text" 
-                placeholder="title" 
+                placeholder="Title" 
                 [formControl]="title" 
                 name="title">
            </textarea> 
@@ -27,8 +26,8 @@
             <textarea matInput cdkTextareaAutosize 
                  type="text" 
                  placeholder="Take a note..." 
-                 [formControl]="description" 
-                 name="description">
+                 [formControl]="content" 
+                 name="content">
             </textarea> 
          </div>
          <div class="create-note-toolbar" fxLayout="row" fxLaoutAline="space-between center">
@@ -40,10 +39,10 @@
                 <span matTooltip="Archive"> <mat-icon>archive</mat-icon> </span>
                 <span matTooltip="More" [matMenuTriggerFor]="matMenuMore"> <mat-icon>more_vert</mat-icon> </span>
             </div>
-            <div>
-                <span> <mat-icon matTooltip="undo">undo</mat-icon> </span>
-                <span> <mat-icon matTooltip="redo">redo</mat-icon> </span>                    
-                <button mat-button>Close</button>        
+            <div *ngIf="!show_note_content">
+                <!-- <span> <mat-icon matTooltip="undo">undo</mat-icon> </span>
+                <span> <mat-icon matTooltip="redo">redo</mat-icon> </span>                     -->
+                <button mat-button (click)="showHideButton()">Close</button>        
             </div>
          </div>
     </mat-card>

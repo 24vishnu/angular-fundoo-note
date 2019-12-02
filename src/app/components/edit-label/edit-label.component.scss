@@ -1,0 +1,65 @@
+.container {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  border: 1.5px solid dotted red;
+}
+
+.edit-label-title{
+  border: 1px solid green;
+}
+
+.create-new-label{
+  border: 1px solid dotted yellow;
+}
+
+.all-label-container{
+  border: 1.5px solid black;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+// .container {
+//     outline: none;
+//     overflow: hidden;
+//     .div-title {
+//       display: flex;
+//       justify-content: flex-start;
+//       margin-left: 5%;
+//     }
+//   }
+//   .labels-div {
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     .label-icon {
+//       margin-right: 30px;
+//       height: 18px;
+//       width: 18px;
+//     }
+//   }
+//   .input-create-label {
+//     outline: none;
+//     border-top: none;
+//     border-left: none;
+//     border-right: none;
+//   }
+//   .button-done {
+//     display: flex;
+//     justify-content: flex-end;
+//     width: 100%;
+//   }
+
+//   .example-full-width {
+//       width: 100px;
+//   }

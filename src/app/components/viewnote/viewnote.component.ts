@@ -8,17 +8,23 @@ import { NoteServiceService } from 'src/app/service/note-service.service';
 })
 export class ViewnoteComponent implements OnInit {
 
-  private token = localStorage.getItem('userIdToken');
+  private token = localStorage.getItem('token');
 
-  private getNote;
+  private getNote = [];
 
   constructor(private noteService: NoteServiceService) { }
 
   ngOnInit() {
     this.noteService.getNotes(this.token).subscribe(
       response => {
-        console.log(response);
-        this.getNote = response
+        
+        // this.getNote = response.data;
+        var aa;
+        for(var propName in response.data) {
+          aa = response.data[propName]
+          this.getNote.push(Object.values(aa));
+      }
+        console.log('This is response :', this.getNote);
       },
       err => {
         this.getNote = null;

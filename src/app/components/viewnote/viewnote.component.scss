@@ -1,25 +1,47 @@
-$border-color: rgb(250, 175, 125);
-
-.container{
-    margin-top: 30px;
-    .mat-grid-tile {
-        .one-note {
-            border-top: 1px solid $border-color;
-            border-left: 1px solid $border-color;
-            border-right: 1px solid $border-color;
-            border-radius: 10px;
-            width: 100%;
-            margin: 5px;
-            word-break: break-all;
-            }
-        .hoverWrapper #hover-show-content {
-            display: none;
-            position: absolute;
-        }
-        .hoverWrapper:hover #hover-show-content {
-            display: flex;
-            justify-content: space-between;
-            width: 90%;
-        }
+.container {
+    margin: 0;
+    padding-right: 20%;
+    padding-left: 20%;
+    border: 1px solid dotted red;
+    background-color: lemonchiffon;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+.notes-container{
+    width: 33%;
+}
+mat-card{
+    border: 1px solid dotted green;
+    margin: 0.5em;
+    padding: 0.5rem;
+}
+@media screen and (max-width: 834px) {
+    .container {
+        margin: 0;
+        padding-right: 10%;
+        padding-left: 10%;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    .notes-container{
+        width: 49%;
     }
 }
+
+
+@media screen and (max-width: 599px) {
+    .container {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+    }
+    .notes-container{
+        width: 100%;
+        height: 100%;
+    }
+}
+

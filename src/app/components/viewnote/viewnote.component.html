@@ -1,14 +1,8 @@
-    
-<div class="container">
-    <mat-grid-list cols="3" rowHeight="100px">
-        <mat-grid-tile *ngFor="let note of notes">
+<div class="container" fxFlexLayout="row wrap">
+        <div class="notes-container" *ngFor="let note of getNote">
             <mat-card class="one-note">
-                <div>
-                    {{note.title}}
-                </div>
-                <div style="margin-bottom: 10px;">
-                    {{note.description}}
-                </div>
+                <div class="note-title"> {{note[1].title}}  </div>
+                <div class="note-content" style="display: flex;"> {{note[1].content}} </div>
                 <div id="hover-show-content">
                     <span matTooltip="reminder" [matMenuTriggerFor]="matMenuReminder"> <mat-icon>add_alert</mat-icon> </span>
                     <span matTooltip="Collaborate"> <mat-icon>person_add</mat-icon> </span>
@@ -18,8 +12,27 @@
                     <span matTooltip="More" [matMenuTriggerFor]="matMenuMore"> <mat-icon>more_vert</mat-icon> </span>
                 </div>
             </mat-card>
-        </mat-grid-tile>
-    </mat-grid-list>
+
+            <mat-menu #matMenuReminder="matMenu">
+                <div ><span>Reminder: </span>
+                    <button mat-menu-item>Latest Today</button>
+                    <button mat-menu-item>Tomorrow</button>
+                    <button mat-menu-item>Next Week</button>
+                    <button mat-menu-item>Home</button>
+                    <button mat-menu-item>Work</button>
+                    <button mat-menu-item><mat-icon>access_time</mat-icon>Pick date & time</button>
+                    <button mat-menu-item><mat-icon> place</mat-icon>Pick place</button>           
+                </div>
+            </mat-menu>
+
+            <mat-menu #matMenuChangeColor="matMenu">Change Color</mat-menu>
+            <mat-menu #matMenuMore="matMenu">
+                <button mat-menu-item>Add label</button>
+                <button mat-menu-item>Add drowing</button>
+                <button mat-menu-item>Show checkboxes</button>
+            </mat-menu>
+        </div>
+
     <ng-template #no_note>
             <div class="no-note-div">
                 <img src="assets/images/note.svg" alt="logo" class="logo-img">

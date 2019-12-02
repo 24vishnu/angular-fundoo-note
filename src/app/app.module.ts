@@ -20,6 +20,10 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { EditLabelComponent } from './components/edit-label/edit-label.component';
 import { AddnoteComponent } from './components/addnote/addnote.component';
 import { ViewnoteComponent } from './components/viewnote/viewnote.component';
+import { CollaborateComponent } from './components/collaborate/collaborate.component';
+import { RemindersComponent } from './components/reminders/reminders.component';
+import { TrashComponent } from './components/trash/trash.component';
+import { ArchiveComponent } from './components/archive/archive.component';
 
 @NgModule({
   declarations: [
@@ -31,8 +35,14 @@ import { ViewnoteComponent } from './components/viewnote/viewnote.component';
     DashboardComponent,
     EditLabelComponent,
     AddnoteComponent,
-    ViewnoteComponent
+    ViewnoteComponent,
+    CollaborateComponent,
+    RemindersComponent,
+    TrashComponent,
+    ArchiveComponent,
   ],
+  entryComponents: [EditLabelComponent],
+
   imports: [
     MatFormFieldModule,
     MatInputModule,

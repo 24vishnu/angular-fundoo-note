@@ -21,21 +21,21 @@ export class LoginComponent implements OnInit {
   constructor(private userService: UserService, private snackBar: MatSnackBar, private router: Router) { }
 
   ngOnInit() {
-    if (localStorage.getItem('userIdToken')) {
+    if (localStorage.getItem('token')) {
       this.router.navigate(['/dashboard']);
     }
   }
 
   login() {
-    // console.log(this.loginUserData)
+    console.log("this is login data : ",this.loginUserData)
     this.userService.loginUser(this.loginUserData)
       .subscribe(
         response => {
           this.snackBar.open('login success', 'close', {
             duration: 2000
           });
-          localStorage.setItem('userIdToken', response.data);
-          console.log('ressssssssssssssss: ',response)
+          console.log("This is response : ",response)
+          localStorage.setItem('token', response.data['access']);
           this.router.navigate(['/dashboard']);
         },
         err => this.snackBar.open('login failed', 'close', {
