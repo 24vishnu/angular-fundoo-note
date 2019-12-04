@@ -9,21 +9,31 @@ import { AddnoteComponent } from './components/addnote/addnote.component';
 import { AuthGuardService } from './auth/auth-guard.service';
 import { ViewnoteComponent } from './components/viewnote/viewnote.component';
 import { EditLabelComponent } from './components/edit-label/edit-label.component';
+import { ArchiveComponent } from './components/archive/archive.component';
+import { TrashComponent } from './components/trash/trash.component';
+import { CollaborateComponent } from './components/collaborate/collaborate.component';
+import { RemindersComponent } from './components/reminders/reminders.component';
 
 
 const routes: Route[] = [
-
-  // {path: '', component: ViewnoteComponent},
-  {path: 'addnote', component: AddnoteComponent},
+  //==============================
+  // {path: '', component: CollaborateComponent},
+  //==============================
+  // {path: 'addnote', component: AddnoteComponent},
   {path: 'signup', component: RegistrationComponent},
   {path: 'login', component: LoginComponent},
   {path: 'forgot-password', component: ForgotPasswordComponent},
   {path: 'reset-password/:token', component: ResetPasswordComponent},
-  {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService] },
+  {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService], 
+  children: [
+    {path: '', component: ViewnoteComponent},
+    {path: 'reminder', component: RemindersComponent},
+    {path: 'archive', component: ArchiveComponent},
+    {path: 'trash', component: TrashComponent}
+  ]
+  },
   {path:'', redirectTo:'/dashboard', pathMatch: 'full'}
-  // {path:'', component: EditLabelComponent}
-  // {path:'**', redirectTo:'/signup', pathMatch: 'full'},
-
+  
 ];
 
 @NgModule({

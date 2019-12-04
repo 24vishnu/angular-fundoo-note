@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { LabelService } from 'src/app/service/label.service';
 import { EditLabelComponent } from '../edit-label/edit-label.component';
+import { ViewnoteComponent } from '../viewnote/viewnote.component'
 import { UserService } from 'src/app/service/user.service';
 
 
@@ -13,8 +14,6 @@ import { UserService } from 'src/app/service/user.service';
 })
 export class DashboardComponent implements OnInit {
   private user_info = {};
-  r;
-  size;
   private labels;
   private list: Array<any>;
   username:string = 'admin';
@@ -24,7 +23,6 @@ export class DashboardComponent implements OnInit {
   token = localStorage.getItem('token');
 
   showNoteContent = true;
-
   constructor(private router: Router,
      private labelService: LabelService,
      private userService: UserService, 

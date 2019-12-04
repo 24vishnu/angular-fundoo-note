@@ -1,1 +1,38 @@
-<p>trash works!</p>
+<div id="container" fxFlexLayout="row wrap">
+        <div class="notes-container" [ngStyle]="setStyle()" *ngFor="let note of trashed_notes">
+            <mat-card class="one-note">
+                <div class="note-title"> {{note.note.title}}  </div>
+                <div class="note-content"> {{note.note.content}} </div>
+                <div class="note-footer"> 
+                    <mat-icon (click)="delete(note.note.id)">delete_forever</mat-icon>
+                    <mat-icon (click)="archiveNote(note.note.id)">restore_from_trash</mat-icon>
+                </div>
+            </mat-card>
+
+
+    <ng-template *ngIf="note.note.label.lenght > 0" >
+            <div class="no-note-div" *ngFor="let label of note.note.label">
+                    <p>{{ label }}</p>
+                <img src="assets/images/note.svg" alt="logo" class="logo-img">                
+            </div>
+    </ng-template>
+</div>
+<!-- <div class="container">
+        <div class="notes-container" *ngFor="let note of trashed_notes">
+            <mat-card class="one-note">
+                <div class="note-title"> {{note.note.title}}  </div>
+                <div class="note-content"> {{note.note.content}} </div>
+                <div class="note-footer"> 
+                    <mat-icon (click)="delete(note.note.id)">delete_forever</mat-icon>
+                    <mat-icon (click)="restoreNote(note.note.is_trashed, note.note.id)">restore_from_trash</mat-icon>
+                </div>
+            </mat-card>
+        </div>
+
+    <ng-template #no_note>
+            <div class="no-note-div">
+                <img src="assets/images/note.svg" alt="logo" class="logo-img">
+                Notes you add appear here
+            </div>
+    </ng-template>
+</div> -->

@@ -12,7 +12,10 @@ export const environment = {
   apiLabelsUrl: 'api/labels/',
   apiNoteUrl: 'api/notes/',
   apiUserPicUrl: 'profilepic/',
-  apiDetailLabelUrl: 'api/label/'
+  apiDetailLabelUrl: 'api/label/',
+  apiArchiveUrl: "api/archives/",
+  apiTrashedUrl: "api/trashed/",
+  apiDeleteUrl: "api/note/"
 };
 
 /*

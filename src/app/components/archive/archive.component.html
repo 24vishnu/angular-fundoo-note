@@ -1,1 +1,19 @@
-<p>archive works!</p>
+<div class="container">
+        <div class="notes-container" *ngFor="let note of archiveNotes">
+            <mat-card class="one-note">
+                <div class="note-title"> {{note.note.title}}  </div>
+                <div class="note-content"> {{note.note.content}} </div>
+                <div class="note-footer"> 
+                    <mat-icon (onclick)="delete(note.note.id)">delete_forever</mat-icon>
+                    <mat-icon>restore_from_trash</mat-icon>
+                </div>
+            </mat-card>
+        </div>
+
+    <ng-template #no_note>
+            <div class="no-note-div">
+                <img src="assets/images/note.svg" alt="logo" class="logo-img">
+                Notes you add appear here
+            </div>
+    </ng-template>
+</div>

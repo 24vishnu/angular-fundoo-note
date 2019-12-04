@@ -1,0 +1,72 @@
+.container{
+    // background-color: red;
+    // display: flex;
+    // align-items: flex-start;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    width: 100%;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    
+}
+.notes-container{
+    // display: flex;
+    // flex-wrap: wrap;
+    margin: 5px;
+    padding: 5px;
+    height: fit-content;
+    // justify-content: space-between;
+    // flex-direction: column;
+    background-color: green;
+    flex-basis: 25%;
+}
+
+
+.one-note{
+    background-color: blue;
+    margin: 2px;
+    padding: 2px;
+    mat-card{
+        margin: 2px;
+        padding: 2px;
+    }
+    .note-title{
+        padding: 2px;
+        margin: 2px;
+        background-color: yellow;
+    }
+    
+    .note-content{
+        padding: 2px;
+        margin: 2px;
+        background-color: orchid;
+    }
+    
+    .note-footer
+    {
+        padding: 2px;
+        margin: 2px;
+        background-color: rgb(139, 1, 135);
+    }
+}
+
+@media only screen and (max-width: 768px) and (min-width: 320px){
+    .container {
+        display: flex;
+        justify-content: center;
+        flex-basis: 100%;
+    }
+}
+
+@media only screen and (max-width: 1200px) and (min-width: 768px){
+    .container {
+        display: flex;
+        justify-content: center;
+        flex-basis: 50%;
+    }
+}
+

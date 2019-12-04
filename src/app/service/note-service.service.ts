@@ -10,7 +10,9 @@ import { Observable } from 'rxjs/internal/Observable';
 export class NoteServiceService {
   private baseUrl = environment.apiBaseUrl;
   private addNoteUrl = environment.apiNoteUrl;
-  private modifyUrl: "note/";
+  private noteDetailUrl= environment.apiDeleteUrl;
+  private archiveUrl = environment.apiArchiveUrl;
+  private trashedUrl = environment.apiTrashedUrl;
 
 
   constructor(private http: HttpClient) { }
@@ -21,7 +23,11 @@ export class NoteServiceService {
       headers: new HttpHeaders().append('Authorization', 'Bearer '+ user_token)
     });
   }
-
+  getOneNote(note_id, token): Observable<any> {
+    return this.http.get<any>(this.baseUrl+this.noteDetailUrl + note_id, {
+      headers: new HttpHeaders().append('Authorization', 'Bearer ' + token)
+    });
+  }
   getNotes( token): Observable<any> {
     console.log(token)
     return this.http.get<any>(this.baseUrl + this.addNoteUrl,
@@ -30,7 +36,28 @@ export class NoteServiceService {
     });
   }
   
-  updateNote(modify_data, token){
-    return this.http.put(this.baseUrl + this.modifyUrl, modify_data, token);
+  updateNote(modifed_data, note_id, token){
+    console.log('update note service called',modifed_data, note_id);
+    return this.http.put(this.baseUrl + this.noteDetailUrl + note_id, modifed_data, {
+      headers: new HttpHeaders().append('Authorization', 'Bearer '+token)
+    });
   }
+
+  getArchiveNotes(token):Observable<any>{
+    return this.http.get<any>(this.baseUrl+this.archiveUrl, {
+      headers: new HttpHeaders().append('Authorization', 'Bearer ' + token)
+    });
+  }
+  getTrashedNotes(token):Observable<any>{
+    return this.http.get<any>(this.baseUrl+this.trashedUrl, {
+      headers: new HttpHeaders().append('Authorization', 'Bearer ' + token)
+    });
+  }
+
+  deleteNote(note_id, token): Observable<any>{
+    return this.http.delete<any>(this.baseUrl+this.noteDetailUrl + note_id, {
+      headers: new HttpHeaders().append('Authorization', 'Bearer ' + token)
+    });
+  }
+
 }
