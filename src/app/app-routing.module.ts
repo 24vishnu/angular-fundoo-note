@@ -19,7 +19,7 @@ const routes: Route[] = [
   //==============================
   // {path: '', component: CollaborateComponent},
   //==============================
-  // {path: 'addnote', component: AddnoteComponent},
+  // {path: '', component: RemindersComponent},
   {path: 'signup', component: RegistrationComponent},
   {path: 'login', component: LoginComponent},
   {path: 'forgot-password', component: ForgotPasswordComponent},

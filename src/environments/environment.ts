@@ -15,7 +15,8 @@ export const environment = {
   apiDetailLabelUrl: 'api/label/',
   apiArchiveUrl: "api/archives/",
   apiTrashedUrl: "api/trashed/",
-  apiDeleteUrl: "api/note/"
+  apiDeleteUrl: "api/note/",
+  apiReminderUrl: 'api/reminders/'
 };
 
 /*

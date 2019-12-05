@@ -1,7 +1,8 @@
 <div class="container" fxFlexLayout="row wrap">
         <div class="notes-container" [ngStyle]="chageList()" *ngFor="let note of getNote">
             <mat-card class="one-note" [ngStyle]="noteColor(note.note.change_color)">
-                <div class="note-title"> {{note['note'].title}}  </div>
+                <div class="note-title"> {{note.note.title}}  </div>
+                
                 <div class="note-content" style="display: flex;"> {{note.note.content}} </div>
                 <div id="hover-show-content">
                     <span matTooltip="reminder" [matMenuTriggerFor]="matMenuReminder"> <mat-icon>add_alert</mat-icon> </span>

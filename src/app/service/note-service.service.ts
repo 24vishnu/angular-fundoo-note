@@ -13,6 +13,7 @@ export class NoteServiceService {
   private noteDetailUrl= environment.apiDeleteUrl;
   private archiveUrl = environment.apiArchiveUrl;
   private trashedUrl = environment.apiTrashedUrl;
+  private reminderUrl = environment.apiReminderUrl;
 
 
   constructor(private http: HttpClient) { }
@@ -56,6 +57,12 @@ export class NoteServiceService {
 
   deleteNote(note_id, token): Observable<any>{
     return this.http.delete<any>(this.baseUrl+this.noteDetailUrl + note_id, {
+      headers: new HttpHeaders().append('Authorization', 'Bearer ' + token)
+    });
+  }
+
+  getReminderNotes(token):Observable<any>{
+    return this.http.get<any>(this.baseUrl+this.reminderUrl, {
       headers: new HttpHeaders().append('Authorization', 'Bearer ' + token)
     });
   }

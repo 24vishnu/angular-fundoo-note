@@ -62,11 +62,12 @@
 <mat-sidenav-container>
     <mat-sidenav #sidenav mode="side" [(opened)]="opened" fxLayout="column" >
         <mat-nav-list>
-            <a mat-list-item routerLink="" routerLinkActive="active">
+            <!-- [routerLink]="['/dashboard']" [queryParams]="{type: 'archieve'}" -->
+            <a mat-list-item routerLink="" routerLinkActive="active" (click)="showView('noteFlag')">
                 <img src="assets/images/sidenav-icon/note.svg" alt="">
                 <span style="margin-left: 30px;">Notes</span>
             </a>
-            <a mat-list-item routerLink="" routerLinkActive="active">
+            <a mat-list-item routerLink="reminder" routerLinkActive="active" (click)="showView('reminderFlag')">
                 <img src="assets/images/sidenav-icon/reminder.svg" alt="">
                 <span style="margin-left: 30px;">Reminders</span>
             </a>
@@ -79,18 +80,22 @@
                 <img src="assets/images/sidenav-icon/edit-label.svg" alt="">
                 <span style="margin-left: 30px;">Edit labels</span></a>
             <hr>
-            <a mat-list-item routerLink="" routerLinkActive="active">
+            <a mat-list-item routerLink="archive" routerLinkActive="active" (click)="showView('archiveFlag')">
                 <img src="assets/images/sidenav-icon/archive.svg" alt="">
                 <span style="margin-left: 30px;">Archive</span>
             </a>
-            <a mat-list-item routerLink="" routerLinkActive="trash" fxLayoutGap="20px">
+            <a mat-list-item routerLink="trash" routerLinkActive="trash" fxLayoutGap="20px" (click)="showView('trashFlag')">
                 <img src="assets/images/sidenav-icon/trash.svg" alt="">
                 <span style="margin-left: 30px;">Trash</span> </a>
         </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content class="mat-sidenav-content">
-        <!-- <app-addnote></app-addnote>
-        <app-viewnote></app-viewnote> -->
+        <!-- <router-outlet></router-outlet> -->
+        <app-addnote></app-addnote>        
+        <app-viewnote *ngIf="viewFlag['noteFlag']"></app-viewnote>
+        <app-reminders *ngIf="viewFlag['reminderFlag']"></app-reminders>
+        <app-archive *ngIf="viewFlag['archiveFlag']"></app-archive>
+        <app-trash *ngIf="viewFlag['trashFlag']"></app-trash>
     </mat-sidenav-content>
         
 </mat-sidenav-container>

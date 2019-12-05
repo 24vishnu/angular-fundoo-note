@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { NoteServiceService } from 'src/app/service/note-service.service';
 
 @Component({
@@ -13,9 +13,12 @@ export class ViewnoteComponent implements OnInit {
   private getNote = [];
   grid_list_view = false;
 
-  constructor(private noteService: NoteServiceService) { }
+  constructor(private noteService: NoteServiceService) { 
+  }
+  // @Input() getNote: [];
 
   ngOnInit() {
+    
     this.noteService.getNotes(this.token).subscribe(
       response => {
         
@@ -79,5 +82,6 @@ export class ViewnoteComponent implements OnInit {
       err => console.log('failed to load api' + err)
     );
   }
+  
 }
 

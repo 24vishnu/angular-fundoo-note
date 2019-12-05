@@ -5,6 +5,7 @@ import { LabelService } from 'src/app/service/label.service';
 import { EditLabelComponent } from '../edit-label/edit-label.component';
 import { ViewnoteComponent } from '../viewnote/viewnote.component'
 import { UserService } from 'src/app/service/user.service';
+import { NoteServiceService } from 'src/app/service/note-service.service';
 
 
 @Component({
@@ -13,8 +14,10 @@ import { UserService } from 'src/app/service/user.service';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+
   private user_info = {};
   private labels;
+  private allNotes = [];
   private list: Array<any>;
   username:string = 'admin';
   email: string = 'admin@gmail.com';
@@ -22,9 +25,17 @@ export class DashboardComponent implements OnInit {
 
   token = localStorage.getItem('token');
 
+  viewFlag={
+    "noteFlag": true,
+    "reminderFlag": false,
+    "archiveFlag": false,
+    "trashFlag": false
+  }
+
   showNoteContent = true;
   constructor(private router: Router,
      private labelService: LabelService,
+     private noteService: NoteServiceService,
      private userService: UserService, 
      private dialog: MatDialog
      ) { 
@@ -37,7 +48,28 @@ export class DashboardComponent implements OnInit {
     
     this.getProfilePic();
     this.getLabel();
-    
+    this.noteList();
+    console.log(this.viewFlag);
+  }
+
+  showView(show_me){
+    Object.keys(this.viewFlag).forEach(v => this.viewFlag[v] = false);
+    this.viewFlag[show_me] = true;
+    console.log(this.viewFlag);
+  }
+  noteList(){
+    this.noteService.getNotes(this.token).subscribe(
+      response => {
+        
+        this.allNotes = response.data;
+        console.log('This is response :', this.allNotes);
+      },
+      err => {
+        this.allNotes = null;
+        console.log(err);
+
+      }
+    );
   }
   getProfilePic(){
     this.userService.getProfilePic(this.token).subscribe(
