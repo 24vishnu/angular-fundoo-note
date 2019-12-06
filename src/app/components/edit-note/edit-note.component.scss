@@ -1,0 +1,52 @@
+.container {
+    margin: 0;
+    padding: 0;
+    margin-top: 5vw;
+}
+.one-note{
+    margin: 4px;
+    padding: 4px;
+    border-radius: 14px;
+    border: 1px solid papayawhip;
+}
+.note-title{
+    height: auto;  
+    padding:5px 10px 5px 10px;
+    border-radius: 10px;
+}
+textarea{
+    width: 100%; 
+    border: none;
+    outline: 0;
+}
+.note-content{
+    height: auto; 
+    padding:5px 10px 5px 10px;
+}
+.create-note-menu>span{
+    margin: 0px 8px 0px 8px;
+    border: 1px;
+}
+
+.create-note-toolbar{
+    display: flex;
+    flex-direction:row;
+    margin: 4px;
+    padding: 0px;
+    height: 36px;
+}
+.create-note-menu>span{
+    margin:2px;
+    width: 32px;
+    height: 32px;
+    border: 1;
+    margin-top: 2px 8px 2px 8px;
+    color: gray;  
+}
+.create-note-close{    
+    max-width: 18%;
+
+    margin:0px 2px 0px 15px;
+    width: 50px;
+    padding:8px 24px 8px 24px;
+}

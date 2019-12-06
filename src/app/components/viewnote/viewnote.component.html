@@ -1,6 +1,6 @@
 <div class="container" fxFlexLayout="row wrap">
         <div class="notes-container" [ngStyle]="chageList()" *ngFor="let note of getNote">
-            <mat-card class="one-note" [ngStyle]="noteColor(note.note.change_color)">
+            <mat-card class="one-note" [ngStyle]="noteColor(note.note.change_color)" (click)="openDialog(note.note)">
                 <div class="note-title"> {{note.note.title}}  </div>
                 
                 <div class="note-content" style="display: flex;"> {{note.note.content}} </div>

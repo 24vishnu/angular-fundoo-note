@@ -24,6 +24,7 @@ import { CollaborateComponent } from './components/collaborate/collaborate.compo
 import { RemindersComponent } from './components/reminders/reminders.component';
 import { TrashComponent } from './components/trash/trash.component';
 import { ArchiveComponent } from './components/archive/archive.component';
+import { EditNoteComponent } from './components/edit-note/edit-note.component';
 
 @NgModule({
   declarations: [
@@ -40,8 +41,9 @@ import { ArchiveComponent } from './components/archive/archive.component';
     RemindersComponent,
     TrashComponent,
     ArchiveComponent,
+    EditNoteComponent,
   ],
-  entryComponents: [EditLabelComponent],
+  entryComponents: [EditLabelComponent, EditNoteComponent],
 
   imports: [
     MatFormFieldModule,

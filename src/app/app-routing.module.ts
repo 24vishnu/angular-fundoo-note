@@ -13,13 +13,14 @@ import { ArchiveComponent } from './components/archive/archive.component';
 import { TrashComponent } from './components/trash/trash.component';
 import { CollaborateComponent } from './components/collaborate/collaborate.component';
 import { RemindersComponent } from './components/reminders/reminders.component';
+import { EditNoteComponent } from './components/edit-note/edit-note.component';
 
 
 const routes: Route[] = [
   //==============================
   // {path: '', component: CollaborateComponent},
   //==============================
-  // {path: '', component: RemindersComponent},
+  // {path: '', component: EditNoteComponent},
   {path: 'signup', component: RegistrationComponent},
   {path: 'login', component: LoginComponent},
   {path: 'forgot-password', component: ForgotPasswordComponent},
