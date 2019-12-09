@@ -12,11 +12,13 @@ export const environment = {
   apiLabelsUrl: 'api/labels/',
   apiNoteUrl: 'api/notes/',
   apiUserPicUrl: 'profilepic/',
+  apiUpdatePicUrl: 'updatepic/',
   apiDetailLabelUrl: 'api/label/',
   apiArchiveUrl: "api/archives/",
   apiTrashedUrl: "api/trashed/",
   apiDeleteUrl: "api/note/",
-  apiReminderUrl: 'api/reminders/'
+  apiReminderUrl: 'api/reminders/',
+  apiLabelsNoteUrl: 'api/labelnote/'
 };
 
 /*

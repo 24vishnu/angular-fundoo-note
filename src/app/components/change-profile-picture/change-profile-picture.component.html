@@ -1,0 +1,13 @@
+<div calss='container'>
+    <h1 mat-dialog-title>Select profile photo</h1>
+    <div>
+            <input 
+            type="file"
+            (change)="onFileSelected($event)" 
+            value="select a photo from your computer">
+    </div>
+    <div mat-dialog-actions>
+        <button mat-raised-button color="primary" (click)="changeProfile()">set a profile photo</button>
+        <button mat-stroked-button>Cancle</button>
+    </div>
+</div>

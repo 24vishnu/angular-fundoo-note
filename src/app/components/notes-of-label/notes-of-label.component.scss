@@ -1,0 +1,39 @@
+.main-container{
+    margin: 0;
+    padding: 0;
+}
+
+.change-color{
+    display: grid;
+    padding: 0px 4px 0px 4px;
+    grid-template-columns: 25% 25% 25% 25%;
+}
+.change-color>button
+{
+    height: 26px;
+    width: 26px;
+    margin: 2px;
+}
+
+#hover-show-content{
+    display: flex;
+    justify-content: space-evenly;
+    cursor: pointer;
+}
+
+.one-note{
+    margin: 6px;
+    border-radius: 10px;
+    border: 0.5px inset;
+}
+.notes-container{
+    width: 33%;
+}
+.note-title{
+    padding: 5px;
+    letter-spacing: .00625em;
+    font-family: 'Google Sans',Roboto,Arial,sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.5rem;
+}

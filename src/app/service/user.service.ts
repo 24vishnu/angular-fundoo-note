@@ -13,6 +13,7 @@ export class UserService {
   private resetPassword = environment.apiResetPassUrl;
   private signupUrl = environment.apiRegisterUrl;
   private picUrl = environment.apiUserPicUrl;
+  private picUpdateUrl = environment.apiUpdatePicUrl;
 
   constructor(private http: HttpClient) { }
 
@@ -21,16 +22,12 @@ export class UserService {
   }
   
   loginUser(user): Observable<any> {
-    console.log("in userlogin service :", user, (this.baseUrl + this.loginUrl))
     return this.http.post<any>(this.baseUrl + this.loginUrl, user);
   }
   forgotPasswordUser(user): Observable<any>{
-    console.log(user);
-    console.log("Forgot : "+this.baseUrl + this.forgotPasswordUrl)
     return this.http.post<any>(this.baseUrl + this.forgotPasswordUrl, user);
   }
   setPasswordUser(user, token): Observable<any>{
-    console.log(token['token']);
     return this.http.post<any>(this.baseUrl + this.resetPassword + token['token'], user, token);
   }
 
@@ -39,5 +36,10 @@ export class UserService {
       {
        headers: new HttpHeaders().append('Authorization', 'Bearer '+token)
      });
+  }
+  setProfilePic(new_image, token){
+    return this.http.put<any>(this.baseUrl+this.picUpdateUrl,new_image,{
+      headers: new HttpHeaders().append('Authorization', 'Bearer '+ token)
+    });
   }
 }

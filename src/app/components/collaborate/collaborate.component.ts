@@ -13,7 +13,7 @@ export class CollaborateComponent implements OnInit {
   constructor(private noteservice: NoteServiceService) { }
 
   ngOnInit() {
-    console.log('collaborate ngOnInit Called....');
+    // console.log('collaborate ngOnInit Called....');
     // this.noteservice.getNote(note_id, this.token).subscribe(
     //   response => { 
     //     this.onenote = response.data;

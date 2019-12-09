@@ -25,6 +25,9 @@ import { RemindersComponent } from './components/reminders/reminders.component';
 import { TrashComponent } from './components/trash/trash.component';
 import { ArchiveComponent } from './components/archive/archive.component';
 import { EditNoteComponent } from './components/edit-note/edit-note.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { ChangeProfilePictureComponent } from './components/change-profile-picture/change-profile-picture.component';
+import { NotesOfLabelComponent } from './components/notes-of-label/notes-of-label.component';
 
 @NgModule({
   declarations: [
@@ -42,8 +45,14 @@ import { EditNoteComponent } from './components/edit-note/edit-note.component';
     TrashComponent,
     ArchiveComponent,
     EditNoteComponent,
+    ChangeProfilePictureComponent,
+    NotesOfLabelComponent,
   ],
-  entryComponents: [EditLabelComponent, EditNoteComponent],
+  entryComponents: [
+    EditLabelComponent, 
+    EditNoteComponent,
+    ChangeProfilePictureComponent
+    ],
 
   imports: [
     MatFormFieldModule,
@@ -68,6 +77,7 @@ import { EditNoteComponent } from './components/edit-note/edit-note.component';
     MatDialogModule,
     MatTooltipModule,
     MatGridListModule,
+    DragDropModule,
   ],
   providers: [UserService],
   bootstrap: [AppComponent]

@@ -14,6 +14,7 @@ export class NoteServiceService {
   private archiveUrl = environment.apiArchiveUrl;
   private trashedUrl = environment.apiTrashedUrl;
   private reminderUrl = environment.apiReminderUrl;
+  private labelsNoteUrl = environment.apiLabelsNoteUrl;
 
 
   constructor(private http: HttpClient) { }
@@ -30,7 +31,7 @@ export class NoteServiceService {
     });
   }
   getNotes( token): Observable<any> {
-    console.log(token)
+
     return this.http.get<any>(this.baseUrl + this.addNoteUrl,
      {
       headers: new HttpHeaders().append('Authorization', 'Bearer '+token)
@@ -38,7 +39,7 @@ export class NoteServiceService {
   }
   
   updateNote(modifed_data, note_id, token){
-    console.log('update note service called',modifed_data, note_id);
+    // console.log('update note service called',modifed_data, note_id);
     return this.http.put(this.baseUrl + this.noteDetailUrl + note_id, modifed_data, {
       headers: new HttpHeaders().append('Authorization', 'Bearer '+token)
     });
@@ -67,4 +68,9 @@ export class NoteServiceService {
     });
   }
 
+  getLabelsNote(lable_id, token){
+    return this.http.get<any>(this.baseUrl + this.labelsNoteUrl + lable_id, {
+      headers: new HttpHeaders().append('Authorization', 'Bearer ' + token)
+    });
+  }
 }

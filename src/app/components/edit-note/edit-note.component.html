@@ -1,7 +1,7 @@
 <div class="container">
     <!-- <div fxFlex="25"></div> -->
     <div *ngFor="let item of note">
-        <mat-card class="one-note">
+        <mat-card class="one-note" [ngStyle]="noteStyle" id="main-edit-note-id">
             <div class="note-title">
                 <textarea matInput cdkTextareaAutosize 
                         rows = "6"
@@ -38,7 +38,7 @@
                     <span> <mat-icon matTooltip="redo">redo</mat-icon> </span>  
                 </div>
                 <div fxFlex="18" class="create-note-close">                  
-                    <button mat-button (click)="showHideButton()">Close</button>        
+                    <button mat-button (click)="showHideButton(note)">Close</button>        
                 </div>
             </div>
         </mat-card>

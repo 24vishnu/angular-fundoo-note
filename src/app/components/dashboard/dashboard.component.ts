@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material';
-import { LabelService } from 'src/app/service/label.service';
 import { EditLabelComponent } from '../edit-label/edit-label.component';
-import { ViewnoteComponent } from '../viewnote/viewnote.component'
+// import { ViewnoteComponent } from '../viewnote/viewnote.component'
 import { UserService } from 'src/app/service/user.service';
-import { NoteServiceService } from 'src/app/service/note-service.service';
+import { DataService } from 'src/app/service/data.service';
+import { ChangeProfilePictureComponent } from '../change-profile-picture/change-profile-picture.component';
 
 
 @Component({
@@ -13,17 +13,21 @@ import { NoteServiceService } from 'src/app/service/note-service.service';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
-
+export class DashboardComponent implements OnInit{
+  viewListGrid_message = false; //parent to chaild communication
+  // private viewChangeFlag;
+  oneNote: any;
   private user_info = {};
-  private labels;
-  private allNotes = [];
-  private list: Array<any>;
+  private labelsList: any;
   username:string = 'admin';
   email: string = 'admin@gmail.com';
   profile_pic: string = 'assets/images/profile.jpg';
 
   token = localStorage.getItem('token');
+
+  viewChange(){
+    this.viewListGrid_message = !this.viewListGrid_message
+  }
 
   viewFlag={
     "noteFlag": true,
@@ -34,22 +38,26 @@ export class DashboardComponent implements OnInit {
 
   showNoteContent = true;
   constructor(private router: Router,
-     private labelService: LabelService,
-     private noteService: NoteServiceService,
      private userService: UserService, 
-     private dialog: MatDialog
-     ) { 
-       console.log('constructor called');
+     private dialog: MatDialog,
+     private activatedRoute: ActivatedRoute,
+     private dataservice: DataService
+          ) { 
+      //  console.log('constructor called');
      }
 
 
   ngOnInit() {
-    console.log("oninit function called");
-    
     this.getProfilePic();
-    this.getLabel();
-    this.noteList();
-    console.log(this.viewFlag);
+    this.dataservice.currentLabels.subscribe(labels => this.labelsList = labels); 
+
+    this.viewFlag.archiveFlag = this.router.url.includes('/archive')
+    this.viewFlag.reminderFlag = this.router.url.includes('/reminder')
+    this.viewFlag.trashFlag = this.router.url.includes('/trash')
+    if (this.viewFlag.archiveFlag || this.viewFlag.trashFlag || this.viewFlag.reminderFlag)
+    {
+      this.viewFlag.noteFlag = false
+    }    
   }
 
   showView(show_me){
@@ -57,20 +65,7 @@ export class DashboardComponent implements OnInit {
     this.viewFlag[show_me] = true;
     console.log(this.viewFlag);
   }
-  noteList(){
-    this.noteService.getNotes(this.token).subscribe(
-      response => {
-        
-        this.allNotes = response.data;
-        console.log('This is response :', this.allNotes);
-      },
-      err => {
-        this.allNotes = null;
-        console.log(err);
 
-      }
-    );
-  }
   getProfilePic(){
     this.userService.getProfilePic(this.token).subscribe(
       result => {
@@ -84,27 +79,27 @@ export class DashboardComponent implements OnInit {
 
     );
   }
-  getLabel() {
-  
-    console.log("TOKEN : -> ",localStorage.getItem('token'))
-    this.labelService.getLabels(this.token).subscribe(
-      result => {
-        console.log('these are lables++: -> ',result.data);
-        this.labels = result.data;
-      },
-      err => console.log('failed to load labels' + err)
 
-    );
+  picChangeDialog(){
+    const dialogRef = this.dialog.open(ChangeProfilePictureComponent,
+      {
+        panelClass: 'pic-change-class',
+        height: '50%',
+        width: '50%'
+      });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`The dialog was closed:${result}`);
+    });
   }
-
   openDialog() {
     const dialogRef = this.dialog.open(EditLabelComponent, {
-      data: { name :this.labels}
+      width:'300px',
+      height:'350px',
+      data: { name :this.labelsList}
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`The dialog was closed: ${this.labels}`);
-      // this.getLabel();
-      // this.labels = result;
+      console.log(`The dialog was closed: ${this.labelsList}`);
     });
   }
   signout() {

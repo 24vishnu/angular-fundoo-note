@@ -16,8 +16,8 @@ export class TrashComponent implements OnInit {
   constructor(private noteservice: NoteServiceService) { }
 
   ngOnInit() {
-    console.log('Trash ngOnInit Called....');
-    this.noteservice.getNotes(this.token).subscribe(
+    // console.log('Trash ngOnInit Called....');
+    this.noteservice.getTrashedNotes(this.token).subscribe(
       response => { 
         this.trashed_notes = response.data;
         console.log("trashed response: ", this.trashed_notes) 
@@ -37,8 +37,8 @@ export class TrashComponent implements OnInit {
   }
 
   delete(note_id){
-    console.log("TOKEN : -> ",localStorage.getItem('token'))
-    console.log(note_id);
+    // console.log("TOKEN : -> ",localStorage.getItem('token'))
+    // console.log(note_id);
     this.noteservice.deleteNote(note_id, this.token).subscribe(
       result => {
         console.log('This note is deleted: -> ',result.data);
@@ -49,11 +49,11 @@ export class TrashComponent implements OnInit {
   }
   restoreNote(note_id){
     let new_details = {
-      'is_trashed': true
+      'is_trashed': false
     };
-    console.log('This is new content to update: ',new_details);
-    console.log('This is new note id: ', note_id);
-    console.log("TOKEN : -> ",localStorage.getItem('token'));
+    // console.log('This is new content to update: ',new_details);
+    // console.log('This is new note id: ', note_id);
+    // console.log("TOKEN : -> ",localStorage.getItem('token'));
 
     this.noteservice.updateNote(new_details, note_id, this.token).subscribe(
       result => {

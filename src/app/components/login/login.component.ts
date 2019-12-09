@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
           this.snackBar.open('login success', 'close', {
             duration: 2000
           });
-          console.log("This is response : ",response)
+          // console.log("This is response : ",response)
           localStorage.setItem('token', response.data['access']);
           this.router.navigate(['/dashboard']);
         },

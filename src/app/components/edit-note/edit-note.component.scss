@@ -1,23 +1,24 @@
 .container {
     margin: 0;
     padding: 0;
-    margin-top: 5vw;
 }
-.one-note{
-    margin: 4px;
-    padding: 4px;
-    border-radius: 14px;
-    border: 1px solid papayawhip;
-}
+// .one-note{
+//     margin: 4px;
+//     padding: 4px;
+//     border-radius: 1px;
+//     border: 1px solid papayawhip;
+// }
 .note-title{
     height: auto;  
     padding:5px 10px 5px 10px;
-    border-radius: 10px;
+    border-radius: 1px;
 }
 textarea{
     width: 100%; 
     border: none;
     outline: 0;
+    max-height: 150px;
+    height: auto;
 }
 .note-content{
     height: auto; 

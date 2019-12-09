@@ -3,7 +3,7 @@ $border-color: rgb(100, 200, 50);
 .container {
     display: flex;
     justify-content: center;
-    margin-top: 5vw;
+    margin: 2vw 0 2vw 0;
 }
 
 .create-note-button{
@@ -13,7 +13,7 @@ $border-color: rgb(100, 200, 50);
     height: 30px;
     width: 50%;
     max-width: 60%;
-    padding: 20px 10px 6px 6px;
+    padding: 8px;
     border: $border-color 1px solid;
     border-radius: 6px;
     color: rgb(151, 151, 151);

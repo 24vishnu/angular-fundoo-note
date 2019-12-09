@@ -3,7 +3,7 @@
         <div class="title-bar" style="color: rgb(109, 109, 109)" fxFlex="20" fxFlex.sm="50" fxFlex.xs="50" fxLayout="row">                   
             <mat-icon (click)="sidenav.toggle()" class="menu-icon">menu</mat-icon>
 
-            <img src="assets/images/icon/keep.png" alt="fundoo icon" width="50px" height="50px" class="fundoo-icon" fxHide.xs="true">
+            <img src="assets/images/icon/keep.png" alt="fundoo icon" width="30px" height="30px" class="fundoo-icon" fxHide.xs="true">
             <p>Fundoo</p>
         </div>
 
@@ -38,7 +38,11 @@
                 </button>   
                 </mat-menu>
                 <button mat-icon-button><mat-icon routerLink="/dashboard" class="mat-icon-setting">refresh</mat-icon></button>
-                <button mat-icon-button><mat-icon class="mat-icon-setting" (click)="changeView()">view_stream</mat-icon></button>
+                <button mat-icon-button>
+                    <mat-icon class="mat-icon-setting" *ngIf="!viewListGrid_message" (click)="viewChange()">view_stream</mat-icon>
+                    <mat-icon class="mat-icon-setting" *ngIf="viewListGrid_message" (click)="viewChange()">dashboard</mat-icon>
+                </button>
+                
                 <button mat-icon-button><mat-icon class="mat-icon-setting">apps</mat-icon></button>
                 
             <button mat-button [matMenuTriggerFor]="beforeMenu"><img src="{{profile_pic}}" alt="profile pic"
@@ -47,7 +51,7 @@
                 <div fxLayout="column" 
                 fxLayoutGap="20px" style="padding: 20px;">
                     <img mat-menu-item src="{{profile_pic}}" alt="profile pic"
-                        style="width:  100px; height: 100px; border-radius: 100px; ">
+                        style="width:  100px; height: 100px; border-radius: 100px; " (click)="picChangeDialog()">
                     <p>{{username}}</p>
                     <p>{{email}}</p>
                     <button mat-raised-button (click)="signout()">Sign out</button>
@@ -72,8 +76,8 @@
                 <span style="margin-left: 30px;">Reminders</span>
             </a>
             <hr>
-            <small class="small">Labels</small>
-            <a mat-list-item routerLink="/dashboard" *ngFor="let label of labels">
+            <small class="small">LABELS</small>
+            <a mat-list-item routerLink="/dashboard" *ngFor="let label of labelsList">
                 <img src="assets/images/sidenav-icon/label.svg" alt="">
                 <span style="margin-left: 30px;">{{label.name}}</span></a>
             <a mat-list-item [routerLink]="" (click)="openDialog()">
@@ -91,8 +95,9 @@
     </mat-sidenav>
     <mat-sidenav-content class="mat-sidenav-content">
         <!-- <router-outlet></router-outlet> -->
-        <app-addnote></app-addnote>        
-        <app-viewnote *ngIf="viewFlag['noteFlag']"></app-viewnote>
+        <!-- {{oneNote}} -->
+        <app-addnote *ngIf="!viewFlag['trashFlag']"></app-addnote>        
+        <app-viewnote *ngIf="viewFlag['noteFlag']" [viewListGrid]="viewListGrid_message"></app-viewnote>
         <app-reminders *ngIf="viewFlag['reminderFlag']"></app-reminders>
         <app-archive *ngIf="viewFlag['archiveFlag']"></app-archive>
         <app-trash *ngIf="viewFlag['trashFlag']"></app-trash>

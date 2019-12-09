@@ -14,17 +14,19 @@ import { TrashComponent } from './components/trash/trash.component';
 import { CollaborateComponent } from './components/collaborate/collaborate.component';
 import { RemindersComponent } from './components/reminders/reminders.component';
 import { EditNoteComponent } from './components/edit-note/edit-note.component';
+import { NotesOfLabelComponent } from './components/notes-of-label/notes-of-label.component';
 
 
 const routes: Route[] = [
   //==============================
-  // {path: '', component: CollaborateComponent},
+  {path: '', component: NotesOfLabelComponent},
+  {path: '**', component: NotesOfLabelComponent},
   //==============================
-  // {path: '', component: EditNoteComponent},
-  {path: 'signup', component: RegistrationComponent},
-  {path: 'login', component: LoginComponent},
-  {path: 'forgot-password', component: ForgotPasswordComponent},
-  {path: 'reset-password/:token', component: ResetPasswordComponent},
+  // {path: '', component: ArchiveComponent},
+  // {path: 'signup', component: RegistrationComponent},
+  // {path: 'login', component: LoginComponent},
+  // {path: 'forgot-password', component: ForgotPasswordComponent},
+  // {path: 'reset-password/:token', component: ResetPasswordComponent},
   {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService], 
   children: [
     {path: '', component: ViewnoteComponent},
@@ -33,7 +35,7 @@ const routes: Route[] = [
     {path: 'trash', component: TrashComponent}
   ]
   },
-  {path:'', redirectTo:'/dashboard', pathMatch: 'full'}
+  // {path:'', redirectTo:'/dashboard', pathMatch: 'full'}
   
 ];
 

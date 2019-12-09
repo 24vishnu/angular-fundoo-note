@@ -1,24 +1,35 @@
-<div class="container" fxLayout="column">
+<div class="container">
         <div class="edit-label-title">
-            <p>Edit labels</p>
+            Edit labels
         </div>
         <div class="create-new-label">
-            <button mat-flat-button (click)="cleartext()">
-                <mat-icon class="label-icon">close</mat-icon>
-            </button>
-            <mat-form-field class="example-full-width">
-                    <input matInput [(ngModel)]="createlabel1.name" 
-                    type="text">
-            </mat-form-field>
-            <button mat-icon-button (click)="createLabelMethod()">
-                <mat-icon>done icon</mat-icon>
-            </button>
+            <div fxFlex="10">
+                <button mat-flat-button (click)="cleartext()">
+                    <mat-icon class="label-icon">close</mat-icon>
+                </button>
+            </div>
+            <div fxFlex='80'>
+                <mat-form-field class="example-full-width">
+                        <input matInput [(ngModel)]="createlabel1.name" 
+                        type="text">
+                </mat-form-field>
+            </div>
+            <div fxFlex='10'>
+                <button mat-icon-button (click)="createLabelMethod()">
+                    <mat-icon>done icon</mat-icon>
+                </button>
+            </div>
         </div>
         
-        <div *ngFor="let label of labels" class="all-label-container">
-            <div>{{label.name}}</div>
+        <div *ngFor="let label of labelsList" class="all-label-container">
+            <div fxFlex='10'>
+                <img src="assets/images/sidenav-icon/label.svg" alt="">
+            </div>
+            <div fxFlex='80'>{{label.name}}</div>
+            <div fxFlex='10'>
+                <img src="assets/images/sidenav-icon/edit-label.svg" alt="">
+            </div>
         </div>
-        <hr>
         <div class="button-done" (click)="closeDialog()">
             <button mat-button>Done</button>
         </div>

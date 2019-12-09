@@ -21,8 +21,6 @@ export class LabelService {
   }
   
   addLabel(data, token): Observable<any>{
-    console.log('sending this data',data);
-    console.log('sending this token',token);
     return this.http.post<any>(this.baseUrl + this.listLabelUrl, data,
       {
        headers: new HttpHeaders().append('Authorization', 'Bearer '+token)
