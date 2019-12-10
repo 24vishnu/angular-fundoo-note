@@ -1,23 +1,31 @@
 <div class="menu">
     <mat-toolbar color="primary" fxLayout="row">
-        <div class="title-bar" style="color: rgb(109, 109, 109)" fxFlex="20" fxFlex.sm="50" fxFlex.xs="50" fxLayout="row">                   
-            <mat-icon (click)="sidenav.toggle()" class="menu-icon">menu</mat-icon>
+        <div class="title-bar" fxFlex="19" fxFlex.sm="50" fxFlex.xs="50" fxLayout="row">                   
+            <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
 
-            <img src="assets/images/icon/keep.png" alt="fundoo icon" width="30px" height="30px" class="fundoo-icon" fxHide.xs="true">
-            <p>Fundoo</p>
+            <img src="assets/images/icon/keep.png" alt="fundoo icon" width="45px" height="45px" class="fundoo-icon" fxHide.xs="true">
+            <p style="
+                margin-top: 5px;
+                border-bottom-width: 0px;
+                margin-bottom: 0px;
+                width: 100px;
+                text-align: center;
+                color: #6f6f6f;
+                font-size: 22px;
+            ">Fundoo</p>
         </div>
 
-        <div class="search-container" fxFlex="60%" fxHide.sm="true" fxHide.xs="true">
+        <div fxFlex="60%" fxHide.sm="true" fxHide.xs="true">
             <mat-form-field appearance="outline">
-                <mat-label>Search</mat-label>
+                <mat-label style="left: 25px;">Search</mat-label>
                 <input matInput type="search" class="search-field">
                 <mat-icon matPrefix>search</mat-icon>
             </mat-form-field>
         </div>
-        <div class="right-items" 
-            style="color: rgb(109, 109, 109);" 
-            fxFlex="20" fxFlex.sm="50" fxFlex.xs="50" 
-            fxLayout="row"  >
+        <div  fxFlex="20" fxFlex.sm='50'
+                style="justify-content: flex-end;
+                "
+                    fxLayout="row"  >
                 <!-- <button mat-icon-button><mat-icon class="mat-icon-setting">settings</mat-icon></button> -->
             <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
                 <mat-icon>settings</mat-icon>
@@ -45,15 +53,21 @@
                 
                 <button mat-icon-button><mat-icon class="mat-icon-setting">apps</mat-icon></button>
                 
-            <button mat-button [matMenuTriggerFor]="beforeMenu"><img src="{{profile_pic}}" alt="profile pic"
+            <button mat-button [matMenuTriggerFor]="beforeMenu"><img src="{{user_info.image_url}}" alt="profile pic"
                     class="header-profile-pic"></button>
             <mat-menu #beforeMenu="matMenu" class="notifications-dropdown">
                 <div fxLayout="column" 
                 fxLayoutGap="20px" style="padding: 20px;">
-                    <img mat-menu-item src="{{profile_pic}}" alt="profile pic"
-                        style="width:  100px; height: 100px; border-radius: 100px; " (click)="picChangeDialog()">
-                    <p>{{username}}</p>
-                    <p>{{email}}</p>
+                <div style="width:  50px; height: 50px; border-radius: 50px;">
+                    <div>
+                        <img mat-menu-item src="{{ user_info.image_url }}" alt="profile pic">
+                    </div>
+                     <div>
+                         <button> <mat-icon (click)="picChangeDialog()">photo_camera</mat-icon> </button>
+                     </div>
+                </div>
+                    <p>{{user_info.username}}</p>
+                    <p>{{user_info.email}}</p>
                     <button mat-raised-button (click)="signout()">Sign out</button>
                 </div>
 
@@ -65,37 +79,49 @@
 
 <mat-sidenav-container>
     <mat-sidenav #sidenav mode="side" [(opened)]="opened" fxLayout="column" >
-        <mat-nav-list>
-            <!-- [routerLink]="['/dashboard']" [queryParams]="{type: 'archieve'}" -->
-            <a mat-list-item routerLink="" routerLinkActive="active" (click)="showView('noteFlag')">
-                <img src="assets/images/sidenav-icon/note.svg" alt="">
-                <span style="margin-left: 30px;">Notes</span>
-            </a>
-            <a mat-list-item routerLink="reminder" routerLinkActive="active" (click)="showView('reminderFlag')">
-                <img src="assets/images/sidenav-icon/reminder.svg" alt="">
-                <span style="margin-left: 30px;">Reminders</span>
-            </a>
-            <hr>
-            <small class="small">LABELS</small>
-            <a mat-list-item routerLink="/dashboard" *ngFor="let label of labelsList">
-                <img src="assets/images/sidenav-icon/label.svg" alt="">
-                <span style="margin-left: 30px;">{{label.name}}</span></a>
-            <a mat-list-item [routerLink]="" (click)="openDialog()">
-                <img src="assets/images/sidenav-icon/edit-label.svg" alt="">
-                <span style="margin-left: 30px;">Edit labels</span></a>
-            <hr>
-            <a mat-list-item routerLink="archive" routerLinkActive="active" (click)="showView('archiveFlag')">
-                <img src="assets/images/sidenav-icon/archive.svg" alt="">
-                <span style="margin-left: 30px;">Archive</span>
-            </a>
-            <a mat-list-item routerLink="trash" routerLinkActive="trash" fxLayoutGap="20px" (click)="showView('trashFlag')">
-                <img src="assets/images/sidenav-icon/trash.svg" alt="">
-                <span style="margin-left: 30px;">Trash</span> </a>
+        <mat-nav-list class="sidenav-list">
+            <div>
+                <div>
+                    <a mat-list-item routerLink="" routerLinkActive="active" (click)="showView('noteFlag')">
+                        <img src="assets/images/sidenav-icon/note.svg" alt="">
+                        <span style="margin-left: 30px;">Notes</span>
+                    </a>
+                </div>
+                <div>
+                    <a mat-list-item routerLink="reminder" routerLinkActive="active" (click)="showView('reminderFlag')">
+                        <img src="assets/images/sidenav-icon/reminder.svg" alt="">
+                        <span style="margin-left: 30px;">Reminders</span>
+                    </a>
+                </div>
+            </div>        
+            <div>
+                <small class="small">LABELS</small>
+                <a mat-list-item routerLink="/dashboard" *ngFor="let label of labelsList">
+                    <img src="assets/images/sidenav-icon/label.svg" alt="">
+                    <span style="margin-left: 30px;">{{label.name}}</span>
+                </a>
+                <a mat-list-item [routerLink]="" (click)="openDialog()">
+                    <img src="assets/images/sidenav-icon/edit-label.svg" alt="">
+                    <span style="margin-left: 30px;">Edit labels</span></a>
+                
+            </div>
+            <div>
+                <div>
+                    <a mat-list-item routerLink="archive" routerLinkActive="active" (click)="showView('archiveFlag')">
+                        <img src="assets/images/sidenav-icon/archive.svg" alt="">
+                        <span style="margin-left: 30px;">Archive</span>
+                    </a>
+                </div>
+                <div>
+                    <a mat-list-item routerLink="trash" routerLinkActive="trash" fxLayoutGap="20px" (click)="showView('trashFlag')">
+                        <img src="assets/images/sidenav-icon/trash.svg" alt="">
+                        <span style="margin-left: 30px;">Trash</span> 
+                    </a>
+                </div>
+            </div>
         </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content class="mat-sidenav-content">
-        <!-- <router-outlet></router-outlet> -->
-        <!-- {{oneNote}} -->
         <app-addnote *ngIf="!viewFlag['trashFlag']"></app-addnote>        
         <app-viewnote *ngIf="viewFlag['noteFlag']" [viewListGrid]="viewListGrid_message"></app-viewnote>
         <app-reminders *ngIf="viewFlag['reminderFlag']"></app-reminders>

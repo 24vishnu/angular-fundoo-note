@@ -1,8 +1,8 @@
 <div class="container" fxFlexLayout="row wrap">
         <div class="notes-container" [ngStyle]="chageList()" *ngFor="let note of getNote?.reverse()">
-            <div >                
-                <mat-card class="one-note" [ngStyle]="noteColor(note.note.change_color)" class="example-custom-placeholder" cdkDrag (cdkDropListDropped)="drop($event)">
-                <div *cdkDragPlaceholder></div>
+            <div class="one-note">                
+                <mat-card [ngStyle]="noteColor(note.note.change_color)" class="example-custom-placeholder" cdkDrag (cdkDropListDropped)="drop($event)">
+                    <div *cdkDragPlaceholder></div>
                     <div (click)="openDialog(note.note)">
                         <div class="note-title"> {{note.note.title}} 1 </div>
                         <div class="note-content"> {{note.note.content}} </div>

@@ -2,6 +2,7 @@
     display: flex;
     justify-content: space-evenly;
     cursor: pointer;
+    max-width: 350px;
 }
 .container {
     margin: 0;
@@ -16,7 +17,7 @@
 .one-note{
     margin: 6px;
     border-radius: 10px;
-    border: 0.5px inset;
+    // border: 0.5px inset;
 }
 .notes-container{
     width: 33%;
@@ -87,9 +88,17 @@ mat-card{
         display: flex;
         flex-direction: column;
     }
+    
     .notes-container{
         width: 100%;
         height: 100%;
+        .one-note{
+            margin: 0.5em 0px 0.5em 0px;
+        }
+        mat-card{
+            margin: 0.5em 0 0.5em 0;
+            padding: 0.5rem;
+        }
     }
 }
 

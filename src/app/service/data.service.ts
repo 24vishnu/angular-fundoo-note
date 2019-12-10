@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { NoteServiceService } from './note-service.service';
 import { LabelService } from './label.service';
+import { Router } from '@angular/router';
+
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +18,11 @@ export class DataService {
   currentMessage = this.messageSource.asObservable();
   currentLabels = this.labelSource.asObservable();
 
-  constructor(private noteservice: NoteServiceService, private lableservices: LabelService) {
+  constructor(
+    private noteservice: NoteServiceService, 
+    private lableservices: LabelService,
+    private router: Router
+    ) {
     this.get_all_note()
     this.get_all_label()
   }
@@ -27,10 +33,15 @@ export class DataService {
       result => {
         this.all_notes = result.data;
         this.changeMessage(this.all_notes);
-        console.log(result)
+        console.log('result in data services', result)
       },
       err => {
-        console.log(err);
+        if(err.status == 401)
+        {
+          localStorage.clear();
+          this.router.navigate(['/login']);
+          alert(err.error.messages[0].message);        
+        }
       }
     );
   }
@@ -41,10 +52,15 @@ export class DataService {
       result => {
         this.all_labels = result.data;
         this.changeLables(this.all_labels);
-        console.log(result)
+        // console.log(result)
       },
       err => {
-        console.log(err);
+        if(err.status == 401)
+        {
+          localStorage.clear();
+          this.router.navigate(['/login']);
+          alert(err.error.messages[0].message);        
+        }
       }
     );
   }

@@ -1,7 +1,12 @@
 <div class="container">
     <mat-card class="create-note-button" *ngIf="show_note_content">
         <span (click)="showHideButton()">Take a note...</span>
-        <div>
+        <div style="
+            width: 25%;
+            display: flex;
+            justify-content: space-evenly;
+            "
+            >
             <span matTooltip="New list">
                 <mat-icon>check</mat-icon>
             </span>

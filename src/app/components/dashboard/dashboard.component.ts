@@ -17,12 +17,14 @@ export class DashboardComponent implements OnInit{
   viewListGrid_message = false; //parent to chaild communication
   // private viewChangeFlag;
   oneNote: any;
-  private user_info = {};
-  private labelsList: any;
-  username:string = 'admin';
-  email: string = 'admin@gmail.com';
-  profile_pic: string = 'assets/images/profile.jpg';
+  private user_info = {
+    username: 'admin',
+    email: 'admin@gmail.com',
+    image_url: 'assets/images/profile.jpg',
 
+  };
+  private labelsList: any;
+  
   token = localStorage.getItem('token');
 
   viewChange(){
@@ -69,11 +71,13 @@ export class DashboardComponent implements OnInit{
   getProfilePic(){
     this.userService.getProfilePic(this.token).subscribe(
       result => {
-        this.user_info = result.data;
-        console.log(this.user_info);
-        this.username = this.user_info['username'];
-        this.email = this.user_info['email'];
-        this.profile_pic = this.user_info['image_url']
+        if(result.success)
+        {
+          this.user_info = result.data;
+          // this.username = this.user_info['username'];
+          // this.email = this.user_info['email'];
+          // this.profile_pic = result.data.image_url;//this.user_info['image_url']
+        }
       },
       err => console.log('failed to load labels' + err)
 
@@ -84,12 +88,13 @@ export class DashboardComponent implements OnInit{
     const dialogRef = this.dialog.open(ChangeProfilePictureComponent,
       {
         panelClass: 'pic-change-class',
-        height: '50%',
-        width: '50%'
+        // height: '50%',
+        // width: '50%'
       });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(`The dialog was closed:${result}`);
+      this.user_info.image_url = result.image_url;
     });
   }
   openDialog() {
