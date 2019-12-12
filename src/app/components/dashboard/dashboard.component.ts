@@ -13,98 +13,99 @@ import { ChangeProfilePictureComponent } from '../change-profile-picture/change-
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit{
-  viewListGrid_message = false; //parent to chaild communication
-  // private viewChangeFlag;
-  oneNote: any;
-  private user_info = {
+export class DashboardComponent implements OnInit {
+  public viewListGridMessage = false; // parent to chaild communication
+  public oneNote: any;
+  public showNoteContent = true;
+  private labelsList: any;
+
+
+  private token: string;
+  private userInfo = {
     username: 'admin',
     email: 'admin@gmail.com',
     image_url: 'assets/images/profile.jpg',
 
   };
-  private labelsList: any;
-  
-  token = localStorage.getItem('token');
+  viewFlag = {
+    noteFlag: true,
+    reminderFlag: false,
+    archiveFlag: false,
+    trashFlag: false
+  };
 
-  viewChange(){
-    this.viewListGrid_message = !this.viewListGrid_message
-  }
-
-  viewFlag={
-    "noteFlag": true,
-    "reminderFlag": false,
-    "archiveFlag": false,
-    "trashFlag": false
-  }
-
-  showNoteContent = true;
   constructor(private router: Router,
-     private userService: UserService, 
-     private dialog: MatDialog,
-     private activatedRoute: ActivatedRoute,
-     private dataservice: DataService
-          ) { 
-      //  console.log('constructor called');
+              private userService: UserService,
+              private dialog: MatDialog,
+              private activatedRoute: ActivatedRoute,
+              private dataservice: DataService
+                    ) {
      }
+
+  viewChange() {
+    this.viewListGridMessage = !this.viewListGridMessage;
+  }
 
 
   ngOnInit() {
+    this.token = localStorage.getItem('token');
     this.getProfilePic();
-    this.dataservice.currentLabels.subscribe(labels => this.labelsList = labels); 
+    this.dataservice.currentLabels.subscribe(labels => this.labelsList = labels);
 
-    this.viewFlag.archiveFlag = this.router.url.includes('/archive')
-    this.viewFlag.reminderFlag = this.router.url.includes('/reminder')
-    this.viewFlag.trashFlag = this.router.url.includes('/trash')
-    if (this.viewFlag.archiveFlag || this.viewFlag.trashFlag || this.viewFlag.reminderFlag)
-    {
-      this.viewFlag.noteFlag = false
-    }    
+    this.viewFlag.archiveFlag = this.router.url.includes('/archive');
+    this.viewFlag.reminderFlag = this.router.url.includes('/reminder');
+    this.viewFlag.trashFlag = this.router.url.includes('/trash');
+    if (this.viewFlag.archiveFlag || this.viewFlag.trashFlag || this.viewFlag.reminderFlag) {
+      this.viewFlag.noteFlag = false;
+    }
   }
 
-  showView(show_me){
+  showView(showMe) {
     Object.keys(this.viewFlag).forEach(v => this.viewFlag[v] = false);
-    this.viewFlag[show_me] = true;
+    this.viewFlag[showMe] = true;
     console.log(this.viewFlag);
   }
 
-  getProfilePic(){
+  getProfilePic() {
     this.userService.getProfilePic(this.token).subscribe(
       result => {
-        if(result.success)
-        {
-          this.user_info = result.data;
-          // this.username = this.user_info['username'];
-          // this.email = this.user_info['email'];
-          // this.profile_pic = result.data.image_url;//this.user_info['image_url']
+        if (result.success) {
+          this.userInfo = result.data;
         }
       },
-      err => console.log('failed to load labels' + err)
+      err => {
+        alert(err.error.messages[0].message);
+    }
 
     );
   }
 
-  picChangeDialog(){
+  picChangeDialog() {
     const dialogRef = this.dialog.open(ChangeProfilePictureComponent,
       {
-        panelClass: 'pic-change-class',
-        // height: '50%',
-        // width: '50%'
+        width: '750px',
+        height: '450px'
       });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(`The dialog was closed:${result}`);
-      this.user_info.image_url = result.image_url;
+      if (result !== undefined) {
+        this.userInfo.image_url = result.image_url;
+      }
+    },
+    err => {
+        alert(err.error.messages[0].message);
     });
   }
   openDialog() {
     const dialogRef = this.dialog.open(EditLabelComponent, {
-      width:'300px',
-      height:'350px',
-      data: { name :this.labelsList}
+      data: { name: this.labelsList}
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log(`The dialog was closed: ${this.labelsList}`);
+    },
+    err => {
+        alert(err.error.messages[0].message);
     });
   }
   signout() {

@@ -14,10 +14,10 @@ export class CollaborateComponent implements OnInit {
 
   ngOnInit() {
     // console.log('collaborate ngOnInit Called....');
-    // this.noteservice.getNote(note_id, this.token).subscribe(
-    //   response => { 
+    // this.noteservice.getNote(noteId, this.token).subscribe(
+    //   response => {
     //     this.onenote = response.data;
-    //     console.log("trashed response: ", this.onenote) 
+    //     console.log("trashed response: ", this.onenote)
     //   },
     //   err => {
     //     this.onenote = null;

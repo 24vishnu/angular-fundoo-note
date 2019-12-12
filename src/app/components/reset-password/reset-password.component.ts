@@ -12,7 +12,9 @@ import { MatSnackBar } from '@angular/material';
 export class ResetPasswordComponent implements OnInit {
 
   userData = {};
-  passToken = {}
+  passToken = {
+    token: ''
+  };
   token;
 
   form = new FormGroup({
@@ -27,7 +29,7 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   setPassword() {
-    this.passToken['token'] = this.token;
+    this.passToken.token = this.token;
     this.userService.setPasswordUser(this.userData, this.passToken).subscribe(
       res => this.snackBar.open('set password success', 'close', {
         duration: 2000

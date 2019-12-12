@@ -14,9 +14,9 @@ export const environment = {
   apiUserPicUrl: 'profilepic/',
   apiUpdatePicUrl: 'updatepic/',
   apiDetailLabelUrl: 'api/label/',
-  apiArchiveUrl: "api/archives/",
-  apiTrashedUrl: "api/trashed/",
-  apiDeleteUrl: "api/note/",
+  apiArchiveUrl: 'api/archives/',
+  apiTrashedUrl: 'api/trashed/',
+  apiDeleteUrl: 'api/note/',
   apiReminderUrl: 'api/reminders/',
   apiLabelsNoteUrl: 'api/labelnote/'
 };

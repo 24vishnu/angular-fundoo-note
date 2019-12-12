@@ -1,5 +1,5 @@
-import { Component, OnInit, Optional, 
-  Inject, OnChanges, AfterContentInit, 
+import { Component, OnInit, Optional,
+  Inject, OnChanges, AfterContentInit,
   OnDestroy, SimpleChanges, DoCheck } from '@angular/core';
 import { NoteServiceService } from 'src/app/service/note-service.service';
 import { MatSnackBar, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
@@ -10,22 +10,22 @@ import { DataService } from 'src/app/service/data.service';
   templateUrl: './edit-note.component.html',
   styleUrls: ['./edit-note.component.scss']
 })
-export class EditNoteComponent implements OnInit, AfterContentInit, OnDestroy{
+export class EditNoteComponent implements OnInit, AfterContentInit, OnDestroy {
   token = localStorage.getItem('token');
-  private note_data: any;
+  private noteData: any;
   public noteStyle;
   note: any;
   hour: any;
   minuts: any;
-  message:any;
+  message: any;
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.closeDialog();
   }
-  ngAfterContentInit(){
-    this.noteStyle={
-      'background-color': this.note[0].change_color  
-    }
+  ngAfterContentInit() {
+    this.noteStyle = {
+      'background-color': this.note[0].change_color
+    };
   }
 
   constructor(
@@ -39,25 +39,25 @@ export class EditNoteComponent implements OnInit, AfterContentInit, OnDestroy{
   ngOnInit() {
     // this.dataservice.currentMessage.subscribe(message => this.message = message);
     this.note = [this.data];
-    console.log(this.note[0].change_color)
-    this.startTime()
+    console.log(this.note[0].change_color);
+    this.startTime();
   }
   // newMessage() {
   //   this.dataservice.changeMessage(this.note)
   // }
-  showHideButton(note){
-    console.log(note)
-    //   this.note_data = {
+  showHideButton(note) {
+    console.log(note);
+    //   this.noteData = {
     //     // title : this.title.value,
     //     // content : this.content.value
     //   };
     //   // show data on console
-    //   console.log(this.note_data);
+    //   console.log(this.noteData);
     //   // if user enter note title or note description then add note
-    //   if(this.note_data.title != null || this.note_data.content != null)
+    //   if(this.noteData.title != null || this.noteData.content != null)
     //   {
     //     // post data on backend api
-    //     this.noteService.addNote(this.note_data, this.token).subscribe(
+    //     this.noteService.addNote(this.noteData, this.token).subscribe(
     //       result =>{
     //         this.snackBar.open("Note successfully added", "close")
     //         ._dismissAfter(2500);
@@ -82,17 +82,17 @@ export class EditNoteComponent implements OnInit, AfterContentInit, OnDestroy{
 
 
 startTime() {
-    var today = new Date();
+    const today = new Date();
     this.hour = today.getHours();
     this.minuts = today.getMinutes();
     if (this.minuts < 10) {
-      this.minuts = "0" + this.minuts;
-    };
-    var t = setTimeout(this.startTime, 500);
+      this.minuts = '0' + this.minuts;
+    }
+    const t = setTimeout(this.startTime, 500);
   }
- 
+
   closeDialog() {
-    console.log(this.note)
+    console.log(this.note);
     this.dialogRef.close(this.note);
   }
 

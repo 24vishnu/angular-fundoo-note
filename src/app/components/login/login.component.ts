@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { UserService } from 'src/app/service/user.service'
+import { UserService } from 'src/app/service/user.service';
 
 @Component({
   selector: 'app-login',
@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    console.log("this is login data : ",this.loginUserData)
+    console.log('this is login data : ', this.loginUserData);
     this.userService.loginUser(this.loginUserData)
       .subscribe(
         response => {
@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
             duration: 2000
           });
           // console.log("This is response : ",response)
-          localStorage.setItem('token', response.data['access']);
+          localStorage.setItem('token', response.data.access);
           this.router.navigate(['/dashboard']);
         },
         err => this.snackBar.open('login failed', 'close', {

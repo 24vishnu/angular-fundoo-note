@@ -2,31 +2,18 @@
     <mat-toolbar color="primary" fxLayout="row">
         <div class="title-bar" fxFlex="19" fxFlex.sm="50" fxFlex.xs="50" fxLayout="row">                   
             <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
-
             <img src="assets/images/icon/keep.png" alt="fundoo icon" width="45px" height="45px" class="fundoo-icon" fxHide.xs="true">
-            <p style="
-                margin-top: 5px;
-                border-bottom-width: 0px;
-                margin-bottom: 0px;
-                width: 100px;
-                text-align: center;
-                color: #6f6f6f;
-                font-size: 22px;
-            ">Fundoo</p>
+            <p>Fundoo</p>
         </div>
 
         <div fxFlex="60%" fxHide.sm="true" fxHide.xs="true">
             <mat-form-field appearance="outline">
-                <mat-label style="left: 25px;">Search</mat-label>
+                <mat-label class="search-area">Search</mat-label>
                 <input matInput type="search" class="search-field">
                 <mat-icon matPrefix>search</mat-icon>
             </mat-form-field>
         </div>
-        <div  fxFlex="20" fxFlex.sm='50'
-                style="justify-content: flex-end;
-                "
-                    fxLayout="row"  >
-                <!-- <button mat-icon-button><mat-icon class="mat-icon-setting">settings</mat-icon></button> -->
+        <div  fxFlex="20" fxFlex.sm='50' fxFlex.xs="50" fxLayoutAlign="end center" fxLayout="row" >
             <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
                 <mat-icon>settings</mat-icon>
             </button>
@@ -47,27 +34,28 @@
                 </mat-menu>
                 <button mat-icon-button><mat-icon routerLink="/dashboard" class="mat-icon-setting">refresh</mat-icon></button>
                 <button mat-icon-button>
-                    <mat-icon class="mat-icon-setting" *ngIf="!viewListGrid_message" (click)="viewChange()">view_stream</mat-icon>
-                    <mat-icon class="mat-icon-setting" *ngIf="viewListGrid_message" (click)="viewChange()">dashboard</mat-icon>
+                    <mat-icon class="mat-icon-setting" *ngIf="!viewListGridMessage" (click)="viewChange()">view_stream</mat-icon>
+                    <mat-icon class="mat-icon-setting" *ngIf="viewListGridMessage" (click)="viewChange()">dashboard</mat-icon>
                 </button>
                 
                 <button mat-icon-button><mat-icon class="mat-icon-setting">apps</mat-icon></button>
                 
-            <button mat-button [matMenuTriggerFor]="beforeMenu"><img src="{{user_info.image_url}}" alt="profile pic"
+            <button mat-button [matMenuTriggerFor]="beforeMenu"><img src="{{userInfo.image_url}}" alt="profile pic"
                     class="header-profile-pic"></button>
-            <mat-menu #beforeMenu="matMenu" class="notifications-dropdown">
-                <div fxLayout="column" 
-                fxLayoutGap="20px" style="padding: 20px;">
-                <div style="width:  50px; height: 50px; border-radius: 50px;">
-                    <div>
-                        <img mat-menu-item src="{{ user_info.image_url }}" alt="profile pic">
+            <mat-menu #beforeMenu="matMenu">
+                <div fxLayout="column" fxLayoutGap="20px" style="padding: 20px;">
+                    <div class="profile-menu">
+                        <img mat-menu-item src="{{ userInfo.image_url }}" alt="profile pic">
+                    
+                        <div>
+                            <button style="border-radius: 50%;"> <mat-icon (click)="picChangeDialog()">photo_camera</mat-icon> </button>
+                        </div>
                     </div>
-                     <div>
-                         <button> <mat-icon (click)="picChangeDialog()">photo_camera</mat-icon> </button>
-                     </div>
-                </div>
-                    <p>{{user_info.username}}</p>
-                    <p>{{user_info.email}}</p>
+                    <div class="user-detail">
+                        <p>{{userInfo.username}}</p>
+                        <p>{{userInfo.email}}</p>
+                        <button mat-raised-button>Manage your Fundoo Account</button>
+                    </div>               
                     <button mat-raised-button (click)="signout()">Sign out</button>
                 </div>
 
@@ -82,7 +70,7 @@
         <mat-nav-list class="sidenav-list">
             <div>
                 <div>
-                    <a mat-list-item routerLink="" routerLinkActive="active" (click)="showView('noteFlag')">
+                    <a mat-list-item routerLink="/dashboard" (click)="showView('noteFlag')">
                         <img src="assets/images/sidenav-icon/note.svg" alt="">
                         <span style="margin-left: 30px;">Notes</span>
                     </a>
@@ -123,7 +111,7 @@
     </mat-sidenav>
     <mat-sidenav-content class="mat-sidenav-content">
         <app-addnote *ngIf="!viewFlag['trashFlag']"></app-addnote>        
-        <app-viewnote *ngIf="viewFlag['noteFlag']" [viewListGrid]="viewListGrid_message"></app-viewnote>
+        <app-viewnote *ngIf="viewFlag['noteFlag']" [viewListGrid]="viewListGridMessage"></app-viewnote>
         <app-reminders *ngIf="viewFlag['reminderFlag']"></app-reminders>
         <app-archive *ngIf="viewFlag['archiveFlag']"></app-archive>
         <app-trash *ngIf="viewFlag['trashFlag']"></app-trash>

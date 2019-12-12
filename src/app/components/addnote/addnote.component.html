@@ -1,5 +1,5 @@
 <div class="container">
-    <mat-card class="create-note-button" *ngIf="show_note_content">
+    <mat-card class="create-note-button" *ngIf="showNoteContent">
         <span (click)="showHideButton()">Take a note...</span>
         <div style="
             width: 25%;
@@ -18,7 +18,7 @@
             </span>
         </div>
     </mat-card>
-    <mat-card class="create-note" *ngIf="!show_note_content">
+    <mat-card class="create-note" *ngIf="!showNoteContent">
         <div>
            <textarea matInput cdkTextareaAutosize 
                 type="text" 
@@ -44,7 +44,7 @@
                 <span matTooltip="Archive"> <mat-icon>unarchive</mat-icon> </span>
                 <span matTooltip="More" [matMenuTriggerFor]="matMenuMore"> <mat-icon>more_vert</mat-icon> </span>
             </div>
-            <div *ngIf="!show_note_content">
+            <div *ngIf="!showNoteContent">
                 <!-- <span> <mat-icon matTooltip="undo">undo</mat-icon> </span>
                 <span> <mat-icon matTooltip="redo">redo</mat-icon> </span>                     -->
                 <button mat-button (click)="showHideButton()">Close</button>        

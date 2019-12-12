@@ -17,29 +17,29 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  registerUser(user){
+  registerUser(user) {
     return this.http.post<any>(this.baseUrl + this.signupUrl, user);
   }
-  
+
   loginUser(user): Observable<any> {
     return this.http.post<any>(this.baseUrl + this.loginUrl, user);
   }
-  forgotPasswordUser(user): Observable<any>{
+  forgotPasswordUser(user): Observable<any> {
     return this.http.post<any>(this.baseUrl + this.forgotPasswordUrl, user);
   }
-  setPasswordUser(user, token): Observable<any>{
-    return this.http.post<any>(this.baseUrl + this.resetPassword + token['token'], user, token);
+  setPasswordUser(user, token): Observable<any> {
+    return this.http.post<any>(this.baseUrl + this.resetPassword + token.token, user, token);
   }
 
-  getProfilePic(token){
+  getProfilePic(token) {
     return this.http.get<any>(this.baseUrl + this.picUrl,
       {
-       headers: new HttpHeaders().append('Authorization', 'Bearer '+token)
+       headers: new HttpHeaders().append('Authorization', 'Bearer ' + token)
      });
   }
-  setProfilePic(new_image, token){
-    return this.http.put<any>(this.baseUrl+this.picUpdateUrl,new_image,{
-      headers: new HttpHeaders().append('Authorization', 'Bearer '+ token)
+  setProfilePic(newImage, token) {
+    return this.http.put<any>(this.baseUrl + this.picUpdateUrl, newImage, {
+      headers: new HttpHeaders().append('Authorization', 'Bearer ' + token)
     });
   }
 }

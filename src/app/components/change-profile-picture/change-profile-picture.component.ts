@@ -1,7 +1,7 @@
 import { Component, OnInit, Optional } from '@angular/core';
 import { UserService } from 'src/app/service/user.service';
 import { MatDialogRef } from '@angular/material';
-import { DashboardComponent } from '../dashboard/dashboard.component';
+import { ImageCroppedEvent } from 'ngx-image-cropper';
 
 @Component({
   selector: 'app-change-profile-picture',
@@ -9,36 +9,67 @@ import { DashboardComponent } from '../dashboard/dashboard.component';
   styleUrls: ['./change-profile-picture.component.scss']
 })
 export class ChangeProfilePictureComponent implements OnInit {
-  token = localStorage.getItem('token');
-  new_image: any;
+  private token: string;
+  private newImage: any;
+  private imageChangedEvent: any = '';
+  private croppedImage: any = '';
+
   constructor(
     private userservice: UserService,
     @Optional() public dialogRef: MatDialogRef<ChangeProfilePictureComponent>,
     ) { }
 
   ngOnInit() {
+    this.token = localStorage.getItem('token');
   }
-  onFileSelected(event){
-    console.log(event.target.files)
-    this.new_image = event.target.files[0];
+  onFileSelected(event: ImageCroppedEvent) {
+    this.imageChangedEvent = event;
   }
-  changeProfile(){
-  //  const new_image_data = {
-  //     'image': this.new_image.name
-  //   }
-    const uploadData = new FormData();
-    uploadData.append('image  ', this.new_image, this.new_image.name);
-    console.log(this.new_image);
-    console.log(this.new_image.name);
 
+ dataURItoBlob(dataURI, type) {
+    // convert base64 to raw binary data held in a string
+    const byteString = atob(dataURI.split(',')[1]);
+
+    // separate out the mime component
+    const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+
+    // write the bytes of the string to an ArrayBuffer
+    const rawBuffer = new ArrayBuffer(byteString.length);
+    const unsigned8BitValue = new Uint8Array(rawBuffer);
+    for (let i = 0; i < byteString.length; i++) {
+      unsigned8BitValue[i] = byteString.charCodeAt(i);
+    }
+
+    // write the ArrayBuffer to a blob, and you're done
+    const blobFile = new Blob([rawBuffer], { type: type});
+    return blobFile;
+}
+
+  imageCropped(event: ImageCroppedEvent) {
+    // preview image
+    this.croppedImage = event.base64;
+    // converting for upload
+    const fileBeforCrop = this.imageChangedEvent.target.files[0];
+
+    // converting base64 to Blob format for upload
+    this.newImage = this.dataURItoBlob(this.croppedImage, 'image/png');
+    this.newImage.name = fileBeforCrop.name;
+  }
+
+
+
+  changeProfile() {
+    const uploadData = new FormData();
+    uploadData.append('image', this.newImage, this.newImage.name);
     this.userservice.setProfilePic(uploadData, this.token).subscribe(
       result => {
-        console.log(result);   
-          this.dialogRef.close(result.data);
-
+        console.log(result);
+        this.dialogRef.close(result.data);
       },
-      err => console.log('failed to load labels' + err)
-
+      err => {
+        this.dialogRef.close(err);
+        console.log('failed to load labels' + err);
+      }
     );
   }
 }

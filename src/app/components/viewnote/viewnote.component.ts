@@ -11,92 +11,92 @@ import { DataService } from 'src/app/service/data.service';
   styleUrls: ['./viewnote.component.scss']
 })
 export class ViewnoteComponent implements OnInit, AfterViewInit {
-  private updated_data;
+  private updatedData;
   private token = localStorage.getItem('token');
   private getNote: any;
-  grid_list_view = false;
+  gridListView = false;
   @Input() viewListGrid: boolean;
 
 
   constructor(
     private noteService: NoteServiceService,
     public dialog: MatDialog,
-    private dataservice: DataService 
-     ) { 
+    private dataservice: DataService
+     ) {
   }
-  
+
   drop(event: CdkDragDrop<any[]>) {
     moveItemInArray(this.getNote, event.previousIndex, event.currentIndex);
   }
-   ngAfterViewInit(){
-    console.log("in View coponent after init: ", this.getNote);
+   ngAfterViewInit() {
+    console.log('in View coponent after init: ', this.getNote);
    }
 
-  ngOnInit() {  
-    this.dataservice.currentMessage.subscribe(notes => this.getNote = notes);  
-    console.log("in View coponent init: ", this.getNote);
+  ngOnInit() {
+    this.dataservice.currentMessage.subscribe(notes => this.getNote = notes);
+    console.log('in View coponent init: ', this.getNote);
   }
 
-  moveTrash(note_id){
-    console.log(note_id);
-    let new_details = {
-      'is_trashed': true
+  moveTrash(noteId) {
+    console.log(noteId);
+    const newDetails = {
+      is_trashed: true
     };
-    this.noteService.updateNote(new_details, note_id, this.token).subscribe(
+    this.noteService.updateNote(newDetails, noteId, this.token).subscribe(
       result => {
-        console.log('This note is updated just now: -> ',result);
-        this.updated_data = result;
-        
-        this.getNote =  this.getNote.filter(note => note.note.id !== note_id);        
+        console.log('This note is updated just now: -> ', result);
+        this.updatedData = result;
+
+        this.getNote =  this.getNote.filter(note => note.note.id !== noteId);
       },
       err => console.log('failed to load api' + err)
     );
   }
 
-  chageList(){
-    if(this.viewListGrid){
-    let style = {
-      'width': '100%',
+  chageList() {
+    if (this.viewListGrid) {
+    const style = {
+      width: '100%',
       'flex-direction': 'column'
     };
     return style;
   }
   }
-  noteColor(color){
-      let style={
+  noteColor(color) {
+      const style = {
         'background-color': color
       };
       return style;
   }
-        
-  archiveNote(note_id){
-    let new_details = {
-      'is_archive': true
-    };
-    this.noteService.updateNote(new_details, note_id, this.token).subscribe(
-      result => {
-        console.log('This note is updated just now: -> ',result);
-        this.updated_data = result;
 
-        this.getNote =  this.getNote.filter(note => note.note.id !== note_id);        
+  archiveNote(noteId) {
+    const newDetails = {
+      is_archive: true
+    };
+    this.noteService.updateNote(newDetails, noteId, this.token).subscribe(
+      result => {
+        console.log('This note is updated just now: -> ', result);
+        this.updatedData = result;
+
+        this.getNote =  this.getNote.filter(note => note.note.id !== noteId);
       },
       err => console.log('failed to load api' + err)
     );
   }
 
-  changeColor(note_id, color){
-    let new_details = {
-      'change_color': color
+  changeColor(noteId, color) {
+    const newDetails = {
+      change_color: color
     };
     console.log(color);
-    this.noteService.updateNote(new_details, note_id, this.token).subscribe(
+    this.noteService.updateNote(newDetails, noteId, this.token).subscribe(
       result => {
-        console.log('This note is updated just now: -> ',result);
-        this.updated_data = result;
-        console.log(this.updated_data)
-        for(let note of this.getNote){
-          if(note.note.id == note_id){
-            note.note = this.updated_data.data
+        console.log('This note is updated just now: -> ', result);
+        this.updatedData = result;
+        console.log(this.updatedData);
+        for (const note of this.getNote) {
+          if (note.note.id === noteId) {
+            note.note = this.updatedData.data;
           }
         }
         // console.log('after check : ',this.getNote)
@@ -106,9 +106,8 @@ export class ViewnoteComponent implements OnInit, AfterViewInit {
     );
   }
   openDialog(note) {
-    const dialogRef = this.dialog.open(EditNoteComponent, 
+    const dialogRef = this.dialog.open(EditNoteComponent,
       {
-        panelClass: 'one-note-dialog',
         height: 'auto',
         width: '50%',
         data: note,
@@ -123,15 +122,15 @@ export class ViewnoteComponent implements OnInit, AfterViewInit {
 
 
 
-  updateNote(note_id){
-    let new_details = {
-      'title': true,
-      'content': true
+  updateNote(noteId) {
+    const newDetails = {
+      title: true,
+      content: true
     };
-    this.noteService.updateNote(new_details, note_id, this.token).subscribe(
+    this.noteService.updateNote(newDetails, noteId, this.token).subscribe(
       result => {
-        console.log('This note is updated just now: -> ',result);
-        this.updated_data = result;
+        console.log('This note is updated just now: -> ', result);
+        this.updatedData = result;
       },
       err => console.log('failed to load api' + err)
     );

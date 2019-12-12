@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { MatInputModule, MatButtonModule, MatSelectModule, MatIconModule, MatCardModule,
-   MatSnackBarModule, MatFormFieldModule, MatMenuModule, MatToolbarModule, MatListModule, 
+   MatSnackBarModule, MatFormFieldModule, MatMenuModule, MatToolbarModule, MatListModule,
    MatDialogModule, MatSidenavModule, MatTooltipModule, MatGridListModule} from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -15,7 +15,7 @@ import { ResetPasswordComponent } from './components/reset-password/reset-passwo
 import { HttpClientModule } from '@angular/common/http';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { UserService } from './service/user.service';
-import { FlexLayoutModule } from "@angular/flex-layout";
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { EditLabelComponent } from './components/edit-label/edit-label.component';
 import { AddnoteComponent } from './components/addnote/addnote.component';
@@ -28,6 +28,7 @@ import { EditNoteComponent } from './components/edit-note/edit-note.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ChangeProfilePictureComponent } from './components/change-profile-picture/change-profile-picture.component';
 import { NotesOfLabelComponent } from './components/notes-of-label/notes-of-label.component';
+import { ImageCropperModule } from 'ngx-image-cropper';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,7 @@ import { NotesOfLabelComponent } from './components/notes-of-label/notes-of-labe
     NotesOfLabelComponent,
   ],
   entryComponents: [
-    EditLabelComponent, 
+    EditLabelComponent,
     EditNoteComponent,
     ChangeProfilePictureComponent
     ],
@@ -69,7 +70,7 @@ import { NotesOfLabelComponent } from './components/notes-of-label/notes-of-labe
     HttpClientModule,
     OverlayModule,
     MatSnackBarModule,
-    FlexLayoutModule,  
+    FlexLayoutModule,
     MatMenuModule,
     MatToolbarModule,
     MatSidenavModule,
@@ -78,6 +79,7 @@ import { NotesOfLabelComponent } from './components/notes-of-label/notes-of-labe
     MatTooltipModule,
     MatGridListModule,
     DragDropModule,
+    ImageCropperModule,
   ],
   providers: [UserService],
   bootstrap: [AppComponent]

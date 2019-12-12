@@ -18,16 +18,16 @@ import { NotesOfLabelComponent } from './components/notes-of-label/notes-of-labe
 
 
 const routes: Route[] = [
-  //==============================
-  {path: '', component: NotesOfLabelComponent},
+  // ==============================
+  // {path: '', component: NotesOfLabelComponent},
   // {path: '**', component: NotesOfLabelComponent},
-  //==============================
+  // ==============================
   // {path: '', component: ArchiveComponent},
   {path: 'signup', component: RegistrationComponent},
   {path: 'login', component: LoginComponent},
   {path: 'forgot-password', component: ForgotPasswordComponent},
   {path: 'reset-password/:token', component: ResetPasswordComponent},
-  {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService], 
+  {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService],
   children: [
     {path: '', component: ViewnoteComponent},
     {path: 'reminder', component: RemindersComponent},
@@ -35,8 +35,8 @@ const routes: Route[] = [
     {path: 'trash', component: TrashComponent}
   ]
   },
-  // {path:'', redirectTo:'/dashboard', pathMatch: 'full'}
-  
+  {path: '', redirectTo: '/dashboard', pathMatch: 'full'}
+
 ];
 
 @NgModule({

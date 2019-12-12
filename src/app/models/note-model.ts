@@ -1,3 +1,6 @@
+import { Label } from './label';
+
+// tslint:disable
 export class NoteModel {
     id: number;
     title: string;
@@ -5,7 +8,7 @@ export class NoteModel {
     change_color: any;
     is_archive: boolean;
     is_trashed: boolean;
-    label: any;
+    label: Label;
     collaborate: any;
     reminder: Date;
 }

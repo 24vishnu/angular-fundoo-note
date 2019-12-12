@@ -16,27 +16,27 @@ export class LabelService {
   getLabels(token): Observable<any> {
     return this.http.get<any>(this.baseUrl + this.listLabelUrl,
      {
-      headers: new HttpHeaders().append('Authorization', 'Bearer '+token)
+      headers: new HttpHeaders().append('Authorization', 'Bearer ' + token)
     });
   }
-  
-  addLabel(data, token): Observable<any>{
+
+  addLabel(data, token): Observable<any> {
     return this.http.post<any>(this.baseUrl + this.listLabelUrl, data,
       {
-       headers: new HttpHeaders().append('Authorization', 'Bearer '+token)
+       headers: new HttpHeaders().append('Authorization', 'Bearer ' + token)
      });
   }
-  deleteLabel(label_id, token): Observable<any>{
-    return this.http.post<any>(this.baseUrl + this.listLabelUrl, label_id,
+  deleteLabel(labelId, token): Observable<any> {
+    return this.http.post<any>(this.baseUrl + this.listLabelUrl, labelId,
       {
-       headers: new HttpHeaders().append('Authorization', 'Bearer '+token)
+       headers: new HttpHeaders().append('Authorization', 'Bearer ' + token)
      });
   }
 
-  updateLabel(data, token): Observable<any>{
+  updateLabel(data, token): Observable<any> {
     return this.http.put<any>(this.baseUrl + this.lableDetailsUrl, data,
       {
-       headers: new HttpHeaders().append('Authorization', 'Bearer '+token)
+       headers: new HttpHeaders().append('Authorization', 'Bearer ' + token)
      });
   }
 }

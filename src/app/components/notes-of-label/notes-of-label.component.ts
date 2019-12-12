@@ -16,11 +16,11 @@ export class NotesOfLabelComponent implements OnInit {
     this.notes = this.getLabelsNotes(2);
   }
 
-  getLabelsNotes(label_id){
-    this.noteservice.getLabelsNote(label_id, this.token).subscribe(
+  getLabelsNotes(labelId) {
+    this.noteservice.getLabelsNote(labelId, this.token).subscribe(
       result => {
         this.notes = result.data;
-        console.log(result)
+        console.log(result);
       },
       err => {
         console.log(err);
@@ -28,8 +28,8 @@ export class NotesOfLabelComponent implements OnInit {
     );
   }
 
-  noteColor(color){
-    let style={
+  noteColor(color) {
+    const style = {
       'background-color': color
     };
     return style;

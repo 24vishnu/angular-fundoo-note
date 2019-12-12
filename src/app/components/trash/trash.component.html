@@ -1,33 +1,6 @@
-<div class="main-container">
-    <div fxFlex="20" fxFlex.sm='0' fxFlex.xs='0'></div>
-    <div fxFlex="60" fxLayout="row wrap" fxFlex.xs='100' fxFlex.sm='50'>
-        <div *ngFor="let reminder_note of reminderNotes" fxFlex="33" fxFlex.xs='100' fxFlex.sm='50'>
-            <mat-card>
-
-            <div style="margin: 2px; padding: 2px;">
-                <div>
-                    {{reminder_note.note.title}}
-                </div>
-                <div>
-                    {{reminder_note.note.content}}
-                </div>
-                <div id="hover-show-content">
-                    <mat-icon (click)="delete(note.note.id)">delete_forever</mat-icon>
-                    <mat-icon (click)="archiveNote(note.note.id)">restore_from_trash</mat-icon>
-                </div>
-            </div>
-            </mat-card>        
-
-            
-        </div>
-    </div>
-
-
-    <div fxFlex="20" fxFlex.sm='0' fxFlex.xs='0'> </div>
-</div>
 
 <div id="container" fxFlexLayout="row wrap">
-        <div class="notes-container" [ngStyle]="setStyle()" *ngFor="let note of trashed_notes">
+        <div class="notes-container" [ngStyle]="setStyle()" *ngFor="let note of trashedNotes">
             <mat-card class="one-note">
                 <div class="note-title"> {{note.note.title}}  </div>
                 <div class="note-content"> {{note.note.content}} </div>

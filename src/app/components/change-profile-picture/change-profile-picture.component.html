@@ -1,16 +1,28 @@
-<div calss='container'>
+
     <h1 mat-dialog-title>Select profile photo</h1>
     <div>
             <input 
             type="file"
             (change)="onFileSelected($event)" 
             value="select a photo from your computer">
+            <image-cropper
+                    [imageChangedEvent]="imageChangedEvent"
+                    format="png"
+                    [aspectRatio]="1/1"
+                    [resizeToWidth]="128"
+                    [onlyScaleDown]='true'
+                    [cropperMinWidth]="75"
+                    (imageCropped)="imageCropped($event)"
+                    (loadImageFailed)="loadImageFailed()"
+                    >
+            </image-cropper>
+
+            <!-- <img [src]="croppedImage" style="width: 124px; height: 124px; float: left;"/> -->
     </div>
     <div mat-dialog-actions>
         <button mat-raised-button color="primary" 
         (click)="changeProfile()">
             set a profile photo
         </button>
-        <button mat-stroked-button>Cancle</button>
+        <button mat-stroked-button>Cancel</button>
     </div>
-</div>
