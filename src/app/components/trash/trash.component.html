@@ -1,18 +1,18 @@
 
 <div id="container" fxFlexLayout="row wrap">
         <div class="notes-container" [ngStyle]="setStyle()" *ngFor="let note of trashedNotes">
-            <mat-card class="one-note">
-                <div class="note-title"> {{note.note.title}}  </div>
-                <div class="note-content"> {{note.note.content}} </div>
+            <mat-card class="one-note" [style.background-color]= note.change_color>
+                <div class="note-title"> {{note.title}}  </div>
+                <div class="note-content"> {{note.content}} </div>
                 <div class="note-footer"> 
-                    <mat-icon (click)="delete(note.note.id)">delete_forever</mat-icon>
-                    <mat-icon (click)="restoreNote(note.note.id)">restore_from_trash</mat-icon>
+                    <mat-icon style="cursor: pointer;" (click)="delete(note.id)">delete_forever</mat-icon>
+                    <mat-icon style="cursor: pointer;" (click)="restoreNote(note.id)">restore_from_trash</mat-icon>
                 </div>
             </mat-card>
 
 
-    <ng-template *ngIf="note.note.label.lenght > 0" >
-            <div class="no-note-div" *ngFor="let label of note.note.label">
+    <ng-template *ngIf="note.label.lenght > 0" >
+            <div class="no-note-div" *ngFor="let label of note.label">
                     <p>{{ label }}</p>
                 <img src="assets/images/note.svg" alt="logo" class="logo-img">                
             </div>

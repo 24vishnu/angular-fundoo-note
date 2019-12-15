@@ -5,7 +5,6 @@
             <img src="assets/images/icon/keep.png" alt="fundoo icon" width="45px" height="45px" class="fundoo-icon" fxHide.xs="true">
             <p>Fundoo</p>
         </div>
-
         <div fxFlex="60%" fxHide.sm="true" fxHide.xs="true">
             <mat-form-field appearance="outline">
                 <mat-label class="search-area">Search</mat-label>
@@ -70,13 +69,13 @@
         <mat-nav-list class="sidenav-list">
             <div>
                 <div>
-                    <a mat-list-item routerLink="/dashboard" (click)="showView('noteFlag')">
+                    <a mat-list-item routerLink="/dashboard" [ngStyle]="sidenavStyles('noteFlag')"(click)="showView('noteFlag')">
                         <img src="assets/images/sidenav-icon/note.svg" alt="">
                         <span style="margin-left: 30px;">Notes</span>
                     </a>
                 </div>
                 <div>
-                    <a mat-list-item routerLink="reminder" routerLinkActive="active" (click)="showView('reminderFlag')">
+                    <a mat-list-item routerLink="reminder" routerLinkActive="active" [ngStyle]="sidenavStyles('reminderFlag')" (click)="showView('reminderFlag')">
                         <img src="assets/images/sidenav-icon/reminder.svg" alt="">
                         <span style="margin-left: 30px;">Reminders</span>
                     </a>
@@ -95,13 +94,13 @@
             </div>
             <div>
                 <div>
-                    <a mat-list-item routerLink="archive" routerLinkActive="active" (click)="showView('archiveFlag')">
+                    <a mat-list-item routerLink="archive" routerLinkActive="active" [ngStyle]="sidenavStyles('archiveFlag')" (click)="showView('archiveFlag')">
                         <img src="assets/images/sidenav-icon/archive.svg" alt="">
                         <span style="margin-left: 30px;">Archive</span>
                     </a>
                 </div>
                 <div>
-                    <a mat-list-item routerLink="trash" routerLinkActive="trash" fxLayoutGap="20px" (click)="showView('trashFlag')">
+                    <a mat-list-item routerLink="trash" routerLinkActive="trash" fxLayoutGap="20px" [ngStyle]="sidenavStyles('trashFlag')" (click)="showView('trashFlag')">
                         <img src="assets/images/sidenav-icon/trash.svg" alt="">
                         <span style="margin-left: 30px;">Trash</span> 
                     </a>

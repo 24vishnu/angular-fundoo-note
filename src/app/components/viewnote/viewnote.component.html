@@ -1,20 +1,26 @@
 <div class="container">
-    <div fxFlex='20' fxFlex.sm='0' fxFlex.xs='0' fxFlex.lt-sm='10'></div>    
+    <div fxFlex='20' fxFlex.sm='0' fxFlex.xs='0'></div>    
     <div fxFlex='60' fxLayout="row wrap" fxFlex.xs='100' fxFlex.sm='50' class="one-note">                
         <div class="notes-container" [ngStyle]="chageList()" *ngFor="let note of getNote?.reverse()" fxFlex="33" fxFlex.xs='100' fxFlex.sm='50'>
-                    <mat-card [ngStyle]="noteColor(note.note.change_color)">
-                        <div (click)="openDialog(note.note)">
-                            <div class="note-title"> {{note.note.title}} 1 </div>
-                            <div class="note-content"> {{note.note.content}} </div>
-                            <div class="label-content"><label>{{note.note.label}}</label></div>
+                    <mat-card [ngStyle]="noteColor(note.change_color)">
+                        <div (click)="openDialog(note)">
+                            <div class="note-title"> {{note.title}} </div>
+                            <div class="note-content"> {{note.content}} </div>
+                            <div class="label-content" fxLayoutGap="4px">
+                                <div class="chip" *ngFor="let onelabel of note.label">
+                                    {{onelabel}} <i matTooltip="Remove Label" class='material-icons close' (click)="removeLable()">close</i>
+                                </div>                                
+                            </div>
                         </div>
-                        <div id="hover-show-content">
-                            <span matTooltip="reminder" [matMenuTriggerFor]="matMenuReminder"> <mat-icon>add_alert</mat-icon> </span>
-                            <span matTooltip="Collaborate"> <mat-icon>person_add</mat-icon> </span>
-                            <span matTooltip="Change color" [matMenuTriggerFor]="matMenuChangeColor"> <mat-icon>color_lens</mat-icon> </span>
-                            <span matTooltip="Add image"> <mat-icon>image</mat-icon> </span>
-                            <span matTooltip="Archive"> <mat-icon (click)="archiveNote(note.note.id)">archive</mat-icon> </span>
-                            <span matTooltip="More" [matMenuTriggerFor]="matMenuMore"> <mat-icon>more_vert</mat-icon> </span>
+                        <div>
+                            <div id="hover-show-content">
+                                <span matTooltip="reminder" [matMenuTriggerFor]="matMenuReminder"> <mat-icon>add_alert</mat-icon> </span>
+                                <span matTooltip="Collaborate"> <mat-icon (click)="openCollaborateDialog(note)">person_add</mat-icon> </span>
+                                <span matTooltip="Change color" [matMenuTriggerFor]="matMenuChangeColor"> <mat-icon>color_lens</mat-icon> </span>
+                                <span matTooltip="Add image"> <mat-icon>image</mat-icon> </span>
+                                <span matTooltip="Archive"> <mat-icon (click)="archiveNote(note.id)">archive</mat-icon> </span>
+                                <span matTooltip="More" [matMenuTriggerFor]="matMenuMore"> <mat-icon>more_vert</mat-icon> </span>
+                            </div>
                         </div>
                     </mat-card>
                     <mat-menu #matMenuReminder="matMenu">
@@ -30,22 +36,22 @@
                     </mat-menu>
                     <mat-menu #matMenuChangeColor="matMenu">
                             <div class='change-color'>
-                                    <button mat-mini-fab style="background-color: #FFFFFF;" (click)="changeColor(note.note.id, '#FFFFFF')"></button>
-                                    <button mat-mini-fab style="background-color: #6EDADA;" (click)="changeColor(note.note.id, '#00FFFF')"></button>
-                                    <button mat-mini-fab style="background-color: #b375b3;" (click)="changeColor(note.note.id, '#FF00FF')"></button>
-                                    <button mat-mini-fab style="background-color: #D4D496;" (click)="changeColor(note.note.id, '#FFFF00')"></button>
-                                    <button mat-mini-fab style="background-color: #8080CF;" (click)="changeColor(note.note.id, '#0000FF')"></button>
-                                    <button mat-mini-fab style="background-color: #C09797;" (click)="changeColor(note.note.id, '#FF0000')"></button>
-                                    <button mat-mini-fab style="background-color: #7DDB7D;" (click)="changeColor(note.note.id, '#00FF00')"></button>
-                                    <button mat-mini-fab style="background-color: #FF8080;" (click)="changeColor(note.note.id, '#FF8080')"></button>
-                                    <button mat-mini-fab style="background-color: #726f6f;" (click)="changeColor(note.note.id, '#808080')"></button>
-                                    <button mat-mini-fab style="background-color: #dd7878;" (click)="changeColor(note.note.id, '#300000')"></button>
-                                    <button mat-mini-fab style="background-color: #EE955A;" (click)="changeColor(note.note.id, '#3A5FAF')"></button>
-                                    <button mat-mini-fab style="background-color: #F0699C;" (click)="changeColor(note.note.id, '#FF3D00')"></button>
+                                    <button mat-mini-fab style="background-color: #FFFFFF;" (click)="changeColor(note.id, '#FFFFFF')"></button>
+                                    <button mat-mini-fab style="background-color: #6EDADA;" (click)="changeColor(note.id, '#00FFFF')"></button>
+                                    <button mat-mini-fab style="background-color: #b375b3;" (click)="changeColor(note.id, '#FF00FF')"></button>
+                                    <button mat-mini-fab style="background-color: #D4D496;" (click)="changeColor(note.id, '#FFFF00')"></button>
+                                    <button mat-mini-fab style="background-color: #8080CF;" (click)="changeColor(note.id, '#0000FF')"></button>
+                                    <button mat-mini-fab style="background-color: #C09797;" (click)="changeColor(note.id, '#FF0000')"></button>
+                                    <button mat-mini-fab style="background-color: #7DDB7D;" (click)="changeColor(note.id, '#00FF00')"></button>
+                                    <button mat-mini-fab style="background-color: #FF8080;" (click)="changeColor(note.id, '#FF8080')"></button>
+                                    <button mat-mini-fab style="background-color: #726f6f;" (click)="changeColor(note.id, '#808080')"></button>
+                                    <button mat-mini-fab style="background-color: #dd7878;" (click)="changeColor(note.id, '#300000')"></button>
+                                    <button mat-mini-fab style="background-color: #EE955A;" (click)="changeColor(note.id, '#3A5FAF')"></button>
+                                    <button mat-mini-fab style="background-color: #F0699C;" (click)="changeColor(note.id, '#FF3D00')"></button>
                                 </div>
                     </mat-menu>
                     <mat-menu #matMenuMore="matMenu">
-                        <button mat-menu-item (click)="moveTrash(note.note.id)">Delete note</button>
+                        <button mat-menu-item (click)="moveTrash(note.id)">Delete note</button>
                         <button mat-menu-item>Add label</button>
                         <button mat-menu-item>Make a copy</button>
                         <button mat-menu-item>Add drowing</button>
@@ -53,7 +59,7 @@
                     </mat-menu>
         </div>
     </div>
-    <div fxFlex='20' fxFlex.xs='0' fxFlex.lt-sm='10'></div>
+    <div fxFlex='20' fxFlex.sm='0' fxFlex.xs='0'></div>
 
     <ng-template #no_note>
             <div class="no-note-div">

@@ -2,12 +2,7 @@
     margin: 0;
     padding: 0;
 }
-// .one-note{
-//     margin: 4px;
-//     padding: 4px;
-//     border-radius: 1px;
-//     border: 1px solid papayawhip;
-// }
+
 .note-title{
     height: auto;  
     padding:5px 10px 5px 10px;
@@ -50,4 +45,12 @@ textarea{
     margin:0px 2px 0px 15px;
     width: 50px;
     padding:8px 24px 8px 24px;
+}
+.display-time{
+    display: block; padding:
+    5px 10px 5px 10px; 
+    font-size: .75rem;
+    color: #5f6368;
+    text-align: end;
+    letter-spacing: .025em;
 }

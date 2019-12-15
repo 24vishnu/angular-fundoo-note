@@ -5,6 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialogRef } from '@angular/material/dialog';
 import { DashboardComponent } from '../dashboard/dashboard.component';
 import { DataService } from 'src/app/service/data.service';
+import { Label } from 'src/app/models/label';
 
 
 @Component({
@@ -17,8 +18,9 @@ export class EditLabelComponent implements OnInit {
   createNewLabel = {};
   private createlabel = new FormControl('');
   private token: string;
-  private labelsList: any;
+  private labelsList: Label[];
   private iconFlag: boolean;
+  private labelUpdate: string;
 
   constructor(
     private labelService: LabelService,
@@ -43,24 +45,46 @@ export class EditLabelComponent implements OnInit {
   }
 
   createOneLabel() {
-    console.log('data from html', this.createNewLabel);
     this.labelService.addLabel(this.createNewLabel, this.token).subscribe(
       result => {
         this.matSnackBar.open('label successfully added.', 'close')._dismissAfter(2000);
-        console.log('in create label method1: ', result);
-        console.log('in create label method2: ', this.labelsList);
         this.labelsList.push(result.data);
-        console.log('in create label method3: ', this.labelsList);
         this.createlabel.reset();
       },
       err => {
+        alert('Error to add label');
+        console.log(err);
+      }
+    );
+  }
+  deleteLabel(labelId) {
+    this.labelService.deleteLabel(labelId, this.token).subscribe(
+      result => {
+        this.matSnackBar.open('label successfully deleted.', 'close')._dismissAfter(2000);
+        this.createlabel.reset();
+      },
+      err => {
+        alert('Error label updation failed');
+        this.matSnackBar.open('Error label updation failed.', 'close')._dismissAfter(2000);
+        console.log(err);
+      }
+    );
+  }
+  updateLabel(label) {
+    this.labelService.updateLabel({name: label.name}, label.id, this.token).subscribe(
+      result => {
+        this.matSnackBar.open('label successfully added.', 'close')._dismissAfter(2000);
+        this.labelsList =  this.labelsList.filter(onelabel => onelabel.id !== result.data.id);
+      },
+      err => {
+        alert('Error label updation failed');
+        this.matSnackBar.open('Error label updation failed.', 'close')._dismissAfter(2000);
         console.log(err);
       }
     );
   }
 
   closeDialog() {
-    console.log('during initial close dialog: ', this.labelsList);
     this.dialogRef.close();
   }
 

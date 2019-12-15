@@ -1,9 +1,63 @@
-<div>
-    <div *ngFor="let collaborate of onenote">
-    <div *ngFor="let email of collaborate" style="width: 600px; height: 400;">
-        <div style="width: 200px; height: 100px;">
-            {{ email }}
+<mat-card class="example-card">
+    <mat-card-header style="margin: -15px; background-color: #e6e3de;">
+        <mat-card-title style="padding-top: 20px;">Collaborators</mat-card-title>
+    </mat-card-header>
+    
+    <mat-card-content style="margin: 40px 0 40px 0;">
+        <div style="display: flex; justify-content: space-around;"> 
+            <div mat-card-avatar 
+            [ngStyle]="{
+                        'background-image':'url(' + userInfo.image_url + ')',
+                        'background-size': 'cover'
+                    }"></div>
+            <div style="display: flex; flex-wrap: wrap; justify-content: space-between; padding: 0 0 0 20px;">
+                <span style="width: 100%; font-weight: bold;">
+                    {{userInfo.username}} <i>(Owner)</i>
+                </span>
+                <span>
+                    {{userInfo.email}}
+                </span>
+            </div>
         </div>
-    </div>
-</div>
-</div>
+        <div style=" display: flex; padding: 15px 0;" *ngFor="let email of collaboratePerson"> 
+            <div mat-card-avatar class="user-profile-image"></div>
+            <div style="padding: 10px 10px 10px 25px;
+                        display: flex;
+                        width: 90%;
+                        justify-content: space-between;">
+                <div>
+                    <span>{{email}}</span>
+                </div>
+                <div style="cursor: pointer; 
+                            background-color: #ece0e2;
+                            border-radius: 50%">
+                    <i matTooltip="Delete" class="material-icons close" style="color: olive;" (click)="deletePerson(email)">close</i>
+                </div>
+            </div>
+            
+        </div>
+        <div style="display: flex;">
+            <div>
+                <i class='material-icons' 
+                    style="padding: 10px;
+                    border-radius: 25px;
+                    border: 1px dotted;
+                    margin: 15px 35px 0 0;
+                    color: rgba(0,0,0,.38);">person_add</i>
+            </div>
+            <form class="example-form">
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Email to share with" [formControl]="newPerson">
+                    <mat-hint>Errors appear instantly!</mat-hint>
+                    <mat-error *ngIf="newPerson.hasError('email')">
+                    Please enter a valid email address
+                    </mat-error>
+                </mat-form-field>
+            </form>
+        </div>
+    </mat-card-content>
+    <mat-card-actions style="margin: -15px; text-align-last: right; background-color: #e6e3de;">
+        <button mat-button (click)="closeDialog()">Cancel</button>
+        <button mat-button (click)="addPerson()">Save</button>
+    </mat-card-actions>
+</mat-card>

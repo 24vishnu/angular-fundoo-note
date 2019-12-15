@@ -3,18 +3,17 @@
             Edit labels
         </div>
         <div class="create-new-label">
-            <div fxFlex="10">
+            <div class="label-close-icon">
                 <button mat-flat-button (click)="cleartext()">
-                    <mat-icon class="label-icon">close</mat-icon>
+                    <mat-icon>close</mat-icon>
                 </button>
             </div>
             <div fxFlex='80'>
                 <mat-form-field class="example-full-width">
-                        <input matInput [(ngModel)]="createNewLabel.name" 
-                        type="text">
+                        <input matInput type="text" [(ngModel)]="createNewLabel.name">
                 </mat-form-field>
             </div>
-            <div fxFlex='10'>
+            <div fxFlex='20'>
                 <button mat-icon-button (click)="createOneLabel()">
                     <mat-icon>done icon</mat-icon>
                 </button>
@@ -23,15 +22,15 @@
         
         <div *ngFor="let label of labelsList" class="all-label-container">
             <div fxFlex='10'>
-                <img src="assets/images/sidenav-icon/label.svg" alt="">
+                <img src="assets/images/sidenav-icon/label.svg" alt="" (click)="deleteLabel(label.id)">
             </div>
-            <div fxFlex='80'>{{label.name}}</div>
+            <div fxFlex='80'><input matInput type="text" [(ngModel)]=label.name></div>
             <div fxFlex='10'>
-                <img src="assets/images/sidenav-icon/edit-label.svg" alt="">
+                <img src="assets/images/sidenav-icon/edit-label.svg" alt="" (click)="updateLabel(label)">
             </div>
         </div>
-        <div class="button-done" (click)="closeDialog()">
-            <button mat-button>Done</button>
+        <div class="button-done">
+            <button mat-button (click)="closeDialog()">Done</button>
         </div>
     
     </div>

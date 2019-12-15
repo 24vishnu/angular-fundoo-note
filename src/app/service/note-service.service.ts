@@ -38,7 +38,7 @@ export class NoteServiceService {
     });
   }
 
-  updateNote(modifedData, noteId, token) {
+  updateNote(modifedData, noteId, token): Observable<any> {
     // console.log('update note service called',modifedData, noteId);
     return this.http.put(this.baseUrl + this.noteDetailUrl + noteId, modifedData, {
       headers: new HttpHeaders().append('Authorization', 'Bearer ' + token)

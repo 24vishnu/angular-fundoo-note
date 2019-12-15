@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { EditLabelComponent } from '../edit-label/edit-label.component';
-// import { ViewnoteComponent } from '../viewnote/viewnote.component'
 import { UserService } from 'src/app/service/user.service';
 import { DataService } from 'src/app/service/data.service';
 import { ChangeProfilePictureComponent } from '../change-profile-picture/change-profile-picture.component';
@@ -21,12 +20,7 @@ export class DashboardComponent implements OnInit {
 
 
   private token: string;
-  private userInfo = {
-    username: 'admin',
-    email: 'admin@gmail.com',
-    image_url: 'assets/images/profile.jpg',
-
-  };
+  private userInfo: any;
   viewFlag = {
     noteFlag: true,
     reminderFlag: false,
@@ -49,8 +43,9 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.token = localStorage.getItem('token');
-    this.getProfilePic();
+    // this.getProfilePic();
     this.dataservice.currentLabels.subscribe(labels => this.labelsList = labels);
+    this.dataservice.currentUser.subscribe(user => this.userInfo = user);
 
     this.viewFlag.archiveFlag = this.router.url.includes('/archive');
     this.viewFlag.reminderFlag = this.router.url.includes('/reminder');
@@ -59,25 +54,19 @@ export class DashboardComponent implements OnInit {
       this.viewFlag.noteFlag = false;
     }
   }
-
+  sidenavStyles(flag) {
+    if (this.viewFlag[flag] === true) {
+      const sidStyle = {
+        'background-color': 'wheat',
+        'border-radius': '25px'
+      };
+      return sidStyle;
+    }
+  }
   showView(showMe) {
     Object.keys(this.viewFlag).forEach(v => this.viewFlag[v] = false);
     this.viewFlag[showMe] = true;
     console.log(this.viewFlag);
-  }
-
-  getProfilePic() {
-    this.userService.getProfilePic(this.token).subscribe(
-      result => {
-        if (result.success) {
-          this.userInfo = result.data;
-        }
-      },
-      err => {
-        alert(err.error.messages[0].message);
-    }
-
-    );
   }
 
   picChangeDialog() {
@@ -88,13 +77,22 @@ export class DashboardComponent implements OnInit {
       });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`The dialog was closed:${result}`);
+      console.log(`The dialog has been closed:${result}`);
       if (result !== undefined) {
         this.userInfo.image_url = result.image_url;
       }
     },
     err => {
+      if (err.status === 401) {
+        localStorage.clear();
+        this.router.navigate(['/login']);
         alert(err.error.messages[0].message);
+      } else if (err.status === 0) {
+        alert(err.message);
+        } else {
+        console.log(err.error.messages[0].message);
+        alert(err.error.messages[0].message);
+      }
     });
   }
   openDialog() {
@@ -102,7 +100,7 @@ export class DashboardComponent implements OnInit {
       data: { name: this.labelsList}
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`The dialog was closed: ${this.labelsList}`);
+      console.log(`The dialog has been closed: ${this.labelsList}`);
     },
     err => {
         alert(err.error.messages[0].message);

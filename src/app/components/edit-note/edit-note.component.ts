@@ -1,30 +1,37 @@
 import { Component, OnInit, Optional,
   Inject, OnChanges, AfterContentInit,
-  OnDestroy, SimpleChanges, DoCheck } from '@angular/core';
+  OnDestroy, SimpleChanges, DoCheck, Input } from '@angular/core';
 import { NoteServiceService } from 'src/app/service/note-service.service';
 import { MatSnackBar, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { DataService } from 'src/app/service/data.service';
+import { Note} from 'src/app/models/note';
+import { ViewnoteComponent } from '../viewnote/viewnote.component';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-edit-note',
   templateUrl: './edit-note.component.html',
   styleUrls: ['./edit-note.component.scss']
 })
-export class EditNoteComponent implements OnInit, AfterContentInit, OnDestroy {
+export class EditNoteComponent implements OnInit, AfterContentInit, OnDestroy, OnChanges {
   token = localStorage.getItem('token');
-  private noteData: any;
   public noteStyle;
-  note: any;
-  hour: any;
-  minuts: any;
-  message: any;
+  public editNote: Note;
+  public newData: Note = new Note();
+  public hour: number;
+  public minuts: any;
+  public message: number;
+
+  ngOnChanges() {
+    console.log(this.editNote);
+  }
 
   ngOnDestroy() {
     this.closeDialog();
   }
   ngAfterContentInit() {
     this.noteStyle = {
-      'background-color': this.note[0].change_color
+      'background-color': this.editNote.change_color
     };
   }
 
@@ -33,51 +40,19 @@ export class EditNoteComponent implements OnInit, AfterContentInit, OnDestroy {
       private snackBar: MatSnackBar,
       private dataservice: DataService,
       @Optional() public dialogRef: MatDialogRef<EditNoteComponent>,
-      @Inject(MAT_DIALOG_DATA) public data: any
+      @Inject(MAT_DIALOG_DATA) public data: Note
       ) { }
 
   ngOnInit() {
-    // this.dataservice.currentMessage.subscribe(message => this.message = message);
-    this.note = [this.data];
-    console.log(this.note[0].change_color);
+    this.editNote = this.data;
+    console.log(this.editNote);
     this.startTime();
   }
-  // newMessage() {
-  //   this.dataservice.changeMessage(this.note)
-  // }
-  showHideButton(note) {
-    console.log(note);
-    //   this.noteData = {
-    //     // title : this.title.value,
-    //     // content : this.content.value
-    //   };
-    //   // show data on console
-    //   console.log(this.noteData);
-    //   // if user enter note title or note description then add note
-    //   if(this.noteData.title != null || this.noteData.content != null)
-    //   {
-    //     // post data on backend api
-    //     this.noteService.addNote(this.noteData, this.token).subscribe(
-    //       result =>{
-    //         this.snackBar.open("Note successfully added", "close")
-    //         ._dismissAfter(2500);
-    //         //print the result on console
-    //         console.log(result)
-    //         // call ngOnInit() method
-    //         this.ngOnInit();
-    //       },
-    //      err => {
-    //        //print if error occur during add note data  in database
-    //        console.log(err);
-    //        this.snackBar.open('Error: your data not storing in database')._dismissAfter(2500);
-    //      }
-    //     );
-    //     /*
-    //       Resets the form control, marking it pristine and untouched, and setting the value to null.
-    //     */
-    //     //  this.title.reset();
-    //     //  this.content.reset();
-    // }
+
+  showHideButton() {
+    this.newData.title = this.editNote.title;
+    this.newData.content = this.editNote.content;
+    this.closeDialog();
   }
 
 
@@ -92,8 +67,8 @@ startTime() {
   }
 
   closeDialog() {
-    console.log(this.note);
-    this.dialogRef.close(this.note);
+    console.log(this.editNote);
+    this.dialogRef.close(this.newData);
   }
 
 }

@@ -27,14 +27,14 @@ export class LabelService {
      });
   }
   deleteLabel(labelId, token): Observable<any> {
-    return this.http.post<any>(this.baseUrl + this.listLabelUrl, labelId,
+    return this.http.delete<any>(this.baseUrl + this.lableDetailsUrl + labelId,
       {
        headers: new HttpHeaders().append('Authorization', 'Bearer ' + token)
      });
   }
 
-  updateLabel(data, token): Observable<any> {
-    return this.http.put<any>(this.baseUrl + this.lableDetailsUrl, data,
+  updateLabel(data, labelId, token): Observable<any> {
+    return this.http.put<any>(this.baseUrl + this.lableDetailsUrl + labelId, data,
       {
        headers: new HttpHeaders().append('Authorization', 'Bearer ' + token)
      });

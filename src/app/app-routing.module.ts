@@ -5,16 +5,11 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { AddnoteComponent } from './components/addnote/addnote.component';
 import { AuthGuardService } from './auth/auth-guard.service';
 import { ViewnoteComponent } from './components/viewnote/viewnote.component';
-import { EditLabelComponent } from './components/edit-label/edit-label.component';
 import { ArchiveComponent } from './components/archive/archive.component';
 import { TrashComponent } from './components/trash/trash.component';
-import { CollaborateComponent } from './components/collaborate/collaborate.component';
 import { RemindersComponent } from './components/reminders/reminders.component';
-import { EditNoteComponent } from './components/edit-note/edit-note.component';
-import { NotesOfLabelComponent } from './components/notes-of-label/notes-of-label.component';
 
 
 const routes: Route[] = [
@@ -22,7 +17,7 @@ const routes: Route[] = [
   // {path: '', component: NotesOfLabelComponent},
   // {path: '**', component: NotesOfLabelComponent},
   // ==============================
-  // {path: '', component: ArchiveComponent},
+  // {path: '', component: CollaborateComponent},
   {path: 'signup', component: RegistrationComponent},
   {path: 'login', component: LoginComponent},
   {path: 'forgot-password', component: ForgotPasswordComponent},

@@ -1,15 +1,17 @@
 <div class="main-container">
     <div fxFlex="20" fxFlex.sm='0' fxFlex.xs='0'></div>
     <div fxFlex="60" fxLayout="row wrap" fxFlex.xs='100' fxFlex.sm='50'>
-        <div *ngFor="let reminder_note of reminderNotes" fxFlex="33" fxFlex.xs='100' fxFlex.sm='50'>
-            <mat-card>
-
-            <div style="margin: 2px; padding: 2px;">
-                <div>
-                    {{reminder_note.note.title}}
+        <div class="reminder-notes" *ngFor="let reminder_note of reminderNotes" fxFlex="33" fxFlex.xs='100' fxFlex.sm='50'>
+            <mat-card [style.background-color]= reminder_note.change_color>
+            <div>
+                <div style="padding-bottom: 5px; font-size: 14;">
+                    {{reminder_note.title}}
                 </div>
-                <div>
-                    {{reminder_note.note.content}}
+                <div style="padding-bottom: 5px;font-size: 10;">
+                    {{reminder_note.content}}
+                </div>
+                <div style="padding-bottom: 5px; font-size: 6;">
+                    {{reminder_note.label}}
                 </div>
                 <div id="hover-show-content">
                         <span matTooltip="reminder" [matMenuTriggerFor]="matMenuReminder"> <mat-icon>add_alert</mat-icon> </span>
@@ -35,18 +37,18 @@
         
                     <mat-menu #matMenuChangeColor="matMenu">
                             <div class='change-color'>
-                                    <button mat-mini-fab style="background-color: #FFFFFF;" (click)="changeColor(note.note.id, '#FFFFFF')"></button>
-                                    <button mat-mini-fab style="background-color: #00FFFF;" (click)="changeColor(note.note.id, '#00FFFF')"></button>
-                                    <button mat-mini-fab style="background-color: #FF00FF;" (click)="changeColor(note.note.id, '#FF00FF')"></button>
-                                    <button mat-mini-fab style="background-color: #FFFF00;" (click)="changeColor(note.note.id, '#FFFF00')"></button>
-                                    <button mat-mini-fab style="background-color: #0000FF;" (click)="changeColor(note.note.id, '#0000FF')"></button>
-                                    <button mat-mini-fab style="background-color: #FF0000;" (click)="changeColor(note.note.id, '#FF0000')"></button>
-                                    <button mat-mini-fab style="background-color: #00FF00;" (click)="changeColor(note.note.id, '#00FF00')"></button>
-                                    <button mat-mini-fab style="background-color: #FF8080;" (click)="changeColor(note.note.id, '#FF8080')"></button>
-                                    <button mat-mini-fab style="background-color: #808080;" (click)="changeColor(note.note.id, '#808080')"></button>
-                                    <button mat-mini-fab style="background-color: #300000;" (click)="changeColor(note.note.id, '#300000')"></button>
-                                    <button mat-mini-fab style="background-color: #3A5FAF;" (click)="changeColor(note.note.id, '#3A5FAF')"></button>
-                                    <button mat-mini-fab style="background-color: #FF3D00;" (click)="changeColor(note.note.id, '#FF3D00')"></button>
+                                    <button mat-mini-fab style="background-color: #FFFFFF;" (click)="changeColor(note.id, '#FFFFFF')"></button>
+                                    <button mat-mini-fab style="background-color: #00FFFF;" (click)="changeColor(note.id, '#00FFFF')"></button>
+                                    <button mat-mini-fab style="background-color: #FF00FF;" (click)="changeColor(note.id, '#FF00FF')"></button>
+                                    <button mat-mini-fab style="background-color: #FFFF00;" (click)="changeColor(note.id, '#FFFF00')"></button>
+                                    <button mat-mini-fab style="background-color: #0000FF;" (click)="changeColor(note.id, '#0000FF')"></button>
+                                    <button mat-mini-fab style="background-color: #FF0000;" (click)="changeColor(note.id, '#FF0000')"></button>
+                                    <button mat-mini-fab style="background-color: #00FF00;" (click)="changeColor(note.id, '#00FF00')"></button>
+                                    <button mat-mini-fab style="background-color: #FF8080;" (click)="changeColor(note.id, '#FF8080')"></button>
+                                    <button mat-mini-fab style="background-color: #808080;" (click)="changeColor(note.id, '#808080')"></button>
+                                    <button mat-mini-fab style="background-color: #300000;" (click)="changeColor(note.id, '#300000')"></button>
+                                    <button mat-mini-fab style="background-color: #3A5FAF;" (click)="changeColor(note.id, '#3A5FAF')"></button>
+                                    <button mat-mini-fab style="background-color: #FF3D00;" (click)="changeColor(note.id, '#FF3D00')"></button>
                                 </div>
                     </mat-menu>
                     <mat-menu #matMenuMore="matMenu">

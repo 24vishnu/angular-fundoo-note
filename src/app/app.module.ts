@@ -29,6 +29,9 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ChangeProfilePictureComponent } from './components/change-profile-picture/change-profile-picture.component';
 import { NotesOfLabelComponent } from './components/notes-of-label/notes-of-label.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
+import { NoteServiceService } from './service/note-service.service';
+import { LabelService } from './service/label.service';
+import { Note } from './models/note';
 
 @NgModule({
   declarations: [
@@ -52,7 +55,8 @@ import { ImageCropperModule } from 'ngx-image-cropper';
   entryComponents: [
     EditLabelComponent,
     EditNoteComponent,
-    ChangeProfilePictureComponent
+    ChangeProfilePictureComponent,
+    CollaborateComponent
     ],
 
   imports: [
@@ -81,7 +85,11 @@ import { ImageCropperModule } from 'ngx-image-cropper';
     DragDropModule,
     ImageCropperModule,
   ],
-  providers: [UserService],
+  providers: [
+        UserService,
+        NoteServiceService,
+        LabelService,
+      ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

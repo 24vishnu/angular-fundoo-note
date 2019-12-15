@@ -1,4 +1,12 @@
 .main-container{
     margin: 0;
     padding: 0;
+
+    .reminder-notes{
+        padding: 5px;
+
+        mat-card{
+         padding-bottom: 0px;
+        }
+    }
 }
