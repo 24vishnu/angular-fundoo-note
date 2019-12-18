@@ -1,26 +1,23 @@
 import { Component, OnInit, Optional,
   Inject, OnChanges, AfterContentInit,
-  OnDestroy, SimpleChanges, DoCheck, Input } from '@angular/core';
+  OnDestroy} from '@angular/core';
 import { NoteServiceService } from 'src/app/service/note-service.service';
 import { MatSnackBar, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { DataService } from 'src/app/service/data.service';
 import { Note} from 'src/app/models/note';
-import { ViewnoteComponent } from '../viewnote/viewnote.component';
-import { FormControl } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-edit-note',
   templateUrl: './edit-note.component.html',
-  styleUrls: ['./edit-note.component.scss']
+  styleUrls: ['./edit-note.component.scss'],
+  providers: [DatePipe]
 })
 export class EditNoteComponent implements OnInit, AfterContentInit, OnDestroy, OnChanges {
   token = localStorage.getItem('token');
   public noteStyle;
   public editNote: Note;
   public newData: Note = new Note();
-  public hour: number;
-  public minuts: any;
-  public message: number;
 
   ngOnChanges() {
     console.log(this.editNote);
@@ -36,9 +33,10 @@ export class EditNoteComponent implements OnInit, AfterContentInit, OnDestroy, O
   }
 
   constructor(
-      private noteService: NoteServiceService,
+      // private noteService: NoteServiceService,
       private snackBar: MatSnackBar,
       private dataservice: DataService,
+      private datePipe: DatePipe,
       @Optional() public dialogRef: MatDialogRef<EditNoteComponent>,
       @Inject(MAT_DIALOG_DATA) public data: Note
       ) { }
@@ -46,7 +44,6 @@ export class EditNoteComponent implements OnInit, AfterContentInit, OnDestroy, O
   ngOnInit() {
     this.editNote = this.data;
     console.log(this.editNote);
-    this.startTime();
   }
 
   showHideButton() {
@@ -56,14 +53,8 @@ export class EditNoteComponent implements OnInit, AfterContentInit, OnDestroy, O
   }
 
 
-startTime() {
-    const today = new Date();
-    this.hour = today.getHours();
-    this.minuts = today.getMinutes();
-    if (this.minuts < 10) {
-      this.minuts = '0' + this.minuts;
-    }
-    const t = setTimeout(this.startTime, 500);
+editedTime() {
+  return this.datePipe.transform(new Date(Date.now()).toJSON(), 'd MMM hh:mm a  ');
   }
 
   closeDialog() {

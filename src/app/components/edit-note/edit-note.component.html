@@ -18,7 +18,7 @@
                     [(ngModel)]=editNote.content
                     ></textarea> 
             </div>
-            <div class="display-time">Edited {{hour}}:{{minuts}}</div>
+            <div class="display-time">Edited {{editedTime()}}</div>
             <div class="create-note-toolbar">
                 <div class="create-note-menu" fxLayout="row" fxFlex="82" fxLaoutAline="space-between center">
                     <span matTooltip="reminder" [matMenuTriggerFor]="matMenuReminder"> <mat-icon>add_alert</mat-icon> </span>

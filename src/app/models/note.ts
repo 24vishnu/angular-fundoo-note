@@ -6,13 +6,13 @@ export class Note {
     id: number;
     title: string;
     content: string;
-    image: null;
     change_color: string;
     is_archive: boolean;
     is_trashed: boolean;
-    collaborate: Array<string>;
+    label: Label[] = [];
+    collaborate: string[] = [];
+    image: null;
     reminder: Date;
-    label: Array<Label>;
     is_check: boolean;
     is_pin: boolean;
     time_stamp: Date;

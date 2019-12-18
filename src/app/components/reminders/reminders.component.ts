@@ -1,6 +1,6 @@
-import { Component, OnInit, Input, AfterViewChecked, AfterContentChecked,
-  AfterContentInit, AfterViewInit, DoCheck, OnChanges, OnDestroy } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { NoteServiceService } from 'src/app/service/note-service.service';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-reminders',
@@ -8,55 +8,28 @@ import { NoteServiceService } from 'src/app/service/note-service.service';
   styleUrls: ['./reminders.component.scss']
 })
 export class RemindersComponent implements
-OnInit,
-AfterViewChecked,
-AfterContentInit,
-OnChanges,
-AfterViewInit,
-AfterContentChecked,
-DoCheck,
-OnDestroy {
+OnInit {
 
   // @Input() getNote:[];
   private reminderNotes = [];
   token = localStorage.getItem('token');
 
-  constructor(private noteservice: NoteServiceService) { }
-  ngDoCheck() {
-    // console.log('ngDOCHECK -- reminder');
-  }
-  ngOnChanges() {
-    console.log('ngOnChange called Rreminder');
-  }
-  ngOnDestroy() {
-    // console.log('ngOnDestroy Reminder')
-  }
+  constructor(private noteservice: NoteServiceService,
+              private snackbar: MatSnackBar
+              ) { }
   ngOnInit() {
 
     // console.log('ng on init method call Reminder');
-    this.noteservice.getArchiveNotes(this.token).subscribe(
+    this.noteservice.getReminderNotes(this.token).subscribe(
       response => {
         this.reminderNotes = response.data;
         console.log('Reminder Notes: ', this.reminderNotes);
       },
       err => {
         this.reminderNotes = null;
+        this.snackbar.open('some thing is wrong', 'close')._dismissAfter(2500);
         console.log('error: ', err);
       }
     );
-  }
-  ngAfterViewInit() {
-    // console.log('after view inti reminder');
-  }
-  ngAfterContentInit() {
-    // console.log('after content init reminder');
-  }
-  ngAfterContentChecked() {
-    // console.log('after Content checked ,,,Reminder');
-  }
-  ngAfterViewChecked() {
-    // console.log('After view Changed..Reminder ');
-    // console.log(Object.getOwnPropertyNames(this.getNote));
-    // console.log('this is called in reminder: ',this.getNote);
   }
 }

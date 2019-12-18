@@ -16,7 +16,7 @@
                             <span matTooltip="Collaborate"> <mat-icon>person_add</mat-icon> </span>
                             <span matTooltip="Change color" [matMenuTriggerFor]="matMenuChangeColor"> <mat-icon>color_lens</mat-icon> </span>
                             <span matTooltip="Add image" (click)="clickChageView()"> <mat-icon>image</mat-icon> </span>
-                            <span matTooltip="Archive"> <mat-icon (click)="unArchive(archive_note.id)">unarchive</mat-icon> </span>
+                            <span matTooltip="Archive"> <mat-icon (click)="unArchive(archive_note)">unarchive</mat-icon> </span>
                             <span matTooltip="More" [matMenuTriggerFor]="matMenuMore"> <mat-icon>more_vert</mat-icon> </span>
                     </div>
                 </div>
@@ -35,22 +35,22 @@
         
                     <mat-menu #matMenuChangeColor="matMenu">
                             <div class='change-color'>
-                                    <button mat-mini-fab style="background-color: #FFFFFF;" (click)="changeColor(archive_note.id, '#FFFFFF')"></button>
-                                    <button mat-mini-fab style="background-color: #00FFFF;" (click)="changeColor(archive_note.id, '#00FFFF')"></button>
-                                    <button mat-mini-fab style="background-color: #FF00FF;" (click)="changeColor(archive_note.id, '#FF00FF')"></button>
-                                    <button mat-mini-fab style="background-color: #FFFF00;" (click)="changeColor(archive_note.id, '#FFFF00')"></button>
-                                    <button mat-mini-fab style="background-color: #0000FF;" (click)="changeColor(archive_note.id, '#0000FF')"></button>
-                                    <button mat-mini-fab style="background-color: #FF0000;" (click)="changeColor(archive_note.id, '#FF0000')"></button>
-                                    <button mat-mini-fab style="background-color: #00FF00;" (click)="changeColor(archive_note.id, '#00FF00')"></button>
-                                    <button mat-mini-fab style="background-color: #FF8080;" (click)="changeColor(archive_note.id, '#FF8080')"></button>
-                                    <button mat-mini-fab style="background-color: #808080;" (click)="changeColor(archive_note.id, '#808080')"></button>
-                                    <button mat-mini-fab style="background-color: #300000;" (click)="changeColor(archive_note.id, '#300000')"></button>
-                                    <button mat-mini-fab style="background-color: #3A5FAF;" (click)="changeColor(archive_note.id, '#3A5FAF')"></button>
-                                    <button mat-mini-fab style="background-color: #FF3D00;" (click)="changeColor(archive_note.id, '#FF3D00')"></button>
+                                    <button mat-mini-fab style="background-color: #FFFFFF;" (click)="changeColor(archive_note, '#FFFFFF')"></button>
+                                    <button mat-mini-fab style="background-color: #00FFFF;" (click)="changeColor(archive_note, '#00FFFF')"></button>
+                                    <button mat-mini-fab style="background-color: #FF00FF;" (click)="changeColor(archive_note, '#FF00FF')"></button>
+                                    <button mat-mini-fab style="background-color: #FFFF00;" (click)="changeColor(archive_note, '#FFFF00')"></button>
+                                    <button mat-mini-fab style="background-color: #0000FF;" (click)="changeColor(archive_note, '#0000FF')"></button>
+                                    <button mat-mini-fab style="background-color: #FF0000;" (click)="changeColor(archive_note, '#FF0000')"></button>
+                                    <button mat-mini-fab style="background-color: #00FF00;" (click)="changeColor(archive_note, '#00FF00')"></button>
+                                    <button mat-mini-fab style="background-color: #FF8080;" (click)="changeColor(archive_note, '#FF8080')"></button>
+                                    <button mat-mini-fab style="background-color: #808080;" (click)="changeColor(archive_note, '#808080')"></button>
+                                    <button mat-mini-fab style="background-color: #300000;" (click)="changeColor(archive_note, '#300000')"></button>
+                                    <button mat-mini-fab style="background-color: #3A5FAF;" (click)="changeColor(archive_note, '#3A5FAF')"></button>
+                                    <button mat-mini-fab style="background-color: #FF3D00;" (click)="changeColor(archive_note, '#FF3D00')"></button>
                                 </div>
                     </mat-menu>
                     <mat-menu #matMenuMore="matMenu">
-                        <button mat-menu-item (onclick)="moveInTrash(archive_note.id)">delete note</button>
+                        <button mat-menu-item (onclick)="moveInTrash(archive_note)">delete note</button>
                         <button mat-menu-item>Add label</button>
                         <button mat-menu-item>Add drowing</button>
                         <button mat-menu-item>Show checkboxes</button>

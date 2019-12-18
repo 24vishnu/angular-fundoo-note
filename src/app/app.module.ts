@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { MatInputModule, MatButtonModule, MatSelectModule, MatIconModule, MatCardModule,
    MatSnackBarModule, MatFormFieldModule, MatMenuModule, MatToolbarModule, MatListModule,
-   MatDialogModule, MatSidenavModule, MatTooltipModule, MatGridListModule} from '@angular/material';
+   MatDialogModule, MatSidenavModule, MatTooltipModule, MatGridListModule, MatCheckboxModule} from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './components/login/login.component';
@@ -32,6 +32,8 @@ import { ImageCropperModule } from 'ngx-image-cropper';
 import { NoteServiceService } from './service/note-service.service';
 import { LabelService } from './service/label.service';
 import { Note } from './models/note';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 
 @NgModule({
   declarations: [
@@ -84,6 +86,10 @@ import { Note } from './models/note';
     MatGridListModule,
     DragDropModule,
     ImageCropperModule,
+    MatCheckboxModule,
+    ScrollingModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
   ],
   providers: [
         UserService,

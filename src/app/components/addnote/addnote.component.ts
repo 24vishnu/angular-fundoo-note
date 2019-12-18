@@ -53,7 +53,7 @@ export class AddnoteComponent implements OnInit {
             // print the result on console
             console.log(result);
             this.allNotes.push(result.data);
-            this.dataservice.changeMessage(this.allNotes);
+            this.dataservice.changeNoteMessage(this.allNotes);
             console.log('After update data is :', this.allNotes);
           },
           err => {

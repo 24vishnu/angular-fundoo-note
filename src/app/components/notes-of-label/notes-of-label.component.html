@@ -1,7 +1,7 @@
 <div class="main-container">
         <div fxFlex="20" fxFlex.sm='0' fxFlex.xs='0'></div>
-        <div fxFlex="60" fxLayout="row wrap" fxFlex.xs='100' fxFlex.sm='50'>
-            <div *ngFor="let note of notes" fxFlex="33" fxFlex.xs='100' fxFlex.sm='50'>
+        <div fxLayout="row wrap" fxFlex.xs='100' fxFlex.sm='50' style="justify-content: space-around;">
+            <div *ngFor="let note of notes" fxFlex="33" fxFlex.xs='100' fxFlex.sm='50' style="margin: 4px;">
                 <mat-card [ngStyle]="noteColor(note.change_color)">
                     <div style="margin: 2px; padding: 2px;">
                         <div class="note-title">{{note.title}}</div>

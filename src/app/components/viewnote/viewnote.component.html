@@ -1,14 +1,49 @@
 <div class="container">
-    <div fxFlex='20' fxFlex.sm='0' fxFlex.xs='0'></div>    
-    <div fxFlex='60' fxLayout="row wrap" fxFlex.xs='100' fxFlex.sm='50' class="one-note">                
-        <div class="notes-container" [ngStyle]="chageList()" *ngFor="let note of getNote?.reverse()" fxFlex="33" fxFlex.xs='100' fxFlex.sm='50'>
+    <div fxFlex.sm='0' fxFlex.xs='0' fxFlex.lt-md = '10'></div>    
+    <div fxLayout="row wrap" fxFlex.xs='100' fxFlex.sm='50' fxFlex.lt-md = '80' class="one-note">                
+        <div class="notes-container" [ngStyle]="changeList()" *ngFor="let note of getNote?.reverse()" fxFlex="33" fxFlex.xs='100' fxFlex.sm='50'>
                     <mat-card [ngStyle]="noteColor(note.change_color)">
-                        <div (click)="openDialog(note)">
+                     <div (click)="openDialog(note)">
+                            <div class='note-image-div' *ngIf='note.image !== null'>
+                                <img src="{{note.image}}" alt="picture" style="width: 100%;
+                                height: auto">
+                            </div>
                             <div class="note-title"> {{note.title}} </div>
                             <div class="note-content"> {{note.content}} </div>
                             <div class="label-content" fxLayoutGap="4px">
-                                <div class="chip" *ngFor="let onelabel of note.label">
-                                    {{onelabel}} <i matTooltip="Remove Label" class='material-icons close' (click)="removeLable()">close</i>
+                                <div style="display: flex;
+                                            flex-direction: row;
+                                            height: fit-content;
+                                            flex-wrap: wrap;">
+                                        <span class="chip" 
+                                        *ngIf="getReminder(note.reminder)"
+                                        style="background-color: rgba(255,255,255,.4);
+                                                border-radius: 10px;
+                                                padding: 5px;
+                                                height: fit-content;
+                                                align-self: center;">
+                                                <div>{{reminderData}}</div>
+                                        </span>
+                                        <span class="chip" *ngFor="let col of note.collaborate">
+                                                <div mat-card-avatar 
+                                                    matTooltip="{{col}}"
+                                                        style="background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+                                                        background-size: cover;">
+                                                </div>
+                                        </span>
+                                    <div class="chip" *ngFor="let onelabel of note.label"
+                                        style="padding-left: 5px;
+                                                background-color: #bbc7c7;
+                                                margin-left: 5%;
+                                                margin-top: 5%;
+                                                border-radius: 10px 10px 10px 10px;
+                                                height: min-content;"
+                                    >{{onelabel}}
+                                        <i matTooltip="Remove Label" class='material-icons close' (click)="removeLable(note,onelabel)"
+                                        style="vertical-align: middle;"
+                                        >close                                        
+                                        </i>
+                                    </div>
                                 </div>                                
                             </div>
                         </div>
@@ -17,49 +52,63 @@
                                 <span matTooltip="reminder" [matMenuTriggerFor]="matMenuReminder"> <mat-icon>add_alert</mat-icon> </span>
                                 <span matTooltip="Collaborate"> <mat-icon (click)="openCollaborateDialog(note)">person_add</mat-icon> </span>
                                 <span matTooltip="Change color" [matMenuTriggerFor]="matMenuChangeColor"> <mat-icon>color_lens</mat-icon> </span>
-                                <span matTooltip="Add image"> <mat-icon>image</mat-icon> </span>
-                                <span matTooltip="Archive"> <mat-icon (click)="archiveNote(note.id)">archive</mat-icon> </span>
+                                <span matTooltip="Add image"><mat-icon id="note-image" (click)="getFile(note)">image</mat-icon> 
+                                    <div style='height: 1px;width:0px; overflow: hidden;'>
+                                        <input id="setNoteImage" type="file" value="upload" (change)="onFileSelected($event.target)"/>
+                                    </div>
+                                </span>
+                                <span matTooltip="Archive"> <mat-icon (click)="archiveNote(note)">archive</mat-icon> </span>
                                 <span matTooltip="More" [matMenuTriggerFor]="matMenuMore"> <mat-icon>more_vert</mat-icon> </span>
+                                <!-- <span (click)='sendMessage(note, note.title)'> <mat-icon>more_vert</mat-icon> </span> -->
                             </div>
                         </div>
                     </mat-card>
                     <mat-menu #matMenuReminder="matMenu">
-                        <div ><span>Reminder: </span>
-                            <button mat-menu-item>Latest Today</button>
-                            <button mat-menu-item>Tomorrow</button>
-                            <button mat-menu-item>Next Week</button>
-                            <button mat-menu-item>Home</button>
-                            <button mat-menu-item>Work</button>
-                            <button mat-menu-item><mat-icon>access_time</mat-icon>Pick date & time</button>
-                            <button mat-menu-item><mat-icon> place</mat-icon>Pick place</button>           
+                        <div ><h3>Reminder: </h3>
+                            <button mat-menu-item>
+                                <mat-icon>access_time</mat-icon>
+                                <input [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" 
+                                [(ngModel)]="datetimereminder"
+                                (ngModelChange)="setReminder(note)"
+
+                                placeholder="Date Time">
+                                <owl-date-time #dt1></owl-date-time>
+                            </button>
+                            <!-- <button mat-menu-item><mat-icon> place</mat-icon>Pick place</button>            -->
                         </div>
                     </mat-menu>
                     <mat-menu #matMenuChangeColor="matMenu">
                             <div class='change-color'>
-                                    <button mat-mini-fab style="background-color: #FFFFFF;" (click)="changeColor(note.id, '#FFFFFF')"></button>
-                                    <button mat-mini-fab style="background-color: #6EDADA;" (click)="changeColor(note.id, '#00FFFF')"></button>
-                                    <button mat-mini-fab style="background-color: #b375b3;" (click)="changeColor(note.id, '#FF00FF')"></button>
-                                    <button mat-mini-fab style="background-color: #D4D496;" (click)="changeColor(note.id, '#FFFF00')"></button>
-                                    <button mat-mini-fab style="background-color: #8080CF;" (click)="changeColor(note.id, '#0000FF')"></button>
-                                    <button mat-mini-fab style="background-color: #C09797;" (click)="changeColor(note.id, '#FF0000')"></button>
-                                    <button mat-mini-fab style="background-color: #7DDB7D;" (click)="changeColor(note.id, '#00FF00')"></button>
-                                    <button mat-mini-fab style="background-color: #FF8080;" (click)="changeColor(note.id, '#FF8080')"></button>
-                                    <button mat-mini-fab style="background-color: #726f6f;" (click)="changeColor(note.id, '#808080')"></button>
-                                    <button mat-mini-fab style="background-color: #dd7878;" (click)="changeColor(note.id, '#300000')"></button>
-                                    <button mat-mini-fab style="background-color: #EE955A;" (click)="changeColor(note.id, '#3A5FAF')"></button>
-                                    <button mat-mini-fab style="background-color: #F0699C;" (click)="changeColor(note.id, '#FF3D00')"></button>
+                                    <button mat-mini-fab style="background-color: #FFFFFF;" (click)="changeColor(note, '#FFFFFF')"></button>
+                                    <button mat-mini-fab style="background-color: #6EDADA;" (click)="changeColor(note, '#00FFFF')"></button>
+                                    <button mat-mini-fab style="background-color: #b375b3;" (click)="changeColor(note, '#FF00FF')"></button>
+                                    <button mat-mini-fab style="background-color: #D4D496;" (click)="changeColor(note, '#FFFF00')"></button>
+                                    <button mat-mini-fab style="background-color: #8080CF;" (click)="changeColor(note, '#0000FF')"></button>
+                                    <button mat-mini-fab style="background-color: #C09797;" (click)="changeColor(note, '#FF0000')"></button>
+                                    <button mat-mini-fab style="background-color: #7DDB7D;" (click)="changeColor(note, '#00FF00')"></button>
+                                    <button mat-mini-fab style="background-color: #FF8080;" (click)="changeColor(note, '#FF8080')"></button>
+                                    <button mat-mini-fab style="background-color: #726f6f;" (click)="changeColor(note, '#808080')"></button>
+                                    <button mat-mini-fab style="background-color: #dd7878;" (click)="changeColor(note, '#300000')"></button>
+                                    <button mat-mini-fab style="background-color: #EE955A;" (click)="changeColor(note, '#3A5FAF')"></button>
+                                    <button mat-mini-fab style="background-color: #F0699C;" (click)="changeColor(note, '#FF3D00')"></button>
                                 </div>
                     </mat-menu>
                     <mat-menu #matMenuMore="matMenu">
-                        <button mat-menu-item (click)="moveTrash(note.id)">Delete note</button>
-                        <button mat-menu-item>Add label</button>
+                        <button mat-menu-item (click)="moveTrash(note)">Delete note</button>
+                        <button mat-menu-item [matMenuTriggerFor]="addLabels">Add label</button>
                         <button mat-menu-item>Make a copy</button>
                         <button mat-menu-item>Add drowing</button>
                         <button mat-menu-item>Show checkboxes</button>
                     </mat-menu>
+                    <mat-menu #addLabels="matMenu">
+                        <div style="padding-left: 10px;" *ngFor="let oneLabel of allLabels">
+                            <mat-checkbox>{{oneLabel.name}}</mat-checkbox>
+                        </div>
+                            <!-- <button mat-menu-item>{{oneLabel}}</button> -->
+                    </mat-menu>
         </div>
     </div>
-    <div fxFlex='20' fxFlex.sm='0' fxFlex.xs='0'></div>
+    <div fxFlex.sm='0' fxFlex.xs='0' fxFlex.lt-md = '10'></div>
 
     <ng-template #no_note>
             <div class="no-note-div">

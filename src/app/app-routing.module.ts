@@ -10,14 +10,10 @@ import { ViewnoteComponent } from './components/viewnote/viewnote.component';
 import { ArchiveComponent } from './components/archive/archive.component';
 import { TrashComponent } from './components/trash/trash.component';
 import { RemindersComponent } from './components/reminders/reminders.component';
+import { NotesOfLabelComponent } from './components/notes-of-label/notes-of-label.component';
 
 
 const routes: Route[] = [
-  // ==============================
-  // {path: '', component: NotesOfLabelComponent},
-  // {path: '**', component: NotesOfLabelComponent},
-  // ==============================
-  // {path: '', component: CollaborateComponent},
   {path: 'signup', component: RegistrationComponent},
   {path: 'login', component: LoginComponent},
   {path: 'forgot-password', component: ForgotPasswordComponent},
@@ -25,9 +21,11 @@ const routes: Route[] = [
   {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService],
   children: [
     {path: '', component: ViewnoteComponent},
+    {path: 'home', component: ViewnoteComponent},
     {path: 'reminder', component: RemindersComponent},
     {path: 'archive', component: ArchiveComponent},
-    {path: 'trash', component: TrashComponent}
+    {path: 'trash', component: TrashComponent},
+    {path: 'label/:name', component: NotesOfLabelComponent}
   ]
   },
   {path: '', redirectTo: '/dashboard', pathMatch: 'full'}
