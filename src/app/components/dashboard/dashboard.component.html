@@ -1,6 +1,6 @@
 <div class="menu">
     <mat-toolbar color="primary" fxLayout="row">
-        <div class="title-bar" fxFlex="19" fxFlex.sm="50" fxFlex.xs="50" fxLayout="row">                   
+        <div class="title-bar" fxFlex="22" fxFlex.sm="50" fxFlex.xs="50" fxLayout="row">                   
             <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
             <img src="assets/images/icon/keep.png" alt="fundoo icon" width="45px" height="45px" class="fundoo-icon" fxHide.xs="true">
             <p>Fundoo</p>
@@ -12,7 +12,7 @@
                 <mat-icon matPrefix>search</mat-icon>
             </mat-form-field>
         </div>
-        <div  fxFlex="20" fxFlex.sm='50' fxFlex.xs="50" fxLayoutAlign="end center" fxLayout="row" >
+        <div  fxFlex="22" fxFlex.sm='50' fxFlex.xs="50" fxLayoutAlign="end center" fxLayout="row" >
             <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
                 <mat-icon>settings</mat-icon>
             </button>
@@ -37,7 +37,7 @@
                     <mat-icon class="mat-icon-setting" *ngIf="viewListGridMessage" (click)="viewChange()">dashboard</mat-icon>
                 </button>
                 
-                <button mat-icon-button><mat-icon class="mat-icon-setting">apps</mat-icon></button>
+                <button mat-icon-button *ngIf="!naveModeFlag"><mat-icon class="mat-icon-setting">apps</mat-icon></button>
                 
             <button mat-button [matMenuTriggerFor]="beforeMenu"><img src="{{userInfo.image_url}}" alt="profile pic"
                     class="header-profile-pic"></button>
@@ -65,8 +65,32 @@
 </div>
 
 <mat-sidenav-container>
+    
     <!-- <mat-sidenav #sidenav mode="side" [(opened)]="opened" fxLayout="column" > -->
-        <mat-sidenav #sidenav mode="side" [(opened)]="opened">
+    <mat-sidenav #sidenav [ngClass]="{'sidenav-position-class': naveModeFlag}" [mode]="naveMode" [(opened)]="opened">
+        <div *ngIf="naveModeFlag" style="height: 140px;">
+            <div style="
+                    display: flex;
+                    flex-direction: row-reverse;
+                    height: 50%;
+                    border-bottom-style: inset;">
+                <button mat-icon-button>
+                    <mat-icon class="mat-icon-setting">apps</mat-icon>
+                </button>    
+            </div>
+            <div style="
+                    display: flex;
+                    justify-content: center;
+                    font-size: xx-large;
+                    height: 50%;
+                    border-bottom-style: inset;">
+                    <span style="color: rgba(34, 34, 216, 0.788);">F</span>
+                    <span style="color: rgba(209, 12, 22, 0.788);">u</span>
+                    <span style="color: rgba(216, 143, 34, 0.788);">n</span>
+                    <span style="color: rgba(34, 34, 216, 0.788);">d</span>
+                    <span style="color: rgba(34, 216, 49, 0.788);">o</span>
+                    <span style="color: rgba(209, 12, 22, 0.788);">o</span> Note</div>
+        </div>
         <mat-nav-list class="sidenav-list">
             <div>
                 <div>

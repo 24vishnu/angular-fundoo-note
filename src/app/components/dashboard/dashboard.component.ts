@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, DoCheck } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { EditLabelComponent } from '../edit-label/edit-label.component';
@@ -15,7 +15,7 @@ import { Label } from 'src/app/models/label';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, DoCheck {
   public viewListGridMessage = false; // parent to chaild communication
   public setLabelId: number;
 
@@ -24,7 +24,8 @@ export class DashboardComponent implements OnInit {
   public allNotes: Note[];
   public showNoteContent = true;
   private labelsList: Label[];
-
+  public naveMode = 'side';
+  public naveModeFlag: boolean;
 
   private token: string;
   private userInfo: any;
@@ -44,6 +45,15 @@ export class DashboardComponent implements OnInit {
                     ) {
      }
 
+  ngDoCheck() {
+    if (window.innerWidth < 1035) {
+      this.naveMode = 'over';
+      this.naveModeFlag = true;
+    } else {
+      this.naveMode = 'side';
+      this.naveModeFlag = false;
+    }
+  }
   viewChange() {
     this.viewListGridMessage = !this.viewListGridMessage;
   }
@@ -145,11 +155,10 @@ export class DashboardComponent implements OnInit {
     noteDetail.collaborate = $event.urlCridetial.collaborate;
 
     // assigne data for update
-    const kk = Object.keys($event.dataForUpdate);
-    const vv = Object.values($event.dataForUpdate);
-    noteDetail[kk[0]] = vv[0];
+    Object.entries($event.dataForUpdate).forEach(
+      ([key, value]) => noteDetail[key] = value);
 
-    this.updateNoteDetails($event.dataForUpdate, $event.urlCridetial.id);
+    this.updateNoteDetails(noteDetail, $event.urlCridetial.id);
   }
 
   // ================================
@@ -160,8 +169,9 @@ export class DashboardComponent implements OnInit {
         console.log('This note is updated just now: -> ', result);
         this.snackBar.open('data successfully update.')._dismissAfter(2000);
         this.allNotes = this.allNotes.filter(updatedNote => updatedNote.id !== noteId);
-        if (result.data.is_archive === false && result.data.is_trash === false) {
+        if (result.data.is_archive === false && result.data.is_trashed === false) {
           this.allNotes.push(result.data);
+          console.log(this.allNotes);
         }
         this.dataservice.changeNoteMessage(this.allNotes);
         console.log(result);

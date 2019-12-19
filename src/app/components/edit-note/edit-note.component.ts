@@ -17,7 +17,7 @@ export class EditNoteComponent implements OnInit, AfterContentInit, OnDestroy, O
   token = localStorage.getItem('token');
   public noteStyle;
   public editNote: Note;
-  public newData: Note = new Note();
+  public newData = {};
 
   ngOnChanges() {
     console.log(this.editNote);
@@ -47,8 +47,10 @@ export class EditNoteComponent implements OnInit, AfterContentInit, OnDestroy, O
   }
 
   showHideButton() {
-    this.newData.title = this.editNote.title;
-    this.newData.content = this.editNote.content;
+    this.newData = {
+      title: this.editNote.title,
+      content: this.editNote.content
+    };
     this.closeDialog();
   }
 

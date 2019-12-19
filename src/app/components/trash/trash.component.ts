@@ -56,8 +56,9 @@ export class TrashComponent implements OnInit {
 
 
   restoreNote(noteId) {
-    const noteDetail: Note = new Note();
-    noteDetail.is_trashed = false;
+    const noteDetail = {
+      is_trashed: false
+    };
 
 
     this.noteservice.updateNote(noteDetail, noteId, this.token).subscribe(

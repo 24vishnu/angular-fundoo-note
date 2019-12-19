@@ -1,7 +1,7 @@
 <div class="container">
-    <div fxFlex.sm='0' fxFlex.xs='0' fxFlex.lt-md = '10'></div>    
-    <div fxLayout="row wrap" fxFlex.xs='100' fxFlex.sm='50' fxFlex.lt-md = '80' class="one-note">                
-        <div class="notes-container" [ngStyle]="changeList()" *ngFor="let note of getNote?.reverse()" fxFlex="33" fxFlex.xs='100' fxFlex.sm='50'>
+    <div fxFlex='20' fxFlex.sm='0' fxFlex.xs='0' fxFlex.lt-md = '10'></div>    
+    <div fxLayout="row wrap" fxFlex.xs='100' fxFlex.lt-md = '62' fxFlex.lt-sm = '75' class="one-note">                
+        <div class="notes-container" fxFlex.xs='100' fxFlex.sm='50' [ngStyle]="changeList()" *ngFor="let note of getNote?.reverse()">
                     <mat-card [ngStyle]="noteColor(note.change_color)">
                      <div (click)="openDialog(note)">
                             <div class='note-image-div' *ngIf='note.image !== null'>
@@ -32,7 +32,7 @@
                                                 </div>
                                         </span>
                                     <div class="chip" *ngFor="let onelabel of note.label"
-                                        style="padding-left: 5px;
+                                        style="padding: 5px;
                                                 background-color: #bbc7c7;
                                                 margin-left: 5%;
                                                 margin-top: 5%;
@@ -40,7 +40,9 @@
                                                 height: min-content;"
                                     >{{onelabel}}
                                         <i matTooltip="Remove Label" class='material-icons close' (click)="removeLable(note,onelabel)"
-                                        style="vertical-align: middle;"
+                                        style="vertical-align: middle; 
+                                                color: rgba(0,0,0,.7);
+                                                font-size: medium;"
                                         >close                                        
                                         </i>
                                     </div>
@@ -108,7 +110,7 @@
                     </mat-menu>
         </div>
     </div>
-    <div fxFlex.sm='0' fxFlex.xs='0' fxFlex.lt-md = '10'></div>
+    <div fxFlex='20' fxFlex.sm='0' fxFlex.xs='0' fxFlex.lt-md = '10'></div>
 
     <ng-template #no_note>
             <div class="no-note-div">

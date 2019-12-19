@@ -4,12 +4,12 @@
 @import "~ng-pick-datetime/assets/style/picker.min.css";
 
 
-html,body{overflow: hidden;}
+// html,body{overflow: hidden;}
 
 .edit-note-no-padding-dialog .mat-dialog-container {
     padding: 0;
   }
   
-// body{
-//   margin: 0%;
-// }
+body{
+  margin: 0%;
+}

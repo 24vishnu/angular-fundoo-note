@@ -1,5 +1,8 @@
-// .title-name{
-    .title-bar>p{
+::ng-deep .mat-drawer-backdrop.mat-drawer-shown {
+    background-color: transparent;
+  }
+
+  .title-bar>p{
     margin-top: 5px;
     border-bottom-width: 0px;
     margin-bottom: 0px;
@@ -8,9 +11,11 @@
     color: #6f6f6f;
     font-size: 22px;
 }
+
 .search-area{
     left: 25px;
 }
+
 .profile-menu{
     display: flow-root;
     border-radius: 50px;
@@ -31,6 +36,7 @@
 .user-detail>p{
     text-align-last: center;
 }
+
 .user-detail>button{
     border-radius: 30px;
 }
@@ -42,11 +48,14 @@
     border-bottom: .5px solid rgb(177, 177, 177); 
     padding: 0;   
     height: 56.5px;
-  }
-.mat-sidenav-container {
-    height: 100%;
-    background-color: rgba(192, 192, 235, 0);   
 }
+.sidenav-position-class{
+    position: fixed;
+}
+// .mat-sidenav-container {
+//     height: 100%;
+//     background-color: rgba(192, 192, 235, 0);   
+// }
 .mat-sidenav .mat-sidenav-content{
     padding: 16px;
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from 'src/app/service/user.service';
 import { MatSnackBar } from '@angular/material';
 
@@ -22,7 +22,11 @@ export class ResetPasswordComponent implements OnInit {
     confirm_password: new FormControl('', [Validators.required, Validators.minLength(6), this.passwordMatcher.bind(this)])
   });
 
-  constructor(private activatedRoute: ActivatedRoute, private userService: UserService, private snackBar: MatSnackBar) { }
+  constructor(private activatedRoute: ActivatedRoute,
+              private userService: UserService,
+              private snackBar: MatSnackBar,
+              private router: Router
+    ) { }
 
   ngOnInit() {
     this.token = this.activatedRoute.snapshot.url[1].path;
@@ -31,9 +35,12 @@ export class ResetPasswordComponent implements OnInit {
   setPassword() {
     this.passToken.token = this.token;
     this.userService.setPasswordUser(this.userData, this.passToken).subscribe(
-      res => this.snackBar.open('set password success', 'close', {
+      res => {
+        this.router.navigate(['/login']);
+        this.snackBar.open('set password success', 'close', {
         duration: 2000
-      }),
+      });
+    },
       err => this.snackBar.open('set password failed', 'close', {
         duration: 2000
       })

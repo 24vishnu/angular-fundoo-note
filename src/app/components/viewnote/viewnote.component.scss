@@ -1,5 +1,6 @@
 #hover-show-content{
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-evenly;
     cursor: pointer;
     max-width: 350px;
@@ -7,22 +8,18 @@
 }
 
 .container {
-    // justify-content: flex-end;
-    top: 0;
-    bottom: 0;
-    overflow-y: scroll;
-    position: fixed;
-    margin-top: 150px;
+    justify-content: flex-end;
+    // top: 0;
+    // bottom: 0;
+    // overflow-y: scroll;
+    // position: fixed;
+    // margin-top: 150px;
 }
 .one-note{
-    margin: 6px;
     border-radius: 10px;
-    margin: 0 20% 0 20%;
-    // border: 0.5px inset;
+    justify-content: space-between;
 }
-// .notes-container{
-//     width: 33%;
-// }
+
 .note-title{
     padding: 5px;
     letter-spacing: .00625em;
@@ -36,6 +33,7 @@
 }
 .note-content {
     padding: 5px;
+    overflow-wrap: break-word;
     letter-spacing: .01428571em;
     font-family: Roboto,Arial,sans-serif;
     font-size: .875rem;
@@ -52,22 +50,6 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     font-size: 11px;
-
-    // .chip{
-    //     cursor: pointer;
-    //     // display: flex;
-    //     // background-color: #bbc7c7;
-    //     // height: fit-content;
-    //     // border-radius: 20%;
-    //     // padding: 5px;
-    //     // justify-content: space-around;
-    //     // width: fit-content;
-    // }
-    // .chip>i{
-    //     font-size: medium;
-    //     border-radius: 50%;
-    //     background-color: #9c9a9a;
-    // }
 }
 mat-card{
     border: 1px solid dotted green;
@@ -86,59 +68,3 @@ mat-card{
     width: 26px;
     margin: 2px;
 }
-@media screen and (max-width: 599px) {
-    .one-note{
-        
-        border-radius: 10px;
-        margin: 0;
-    }
-}
-
-// @media screen and (max-width: 1034px) {
-//     .container {
-//         margin: 0;
-//         padding-right: 10%;
-//         padding-left: 10%;
-//         display: flex;
-//         flex-direction: row;
-//         flex-wrap: wrap;
-//     }
-// }
-
-// @media screen and (min-width:600px) and  (max-width: 834px) {
-//     .container {
-//         margin: 0;
-//         padding-right: 10%;
-//         padding-left: 10%;
-//         display: flex;
-//         flex-direction: row;
-//         flex-wrap: wrap;
-//     }
-//     .notes-container{
-//         width: 49%;
-//     }
-// }
-
-
-
-//     .container {
-//         margin: 0;
-//         padding: 0;
-//         display: flex;
-//         flex-direction: column;
-//     }
-    
-//     .notes-container{
-//         width: 100%;
-//         height: 100%;
-//         .one-note{
-//             margin: 0.5em 0px 0.5em 0px;
-//         }
-//         mat-card{
-//             margin: 0.5em 0 0.5em 0;
-//             padding: 0.5rem;
-//         }
-//     }
-// }
-
-// //========================================================

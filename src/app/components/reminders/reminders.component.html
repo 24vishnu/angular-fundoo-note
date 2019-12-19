@@ -4,10 +4,10 @@
         <div class="reminder-notes" *ngFor="let reminder_note of reminderNotes.pending" fxFlex="33" fxFlex.xs='100' fxFlex.sm='50'>
             <mat-card [style.background-color]= reminder_note.change_color>
             <div>
-                <div style="padding-bottom: 5px; font-size: 14;">
+                <div style="padding-bottom: 5px; font-size: 14; overflow-wrap: break-word;">
                     {{reminder_note.title}}
                 </div>
-                <div style="padding-bottom: 5px;font-size: 10;">
+                <div style="padding-bottom: 5px;font-size: 10; overflow-wrap: break-word;">
                     {{reminder_note.content}}
                 </div>
                 <div style="padding-bottom: 5px; font-size: 6;">
