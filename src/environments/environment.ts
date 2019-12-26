@@ -18,7 +18,8 @@ export const environment = {
   apiTrashedUrl: 'api/trashed/',
   apiDeleteUrl: 'api/note/',
   apiReminderUrl: 'api/reminders/',
-  apiLabelsNoteUrl: 'api/labelnote/'
+  apiLabelsNoteUrl: 'api/labelnote/',
+  apiSearchNoteUrl: 'api/elasticsearch/'
 };
 
 /*

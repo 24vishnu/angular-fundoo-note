@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs/internal/Observable';
+import { Note } from '../models/note';
 
 
 @Injectable({
@@ -15,6 +16,7 @@ export class NoteServiceService {
   private trashedUrl = environment.apiTrashedUrl;
   private reminderUrl = environment.apiReminderUrl;
   private labelsNoteUrl = environment.apiLabelsNoteUrl;
+  private searchNoteUrl = environment.apiSearchNoteUrl;
 
 
   constructor(private http: HttpClient) { }
@@ -70,6 +72,12 @@ export class NoteServiceService {
 
   getLabelsNote(lableId, token) {
     return this.http.get<any>(this.baseUrl + this.labelsNoteUrl + lableId, {
+      headers: new HttpHeaders().append('Authorization', 'Bearer ' + token)
+    });
+  }
+
+  searchNotes(data, token): Observable<any> {
+    return this.http.get<any>(this.baseUrl + this.searchNoteUrl + data, {
       headers: new HttpHeaders().append('Authorization', 'Bearer ' + token)
     });
   }

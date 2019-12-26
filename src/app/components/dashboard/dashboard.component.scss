@@ -2,6 +2,11 @@
     background-color: transparent;
   }
 
+  a.active{
+      background-color: rgb(199, 207, 124);
+      border-radius: 0px 20px 20px 0px;
+  }
+
   .title-bar>p{
     margin-top: 5px;
     border-bottom-width: 0px;

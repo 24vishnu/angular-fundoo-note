@@ -1,13 +1,10 @@
-#container {
-    margin: 0;
-    padding-right: 20%;
-    padding-left: 20%;
-    border: 1px solid dotted red;
-    display: flex;
+.container{
+    margin-top: 32px;
     flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
+    box-sizing: border-box;
+    display: flex;
 }
+
 .notes-container{
     width: 33%;
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, DoCheck} from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { EditNoteComponent } from '../edit-note/edit-note.component';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { DataService } from 'src/app/service/data.service';
@@ -43,12 +43,22 @@ export class ViewnoteComponent implements OnInit {
     this.dataservice.currentMessage.subscribe(notes => this.getNote = notes);
     this.dataservice.currentLabels.subscribe(labels => this.allLabels = labels);
   }
-
-  setReminder(note) {
+  setPinNote(note) {
     const data = {
-      dataForUpdate: {reminder: this.datetimereminder.toJSON()},
+      dataForUpdate: {is_pin: !note.is_pin},
       urlCridetial: note
     };
+    console.log(data);
+
+    this.childmessage.emit(data);
+  }
+  setReminder(note) {
+    const data = {
+      dataForUpdate: {reminder: this.datePipe.transform(this.datetimereminder.toISOString(), 'yyyy-MM-dd HH:mm:ss')},
+      urlCridetial: note
+    };
+    console.log(typeof data.dataForUpdate.reminder);
+    console.log(this.datePipe.transform(this.datetimereminder.toISOString(), 'yyyy-MM-dd HH:mm:ss'));
     this.childmessage.emit(data);
   }
 

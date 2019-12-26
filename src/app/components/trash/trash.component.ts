@@ -1,47 +1,84 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { NoteServiceService } from 'src/app/service/note-service.service';
 import { DataService } from 'src/app/service/data.service';
 import { Note } from 'src/app/models/note';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-trash',
   templateUrl: './trash.component.html',
-  styleUrls: ['./trash.component.scss']
+  styleUrls: ['./trash.component.scss'],
+  providers: [DatePipe]
 })
 export class TrashComponent implements OnInit {
   private token: string;
+  private reminderData: string;
+  private datetimereminder = new Date(Date.now());
   private trashedNotes;
   private deletedNote;
   private updatedData;
-  changeList = false;
+
+  @Input() viewListGrid: boolean;
+  @Output() childmessage = new EventEmitter<any>();
 
   constructor(private noteservice: NoteServiceService,
-              private dataservice: DataService
+              private dataservice: DataService,
+              private datePipe: DatePipe,
               ) { }
 
   ngOnInit() {
     this.token = localStorage.getItem('token');
     this.dataservice.currentTrashNote.subscribe(notes => this.trashedNotes = notes);
-
-
-    // this.noteservice.getTrashedNotes(this.token).subscribe(
-    //   response => {
-    //     this.trashedNotes = response.data;
-    //     console.log('trashed response: ', this.trashedNotes);
-    //   },
-    //   err => {
-    //     this.trashedNotes = null;
-    //     console.log('error: ', err);
-    //   }
-    // );
   }
-  setStyle() {
-    const style = {
-    width: this.changeList ? '100%' : 'normal',
-    'flex-direction': this.changeList ? 'column' : 'row'
-    };
+
+  // change view list to grid and grid to list
+  changeList() {
+    let style = {};
+    if (this.viewListGrid) {
+      style = {
+        width: '100%',
+        'flex-flow': 'column',
+        'box-sizing': 'border-box',
+        'flex-direction': 'column',
+        'max-width': '100%'
+      };
+    } else if (window.innerWidth >= 600 && window.innerWidth < 900) {
+      style = {
+        'flex-flow': 'row',
+        'box-sizing': 'border-box',
+        'flex-direction': 'row',
+        'max-width': '50%'
+      };
+    } else if (window.innerWidth >= 900) {
+      style = {
+        'flex-flow': 'row',
+        'box-sizing': 'border-box',
+        'flex-direction': 'row',
+        'max-width': '33%'
+      };
+    }
     return style;
   }
+
+    // get and set reminder
+    getReminder(reminder) {
+      if (reminder !== null && ((Date.parse(reminder) / 1000) - (Date.now() / 1000)) > 0) {
+        this.reminderData =  this.datePipe.transform(reminder, 'd MMM hh:mm a  ');
+        return true;
+      }
+      return false;
+    }
+    setReminder(note) {
+      const data = {
+        dataForUpdate: {reminder: this.datePipe.transform(this.datetimereminder.toISOString(), 'yyyy-MM-dd HH:mm:ss')},
+        urlCridetial: note
+      };
+      this.childmessage.emit(data);
+    }
+
+    temp() {
+      console.log(this.trashedNotes);
+    }
 
   delete(noteId) {
     this.noteservice.deleteNote(noteId, this.token).subscribe(

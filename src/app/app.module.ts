@@ -34,6 +34,7 @@ import { LabelService } from './service/label.service';
 import { Note } from './models/note';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { PinNotePipe } from './pipes/pin-note.pipe';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,8 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
     EditNoteComponent,
     ChangeProfilePictureComponent,
     NotesOfLabelComponent,
+    PinNotePipe,
+
   ],
   entryComponents: [
     EditLabelComponent,
@@ -93,8 +96,6 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
   ],
   providers: [
         UserService,
-        NoteServiceService,
-        LabelService,
       ],
   bootstrap: [AppComponent]
 })

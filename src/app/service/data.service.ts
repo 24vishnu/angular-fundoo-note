@@ -17,6 +17,9 @@ export class DataService implements OnInit {
   public ArchiveNotes: Note[];
   public allLabels: Label[];
 
+  public pinNotes: Note[];
+  public unPinNotes: Note[];
+
   public userInfo = {
     username: 'Anonymous',
     email: 'user@gmail.com',
@@ -109,7 +112,7 @@ export class DataService implements OnInit {
     this.noteservice.getArchiveNotes(this.token).subscribe(
       result => {
         this.ArchiveNotes = result.data;
-        this.changeTrashData(this.ArchiveNotes);
+        this.changeArchiveData(this.ArchiveNotes);
         // console.log('result in data services', result);
       },
       err => {
@@ -132,7 +135,7 @@ export class DataService implements OnInit {
       result => {
         this.allNotes = result.data;
         this.changeNoteMessage(this.allNotes);
-        // console.log('result in data services', result);
+
       },
       err => {
         if (err.status === 401) {

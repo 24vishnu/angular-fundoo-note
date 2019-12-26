@@ -26,6 +26,7 @@ export class DashboardComponent implements OnInit, DoCheck {
   private labelsList: Label[];
   public naveMode = 'side';
   public naveModeFlag: boolean;
+  private searchItem = '';
 
   private token: string;
   private userInfo: any;
@@ -78,20 +79,36 @@ export class DashboardComponent implements OnInit, DoCheck {
     }
   }
 
+  // search notes
+  searchNote($event) {
+    this.searchItem = $event.target.value;
+    console.log(this.searchItem);
+    if (this.searchItem.length > 2) {
+      this.noteservice.searchNotes(this.searchItem, this.token).subscribe(
+        result => {
+          console.log(result);
+          // console.log('result in data services', result);
+        },
+        err => {
+          if (err.status === 401) {
+            localStorage.clear();
+            this.router.navigate(['/login']);
+            alert(err.error.messages[0].message);
+          } else if (err.status === 0) {
+            alert(err.message);
+            } else {
+            console.log(err);
+          }
+        }
+      );
+    }
+  }
+
   notesOfLabel(labelId) {
     this.setLabelId = labelId;
     console.log('nothing : ', labelId);
   }
 
-  sidenavStyles(flag) {
-    if (this.viewFlag[flag] === true) {
-      const sidStyle = {
-        'background-color': 'wheat',
-        'border-radius': '25px'
-      };
-      return sidStyle;
-    }
-  }
   showView(showMe) {
     Object.keys(this.viewFlag).forEach(v => this.viewFlag[v] = false);
     this.viewFlag[showMe] = true;
@@ -141,24 +158,7 @@ export class DashboardComponent implements OnInit, DoCheck {
   }
 
   eventListener($event) {
-    console.log($event);
-    const noteDetail = new Note();
-    // assign all requred data of current note
-    noteDetail.title = $event.urlCridetial.title;
-    noteDetail.content = $event.urlCridetial.content;
-    noteDetail.change_color = $event.urlCridetial.change_color;
-    noteDetail.is_archive = $event.urlCridetial.is_archive;
-    noteDetail.is_trashed = $event.urlCridetial.is_trashed;
-    noteDetail.image = $event.urlCridetial.image;
-    noteDetail.reminder = $event.urlCridetial.reminder;
-    noteDetail.label = $event.urlCridetial.label;
-    noteDetail.collaborate = $event.urlCridetial.collaborate;
-
-    // assigne data for update
-    Object.entries($event.dataForUpdate).forEach(
-      ([key, value]) => noteDetail[key] = value);
-
-    this.updateNoteDetails(noteDetail, $event.urlCridetial.id);
+    this.updateNoteDetails($event.dataForUpdate, $event.urlCridetial.id);
   }
 
   // ================================

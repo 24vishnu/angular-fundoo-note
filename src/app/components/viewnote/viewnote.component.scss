@@ -4,20 +4,21 @@
     justify-content: space-evenly;
     cursor: pointer;
     max-width: 350px;
-    // visibility: hidden;
+}
+.note-pin{
+    color: transparent;
 }
 
 .container {
     justify-content: flex-end;
-    // top: 0;
-    // bottom: 0;
-    // overflow-y: scroll;
-    // position: fixed;
-    // margin-top: 150px;
 }
+// .container1 {
+//     justify-content: flex-end;
+// }
 .one-note{
     border-radius: 10px;
     justify-content: space-between;
+    width: -webkit-fill-available;
 }
 
 .note-title{
@@ -27,6 +28,8 @@
     font-size: 1rem;
     font-weight: 500;
     line-height: 1.5rem;
+    display: flex;
+    justify-content: space-between;
 }
 .note-contener {
     min-width: 200px;
