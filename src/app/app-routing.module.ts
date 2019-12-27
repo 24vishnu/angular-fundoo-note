@@ -11,9 +11,11 @@ import { ArchiveComponent } from './components/archive/archive.component';
 import { TrashComponent } from './components/trash/trash.component';
 import { RemindersComponent } from './components/reminders/reminders.component';
 import { NotesOfLabelComponent } from './components/notes-of-label/notes-of-label.component';
+import { SearchNoteComponent } from './components/search-note/search-note.component';
 
 
 const routes: Route[] = [
+  // {path: '', component: SearchNoteComponent},
   {path: 'signup', component: RegistrationComponent},
   {path: 'login', component: LoginComponent},
   {path: 'forgot-password', component: ForgotPasswordComponent},
@@ -25,6 +27,7 @@ const routes: Route[] = [
     {path: 'reminder', component: RemindersComponent},
     {path: 'archive', component: ArchiveComponent},
     {path: 'trash', component: TrashComponent},
+    {path: 'search', component: SearchNoteComponent},
     {path: 'label/:name', component: NotesOfLabelComponent}
   ]
   },

@@ -78,11 +78,20 @@ export class ViewnoteComponent implements OnInit {
     this.childmessage.emit(data);
   }
 
-  addedLabel(note, label) {
-    console.log(lableValue => lableValue === label);
-    console.log(note.label);
-    console.log(label);
-    return note.label.some(lableValue => lableValue === label);
+  addedLabel(note, updatelabel) {
+    let noteLabels = note.label;
+    if (noteLabels.includes(updatelabel)) {
+      noteLabels = noteLabels.filter(label => label !== updatelabel);
+      this.data.dataForUpdate = { label: noteLabels};
+      this.data.urlCridetial = note;
+      console.log('if : ', this.data);
+    } else {
+      noteLabels = noteLabels.concat([updatelabel]);
+      this.data.dataForUpdate = { label: noteLabels};
+      this.data.urlCridetial = note;
+      console.log('else : ', this.data);
+    }
+    this.childmessage.emit(this.data);
   }
 
   removeLable(note, labelToDelete) {

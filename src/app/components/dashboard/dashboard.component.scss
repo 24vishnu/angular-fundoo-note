@@ -2,6 +2,25 @@
     background-color: transparent;
   }
 
+::ng-deep .mat-toolbar, .mat-toolbar h1, .mat-toolbar h2, .mat-toolbar h3, .mat-toolbar h4, .mat-toolbar h5, .mat-toolbar h6 {
+    font: unset;
+    color: greenyellow;
+}
+::ng-deep .mat-toolbar .mat-form-field-label{
+    margin-top: unset;
+    margin-left: 2%;
+    color: #9393a0;
+}
+::ng-deep .mat-toolbar .mat-input-element {
+    margin-left: 2%;
+    vertical-align: super;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-prefix{
+    font-size: larger;
+    color: #5b5b6594;
+}
+
   a.active{
       background-color: rgb(199, 207, 124);
       border-radius: 0px 20px 20px 0px;
@@ -53,6 +72,8 @@
     border-bottom: .5px solid rgb(177, 177, 177); 
     padding: 0;   
     height: 56.5px;
+    padding-bottom: 1%;
+    margin-top: 1%;
 }
 .sidenav-position-class{
     position: fixed;

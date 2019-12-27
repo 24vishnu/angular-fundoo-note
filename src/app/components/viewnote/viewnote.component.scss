@@ -5,6 +5,19 @@
     cursor: pointer;
     max-width: 350px;
 }
+.pin-class {
+    cursor: pointer;
+    float: right;
+    margin-bottom: -13%;
+    backface-visibility: hidden;
+
+    .pin-class>img {
+        background-color: #b5afaf75;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+    }
+}
 .note-pin{
     color: transparent;
 }
@@ -12,12 +25,10 @@
 .container {
     justify-content: flex-end;
 }
-// .container1 {
-//     justify-content: flex-end;
-// }
+
 .one-note{
     border-radius: 10px;
-    justify-content: space-between;
+    justify-content: right;
     width: -webkit-fill-available;
 }
 

@@ -18,7 +18,7 @@ import { Label } from 'src/app/models/label';
 export class DashboardComponent implements OnInit, DoCheck {
   public viewListGridMessage = false; // parent to chaild communication
   public setLabelId: number;
-
+  public searchedDdeatail: Note[] = [];
 
   public oneNote: Note;
   public allNotes: Note[];
@@ -30,12 +30,18 @@ export class DashboardComponent implements OnInit, DoCheck {
 
   private token: string;
   private userInfo: any;
+  public searchedNote = {
+    notes: this.searchedDdeatail,
+    searchContentSize: this.searchItem.length
+  };
+
   viewFlag = {
     noteFlag: true,
     reminderFlag: false,
     archiveFlag: false,
     trashFlag: false,
-    labelFlag: false
+    labelFlag: false,
+    searchFlag: false,
   };
 
   constructor(private router: Router,
@@ -62,7 +68,6 @@ export class DashboardComponent implements OnInit, DoCheck {
 
   ngOnInit() {
     this.token = localStorage.getItem('token');
-    // this.getProfilePic();
     this.dataservice.currentLabels.subscribe(labels => this.labelsList = labels);
     this.dataservice.currentMessage.subscribe(notes => this.allNotes = notes);
     this.dataservice.currentUser.subscribe(user => this.userInfo = user);
@@ -82,12 +87,11 @@ export class DashboardComponent implements OnInit, DoCheck {
   // search notes
   searchNote($event) {
     this.searchItem = $event.target.value;
-    console.log(this.searchItem);
+    this.searchedNote.searchContentSize = this.searchItem.length;
     if (this.searchItem.length > 2) {
       this.noteservice.searchNotes(this.searchItem, this.token).subscribe(
         result => {
-          console.log(result);
-          // console.log('result in data services', result);
+          this.searchedNote.notes = result.data;
         },
         err => {
           if (err.status === 401) {
@@ -101,18 +105,18 @@ export class DashboardComponent implements OnInit, DoCheck {
           }
         }
       );
+    } else {
+      this.searchedNote.notes = [];
     }
   }
 
   notesOfLabel(labelId) {
     this.setLabelId = labelId;
-    console.log('nothing : ', labelId);
   }
 
   showView(showMe) {
     Object.keys(this.viewFlag).forEach(v => this.viewFlag[v] = false);
     this.viewFlag[showMe] = true;
-    console.log(this.viewFlag);
   }
 
   picChangeDialog() {
@@ -123,7 +127,7 @@ export class DashboardComponent implements OnInit, DoCheck {
       });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`The dialog has been closed:${result}`);
+      console.log('The dialog has been closed: ', result);
       if (result !== undefined) {
         this.userInfo.image_url = result.image_url;
       }
@@ -161,7 +165,6 @@ export class DashboardComponent implements OnInit, DoCheck {
     this.updateNoteDetails($event.dataForUpdate, $event.urlCridetial.id);
   }
 
-  // ================================
   updateNoteDetails(newDetails: any, noteId) {
     console.log(newDetails);
     this.noteservice.updateNote(newDetails, noteId, this.token).subscribe(
@@ -178,7 +181,6 @@ export class DashboardComponent implements OnInit, DoCheck {
 
       },
       err => {
-        // console.log(err.error.s);
         if (err.status === 404) {
           console.log('Page not found!');
           this.snackBar.open('Page not found.', 'close')._dismissAfter(3000);

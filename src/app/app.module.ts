@@ -35,6 +35,7 @@ import { Note } from './models/note';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { PinNotePipe } from './pipes/pin-note.pipe';
+import { SearchNoteComponent } from './components/search-note/search-note.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { PinNotePipe } from './pipes/pin-note.pipe';
     EditNoteComponent,
     ChangeProfilePictureComponent,
     NotesOfLabelComponent,
+    SearchNoteComponent,
     PinNotePipe,
 
   ],

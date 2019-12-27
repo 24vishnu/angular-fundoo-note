@@ -4,17 +4,11 @@
         <div fxLayout="row wrap" fxFlex.xs='100' fxFlex.lt-md = '62' fxFlex.lt-sm = '75' class="one-note">                
             <div class="notes-container" fxFlex.xs='100' fxFlex.sm='50' [ngStyle]="changeList()" *ngFor="let note of getNote?.reverse()">
                         <mat-card *ngIf='note.is_pin' [ngStyle]="noteColor(note.change_color)">
-                            <div class="note-pin" style="float: right;
-                                        margin-bottom: -13%;
-                                        backface-visibility: hidden;">  
-                                <span matTooltip="reminder">
+                            <div class="pin-class">  
+                                <span matTooltip="unpin note">
                                     <img src="assets/images/icon/unpin_note.svg" 
-                                    alt="pin icon" 
-                                    style="background-color: #b5afaf75;
-                                            width: 25px;
-                                            height: 25px;
-                                            border-radius: 50%;"
-                                            (click)="setPinNote(note)">
+                                    alt="unpin icon" 
+                                    (click)="setPinNote(note)">
                                 </span>
                             </div>
                         <div (click)="openDialog(note)">
@@ -36,7 +30,7 @@
                                                     padding: 5px;
                                                     height: fit-content;
                                                     align-self: center;">
-                                                    <div>{{reminderData}}</div>
+                                                    <div>{{note.reminder | date:'d MMM hh:mm a'}}</div>
                                             </span>
                                             <span class="chip" *ngFor="let col of note.collaborate">
                                                     <div mat-card-avatar 
@@ -118,7 +112,12 @@
                         </mat-menu>
                         <mat-menu #addLabels="matMenu">
                             <div style="padding-left: 10px;" *ngFor="let oneLabel of allLabels">
-                                <mat-checkbox>{{oneLabel.name}}</mat-checkbox>
+                                <div *ngIf="note.label.includes(oneLabel.name)">
+                                    <input type="checkbox" checked (click)='addedLabel(note, oneLabel.name)'><label>{{oneLabel.name}} </label>
+                                </div>
+                                <div *ngIf="!note.label.includes(oneLabel.name)">
+                                    <input type="checkbox" (click)='addedLabel(note, oneLabel.name)'><label>{{oneLabel.name}} </label>
+                                </div>
                             </div>
                                 <!-- <button mat-menu-item>{{oneLabel}}</button> -->
                         </mat-menu>
@@ -133,17 +132,11 @@
         <div fxLayout="row wrap" fxFlex.xs='100' fxFlex.lt-md = '62' fxFlex.lt-sm = '75' class="one-note">                
             <div class="notes-container" fxFlex.xs='100' fxFlex.sm='50' [ngStyle]="changeList()" *ngFor="let note of getNote?.reverse()">
                         <mat-card *ngIf='!note.is_pin' [ngStyle]="noteColor(note.change_color)">
-                        <div style="float: right;
-                                        margin-bottom: -13%;
-                                        backface-visibility: hidden;">  
-                                <span matTooltip="reminder">
+                        <div class="pin-class">  
+                                <span matTooltip="pin note">
                                     <img src="assets/images/icon/pin_note.svg" 
-                                    alt="pin icon" 
-                                    style="background-color: #b5afaf75;
-                                            width: 25px;
-                                            height: 25px;
-                                            border-radius: 50%;"
-                                            (click)="setPinNote(note)">
+                                    alt="pin icon"
+                                    (click)="setPinNote(note)">
                                 </span>
                             </div>
                         <div (click)="openDialog(note)">
@@ -247,7 +240,12 @@
                         </mat-menu>
                         <mat-menu #addLabels="matMenu">
                             <div style="padding-left: 10px;" *ngFor="let oneLabel of allLabels">
-                                <mat-checkbox>{{oneLabel.name}}</mat-checkbox>
+                                <div *ngIf="note.label.includes(oneLabel.name)">
+                                    <input type="checkbox" checked (click)='addedLabel(note, oneLabel.name)'><label>{{oneLabel.name}} </label>
+                                </div>
+                                <div *ngIf="!note.label.includes(oneLabel.name)">
+                                    <input type="checkbox" (click)='addedLabel(note, oneLabel.name)'><label>{{oneLabel.name}} </label>
+                                </div>
                             </div>
                                 <!-- <button mat-menu-item>{{oneLabel}}</button> -->
                         </mat-menu>
