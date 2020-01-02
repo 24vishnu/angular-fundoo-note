@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, EventEmitter, Output, DoCheck } from '@angular/core';
 import { NoteServiceService } from 'src/app/service/note-service.service';
 import { ActivatedRoute } from '@angular/router';
 import { Note } from 'src/app/models/note';
@@ -15,7 +15,7 @@ import { CollaborateComponent } from '../collaborate/collaborate.component';
   styleUrls: ['./notes-of-label.component.scss'],
   providers: [DatePipe]
 })
-export class NotesOfLabelComponent implements OnInit, OnChanges {
+export class NotesOfLabelComponent implements OnInit, OnChanges, DoCheck {
 
   // dummy() {
   //   // private notes: any;
@@ -32,13 +32,15 @@ export class NotesOfLabelComponent implements OnInit, OnChanges {
   public gridListView = false;
   public data = {
     dataForUpdate: {},
-    urlCridetial: Note
+    urlCridetial: Note,
+    showMessage: ''
   };
 
   // @Input() viewListGrid: boolean;
-  @Input() labelId: number;
+  private labelId: number;
 
-  @Output() childmessage = new EventEmitter<any>();
+  // TODO
+  @Output() noteLabelComponentMessage = new EventEmitter<any>();
 
 
   constructor(
@@ -50,12 +52,20 @@ export class NotesOfLabelComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
-        this.getLabelsNotes();
+        // this.getLabelsNotes();
+        // this.labelId = this.dataservice.noteLabelsId;
+        console.log(this.labelId);
       }
+  ngDoCheck() {
+    if (this.labelId !== this.dataservice.noteLabelsId) {
+      this.labelId = this.dataservice.noteLabelsId;
+      this.getLabelsNotes();
+    }
+  }
 
   ngOnInit() {
-    // this.dataservice.currentMessage.subscribe(notes => this.getNote = notes);
-    this.dataservice.currentLabels.subscribe(labels => this.allLabels = labels);
+    // this.dataservice.noteMessage.subscribe(notes => this.getNote = notes);
+    this.dataservice.getLabelNotes.subscribe(labels => this.allLabels = labels);
   }
 
   getLabelsNotes() {
@@ -74,20 +84,22 @@ export class NotesOfLabelComponent implements OnInit, OnChanges {
   setPinNote(note) {
     const data = {
       dataForUpdate: {is_pin: !note.is_pin},
-      urlCridetial: note
+      urlCridetial: note,
+      showMessage: ''
     };
     console.log(data);
 
-    this.childmessage.emit(data);
+    this.dataservice.updateNoteDetails(data);
   }
   setReminder(note) {
     const data = {
       dataForUpdate: {reminder: this.datePipe.transform(this.datetimereminder.toISOString(), 'yyyy-MM-dd HH:mm:ss')},
-      urlCridetial: note
+      urlCridetial: note,
+      showMessage: ''
     };
     console.log(typeof data.dataForUpdate.reminder);
     console.log(this.datePipe.transform(this.datetimereminder.toISOString(), 'yyyy-MM-dd HH:mm:ss'));
-    this.childmessage.emit(data);
+    this.dataservice.updateNoteDetails(data);
   }
 
   getReminder(reminder) {
@@ -98,13 +110,6 @@ export class NotesOfLabelComponent implements OnInit, OnChanges {
     return false;
   }
 
-  sendMessage(note, detail) {
-    const data = {
-      reminder: note,
-      noteDetail: detail
-    };
-    this.childmessage.emit(data);
-  }
 
   addedLabel(note, updatelabel) {
     let noteLabels = note.label;
@@ -117,9 +122,10 @@ export class NotesOfLabelComponent implements OnInit, OnChanges {
       noteLabels = noteLabels.concat([updatelabel]);
       this.data.dataForUpdate = { label: noteLabels};
       this.data.urlCridetial = note;
+      this.data.showMessage = '';
       console.log('else : ', this.data);
     }
-    this.childmessage.emit(this.data);
+    this.dataservice.updateNoteDetails(this.data);
   }
 
   removeLable(note, labelToDelete) {
@@ -129,9 +135,10 @@ export class NotesOfLabelComponent implements OnInit, OnChanges {
     console.log('remove this label', labelToDelete, labelList);
     const data = {
       dataForUpdate: { label: labelList },
-      urlCridetial: note
+      urlCridetial: note,
+      showMessage: ''
     };
-    this.childmessage.emit(data);
+    this.dataservice.updateNoteDetails(data);
   }
 
   addLabel(note, newLabel) {
@@ -141,9 +148,10 @@ export class NotesOfLabelComponent implements OnInit, OnChanges {
     console.log('add this label', newLabel);
     const data = {
       dataForUpdate: { label: labelList },
-      urlCridetial: note
+      urlCridetial: note,
+      showMessage: ''
     };
-    this.childmessage.emit(data);
+    this.dataservice.updateNoteDetails(data);
   }
 
 
@@ -154,7 +162,8 @@ export class NotesOfLabelComponent implements OnInit, OnChanges {
     };
     this.data.dataForUpdate = noteDetail;
     this.data.urlCridetial = note;
-    this.childmessage.emit(this.data);
+    this.data.showMessage = 'Note trashed';
+    this.dataservice.updateNoteDetails(this.data);
   }
 
 
@@ -199,7 +208,8 @@ export class NotesOfLabelComponent implements OnInit, OnChanges {
 
     this.data.dataForUpdate = noteDetail;
     this.data.urlCridetial = note;
-    this.childmessage.emit(this.data);
+    this.data.showMessage = 'Note archived';
+    this.dataservice.updateNoteDetails(this.data);
   }
 
   changeColor(note, color) {
@@ -209,9 +219,10 @@ export class NotesOfLabelComponent implements OnInit, OnChanges {
     console.log(color);
     const data = {
       dataForUpdate: noteDetail,
-      urlCridetial: note
+      urlCridetial: note,
+      showMessage: ''
     };
-    this.childmessage.emit(data);
+    this.dataservice.updateNoteDetails(data);
   }
   getFile(note) {
     this.noteIdTemp = note;
@@ -224,9 +235,10 @@ export class NotesOfLabelComponent implements OnInit, OnChanges {
     uploadData.append('image', noteImage, noteImage.name);
     const data = {
       dataForUpdate: uploadData,
-      urlCridetial: this.noteIdTemp
+      urlCridetial: this.noteIdTemp,
+      showMessage: ''
     };
-    this.childmessage.emit(data);
+    this.dataservice.updateNoteDetails(data);
   }
 
   test(noteId) {
@@ -247,9 +259,10 @@ export class NotesOfLabelComponent implements OnInit, OnChanges {
       if (Object.getOwnPropertyNames(result).length > 0) {
         const data = {
           dataForUpdate: result,
-          urlCridetial: note
+          urlCridetial: note,
+          showMessage: 'Note saved'
         };
-        this.childmessage.emit(data);
+        this.dataservice.updateNoteDetails(data);
       }
       console.log('The dialog has been closed and result is ', result);
     });
@@ -267,9 +280,10 @@ export class NotesOfLabelComponent implements OnInit, OnChanges {
         if (note.collaborate.length !== result.length) {
           const data = {
             dataForUpdate: {collaborate: result},
-            urlCridetial: note
+            urlCridetial: note,
+            showMessage: ''
           };
-          this.childmessage.emit(data);
+          this.dataservice.updateNoteDetails(data);
         }
       }
       console.log('Dialog box closed and result is ', result);

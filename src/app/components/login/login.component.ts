@@ -18,7 +18,9 @@ export class LoginComponent implements OnInit {
     password: new FormControl('', [Validators.required, Validators.minLength(5)])
   });
 
-  constructor(private userService: UserService, private snackBar: MatSnackBar, private router: Router) { }
+  constructor(private userService: UserService,
+              private snackBar: MatSnackBar,
+              private router: Router) { }
 
   ngOnInit() {
     if (localStorage.getItem('token')) {

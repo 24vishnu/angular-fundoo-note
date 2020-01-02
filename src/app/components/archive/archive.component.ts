@@ -24,13 +24,14 @@ export class ArchiveComponent implements OnInit {
 
   public data = {
     dataForUpdate: {},
-    urlCridetial: Note
+    urlCridetial: Note,
+    showMessage: ''
   };
   private archiveNotes;
   // private updateData;
 
   @Input() viewListGrid: boolean;
-  @Output() childmessage = new EventEmitter<any>();
+  @Output() archiveComponentMessage = new EventEmitter<any>();
 
   constructor(
     private dataservice: DataService,
@@ -40,8 +41,8 @@ export class ArchiveComponent implements OnInit {
 
   ngOnInit() {
     this.token = localStorage.getItem('token');
-    this.dataservice.currentTrashNote.subscribe(notes => this.archiveNotes = notes);
-    this.dataservice.currentLabels.subscribe(labels => this.allLabels = labels);
+    this.dataservice.allArchivedNote.subscribe(notes => this.archiveNotes = notes);
+    this.dataservice.getLabelNotes.subscribe(labels => this.allLabels = labels);
   }
 
   moveInTrash(note) {
@@ -51,7 +52,8 @@ export class ArchiveComponent implements OnInit {
 
     this.data.dataForUpdate = newDetails;
     this.data.urlCridetial = note;
-    this.childmessage.emit(this.data);
+    this.data.showMessage = 'Note trashed';
+    this.dataservice.updateNoteDetails(this.data);
   }
 
   // change view list to grid and grid to list
@@ -93,11 +95,12 @@ export class ArchiveComponent implements OnInit {
   setReminder(note) {
     const data = {
       dataForUpdate: {reminder: this.datePipe.transform(this.datetimereminder.toISOString(), 'yyyy-MM-dd HH:mm:ss')},
-      urlCridetial: note
+      urlCridetial: note,
+      showMessage: ''
     };
 
 
-    this.childmessage.emit(data);
+    this.dataservice.updateNoteDetails(data);
   }
 
   removeLable(note, labelToDelete) {
@@ -107,9 +110,10 @@ export class ArchiveComponent implements OnInit {
     console.log('remove this label', labelToDelete, labelList);
     const data = {
       dataForUpdate: { label: labelList },
-      urlCridetial: note
+      urlCridetial: note,
+      showMessage: ''
     };
-    this.childmessage.emit(data);
+    this.dataservice.updateNoteDetails(data);
   }
 
   // add and remove collaborate
@@ -125,9 +129,10 @@ export class ArchiveComponent implements OnInit {
         if (note.collaborate.length !== result.length) {
           const data = {
             dataForUpdate: {collaborate: result},
-            urlCridetial: note
+            urlCridetial: note,
+            showMessage: ''
           };
-          this.childmessage.emit(data);
+          this.dataservice.updateNoteDetails(data);
         }
       }
       console.log('Dialog box closed and result is ', result);
@@ -150,9 +155,10 @@ export class ArchiveComponent implements OnInit {
     uploadData.append('image', noteImage, noteImage.name);
     const data = {
       dataForUpdate: uploadData,
-      urlCridetial: this.noteIdTemp
+      urlCridetial: this.noteIdTemp,
+      showMessage: 'Image added'
     };
-    this.childmessage.emit(data);
+    this.dataservice.updateNoteDetails(data);
   }
 
   // change note background color
@@ -163,9 +169,10 @@ export class ArchiveComponent implements OnInit {
     console.log(color);
     const data = {
       dataForUpdate: noteDetail,
-      urlCridetial: note
+      urlCridetial: note,
+      showMessage: ''
     };
-    this.childmessage.emit(data);
+    this.dataservice.updateNoteDetails(data);
   }
 
   // move note into trash notes list
@@ -176,7 +183,8 @@ export class ArchiveComponent implements OnInit {
     };
     this.data.dataForUpdate = noteDetail;
     this.data.urlCridetial = note;
-    this.childmessage.emit(this.data);
+    this.data.showMessage = 'Note trashed';
+    this.dataservice.updateNoteDetails(this.data);
   }
 
   // open dialog edit note
@@ -193,9 +201,10 @@ export class ArchiveComponent implements OnInit {
       if (Object.getOwnPropertyNames(result).length > 0) {
         const data = {
           dataForUpdate: result,
-          urlCridetial: note
+          urlCridetial: note,
+          showMessage: 'Note saved'
         };
-        this.childmessage.emit(data);
+        this.dataservice.updateNoteDetails(data);
       }
       console.log('The dialog has been closed and result is ', result);
     });
@@ -206,9 +215,11 @@ export class ArchiveComponent implements OnInit {
     const newDetails = {
       is_archive: false
     };
+    console.log(note);
     this.data.dataForUpdate = newDetails;
     this.data.urlCridetial = note;
-    this.childmessage.emit(this.data);
+    this.data.showMessage = 'Note unarchived';
+    this.dataservice.updateNoteDetails(this.data);
 }
 
 }

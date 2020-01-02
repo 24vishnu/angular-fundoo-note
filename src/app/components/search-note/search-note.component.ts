@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { Note } from 'src/app/models/note';
 import { Label } from 'src/app/models/label';
 import { DatePipe } from '@angular/common';
+import { DataService } from 'src/app/service/data.service';
 
 @Component({
   selector: 'app-search-note',
@@ -16,15 +17,17 @@ export class SearchNoteComponent implements OnInit {
 
   private viewListGrid = false;
 
-  @Input() getNotes: Note[];
-  @Output() childmessage = new EventEmitter<any>();
+  private getNotes: any;
+  @Output() searchComponentMessage = new EventEmitter<any>();
 
 
   constructor(
     private datePipe: DatePipe,
+    private dataservice: DataService
   ) { }
 
   ngOnInit() {
+    this.dataservice.searchNoteResult.subscribe(labels => this.getNotes = labels);
     this.token = localStorage.getItem('token');
   }
 
@@ -62,16 +65,18 @@ export class SearchNoteComponent implements OnInit {
     console.log('remove this label', labelToDelete, labelList);
     const data = {
       dataForUpdate: { label: labelList },
-      urlCridetial: note
+      urlCridetial: note,
+      showMessage: ''
     };
-    this.childmessage.emit(data);
+    this.dataservice.updateNoteDetails(data);
   }
 
   setReminder(note) {
     const data = {
       dataForUpdate: {reminder: this.datePipe.transform(this.datetimereminder.toISOString(), 'yyyy-MM-dd HH:mm:ss')},
-      urlCridetial: note
+      urlCridetial: note,
+      showMessage: ''
     };
-    this.childmessage.emit(data);
+    this.dataservice.updateNoteDetails(data);
   }
 }

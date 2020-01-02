@@ -59,9 +59,8 @@
                                         <input id="setNoteImage" type="file" value="upload" (change)="onFileSelected($event.target)"/>
                                     </div>
                                 </span>
-                                <span matTooltip="Archive"> <mat-icon (click)="unArchive(archive_note)">unarchive</mat-icon> </span>
+                                <span matTooltip="UnArchive"> <mat-icon (click)="unArchive(note)">unarchive</mat-icon> </span>
                                 <span matTooltip="More" [matMenuTriggerFor]="matMenuMore"> <mat-icon>more_vert</mat-icon> </span>
-                                <!-- <span (click)='sendMessage(note, note.title)'> <mat-icon>more_vert</mat-icon> </span> -->
                             </div>
                         </div>
                     </mat-card>
@@ -76,7 +75,6 @@
                                 placeholder="Date Time">
                                 <owl-date-time #dt1></owl-date-time>
                             </button>
-                            <!-- <button mat-menu-item><mat-icon> place</mat-icon>Pick place</button>            -->
                         </div>
                     </mat-menu>
                     <mat-menu #matMenuChangeColor="matMenu">
@@ -106,72 +104,9 @@
                         <div style="padding-left: 10px;" *ngFor="let oneLabel of allLabels">
                             <mat-checkbox>{{oneLabel.name}}</mat-checkbox>
                         </div>
-                            <!-- <button mat-menu-item>{{oneLabel}}</button> -->
                     </mat-menu>
         </div>
     </div>
     <div fxFlex='20' fxFlex.sm='0' fxFlex.xs='0' fxFlex.lt-md = '10'></div>
 </div>
 
-
-<!-- <div class="main-container">
-    <div fxFlex="20" fxFlex.sm='0' fxFlex.xs='0'></div>
-    <div fxFlex="60" fxLayout="row wrap" fxFlex.xs='100' fxFlex.sm='50'>
-        <div *ngFor="let archive_note of archiveNotes" fxFlex="33" fxFlex.xs='100' fxFlex.sm='50'>
-            <mat-card [style.background-color]= archive_note.change_color>
-                <div>
-                    <div style="padding: 10px 0 5px 10px; font-size: 14;">
-                        {{archive_note.title}}
-                    </div>
-                    <div style="padding: 10px 0 10px 10px; font-size: 10;">
-                        {{archive_note.content}}
-                    </div>
-                    <div style="padding: 5px 0 10px 10px; font-size: 8;">{{archive_note.label}}</div>
-                    <div id="hover-show-content">
-                            <span matTooltip="reminder" [matMenuTriggerFor]="matMenuReminder"> <mat-icon>add_alert</mat-icon> </span>
-                            <span matTooltip="Collaborate"> <mat-icon>person_add</mat-icon> </span>
-                            <span matTooltip="Change color" [matMenuTriggerFor]="matMenuChangeColor"> <mat-icon>color_lens</mat-icon> </span>
-                            <span matTooltip="Add image" (click)="clickChageView()"> <mat-icon>image</mat-icon> </span>
-                            <span matTooltip="Archive"> <mat-icon (click)="unArchive(archive_note)">unarchive</mat-icon> </span>
-                            <span matTooltip="More" [matMenuTriggerFor]="matMenuMore"> <mat-icon>more_vert</mat-icon> </span>
-                    </div>
-                </div>
-            </mat-card>        
-                    <mat-menu #matMenuReminder="matMenu">
-                        <div ><span>Reminder: </span>
-                            <button mat-menu-item>Latest Today</button>
-                            <button mat-menu-item>Tomorrow</button>
-                            <button mat-menu-item>Next Week</button>
-                            <button mat-menu-item>Home</button>
-                            <button mat-menu-item>Work</button>
-                            <button mat-menu-item><mat-icon>access_time</mat-icon>Pick date & time</button>
-                            <button mat-menu-item><mat-icon> place</mat-icon>Pick place</button>           
-                        </div>
-                    </mat-menu>
-        
-                    <mat-menu #matMenuChangeColor="matMenu">
-                            <div class='change-color'>
-                                    <button mat-mini-fab style="background-color: #FFFFFF;" (click)="changeColor(archive_note, '#FFFFFF')"></button>
-                                    <button mat-mini-fab style="background-color: #00FFFF;" (click)="changeColor(archive_note, '#00FFFF')"></button>
-                                    <button mat-mini-fab style="background-color: #FF00FF;" (click)="changeColor(archive_note, '#FF00FF')"></button>
-                                    <button mat-mini-fab style="background-color: #FFFF00;" (click)="changeColor(archive_note, '#FFFF00')"></button>
-                                    <button mat-mini-fab style="background-color: #0000FF;" (click)="changeColor(archive_note, '#0000FF')"></button>
-                                    <button mat-mini-fab style="background-color: #FF0000;" (click)="changeColor(archive_note, '#FF0000')"></button>
-                                    <button mat-mini-fab style="background-color: #00FF00;" (click)="changeColor(archive_note, '#00FF00')"></button>
-                                    <button mat-mini-fab style="background-color: #FF8080;" (click)="changeColor(archive_note, '#FF8080')"></button>
-                                    <button mat-mini-fab style="background-color: #808080;" (click)="changeColor(archive_note, '#808080')"></button>
-                                    <button mat-mini-fab style="background-color: #300000;" (click)="changeColor(archive_note, '#300000')"></button>
-                                    <button mat-mini-fab style="background-color: #3A5FAF;" (click)="changeColor(archive_note, '#3A5FAF')"></button>
-                                    <button mat-mini-fab style="background-color: #FF3D00;" (click)="changeColor(archive_note, '#FF3D00')"></button>
-                                </div>
-                    </mat-menu>
-                    <mat-menu #matMenuMore="matMenu">
-                        <button mat-menu-item (onclick)="moveInTrash(archive_note)">delete note</button>
-                        <button mat-menu-item>Add label</button>
-                        <button mat-menu-item>Add drowing</button>
-                        <button mat-menu-item>Show checkboxes</button>
-                    </mat-menu>
-        </div>
-    </div>
-    <div fxFlex="20" fxFlex.sm='0' fxFlex.xs='0'> </div>
-</div> -->

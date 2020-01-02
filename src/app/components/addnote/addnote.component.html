@@ -19,7 +19,7 @@
         </div>
     </mat-card>
     <mat-card class="create-note" *ngIf="!showNoteContent">
-        <div>
+        <div style="font-weight: bold;">
            <textarea matInput cdkTextareaAutosize 
                 type="text" 
                 placeholder="Title" 
@@ -27,7 +27,7 @@
                 name="title">
            </textarea> 
         </div>
-        <div>
+        <div style="font-size: 12px; font-weight: bold;">
             <textarea matInput
                  type="text" 
                  placeholder="Take a note..." 
@@ -36,17 +36,17 @@
             </textarea> 
          </div>
          <div class="create-note-toolbar" fxLayout="row" fxLaoutAline="space-between center">
-            <div class="create-note-menu" fxLayout="row" fxLaoutAline="space-between center" fxFlex="90">
+            <div class="create-note-menu" fxLayout="row" fxLaoutAline="space-between center" fxLayoutGap="14%">
                 <span matTooltip="reminder" [matMenuTriggerFor]="matMenuReminder"> <mat-icon>add_alert</mat-icon> </span>
                 <span matTooltip="Collaborate"> <mat-icon>person_add</mat-icon> </span>
                 <span matTooltip="Change color" [matMenuTriggerFor]="matMenuChangeColor"> <mat-icon>color_lens</mat-icon> </span>
                 <span matTooltip="Add image"> <mat-icon>image</mat-icon> </span>
                 <span matTooltip="Archive"> <mat-icon>unarchive</mat-icon> </span>
                 <span matTooltip="More" [matMenuTriggerFor]="matMenuMore"> <mat-icon>more_vert</mat-icon> </span>
+                <span> <mat-icon matTooltip="undo">undo</mat-icon> </span>
+                <span> <mat-icon matTooltip="redo">redo</mat-icon> </span>   
             </div>
-            <div *ngIf="!showNoteContent">
-                <!-- <span> <mat-icon matTooltip="undo">undo</mat-icon> </span>
-                <span> <mat-icon matTooltip="redo">redo</mat-icon> </span>                     -->
+            <div *ngIf="!showNoteContent">                 
                 <button mat-button (click)="showHideButton()">Close</button>        
             </div>
          </div>

@@ -19,7 +19,7 @@ export class TrashComponent implements OnInit {
   private updatedData;
 
   @Input() viewListGrid: boolean;
-  @Output() childmessage = new EventEmitter<any>();
+  @Output() trashComponentMessage = new EventEmitter<any>();
 
   constructor(private noteservice: NoteServiceService,
               private dataservice: DataService,
@@ -28,7 +28,7 @@ export class TrashComponent implements OnInit {
 
   ngOnInit() {
     this.token = localStorage.getItem('token');
-    this.dataservice.currentTrashNote.subscribe(notes => this.trashedNotes = notes);
+    this.dataservice.allTrashNote.subscribe(notes => this.trashedNotes = notes);
   }
 
   // change view list to grid and grid to list
@@ -71,9 +71,10 @@ export class TrashComponent implements OnInit {
     setReminder(note) {
       const data = {
         dataForUpdate: {reminder: this.datePipe.transform(this.datetimereminder.toISOString(), 'yyyy-MM-dd HH:mm:ss')},
-        urlCridetial: note
+        urlCridetial: note,
+        showMessage: ''
       };
-      this.childmessage.emit(data);
+      this.dataservice.updateNoteDetails(data);
     }
 
     temp() {

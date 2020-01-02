@@ -31,7 +31,7 @@ export class EditLabelComponent implements OnInit {
 
   ngOnInit() {
     this.token = localStorage.getItem('token');
-    this.dataservice.currentLabels.subscribe(labels => this.labelsList = labels);
+    this.dataservice.getLabelNotes.subscribe(labels => this.labelsList = labels);
 
     // this.labels = this.getLabels();
   }

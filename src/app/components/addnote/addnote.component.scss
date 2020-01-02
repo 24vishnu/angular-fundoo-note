@@ -1,4 +1,4 @@
-$border-color: rgb(100, 200, 50);
+$border-color: #92968e;
 
 .container {
     display: flex;
@@ -20,27 +20,33 @@ $border-color: rgb(100, 200, 50);
     box-shadow: 0 0px 0px 1px rgba(0,0,0,.2), 0 2px 2px 0 rgba(24, 20, 19, 0), 0 5px 2px 0 rgba(0,0,0,.12)
 }
 
+.create-note-menu{
+    place-self: center;
+}
+
 .create-note{
     display: flex;
     justify-content: center;
     flex-direction: column;
     width: 50%;
     max-width: 60%;
-    padding: 10px 10px 0px 10px;
     border: $border-color 1px solid;
-    border-radius: 10px;
-    color: #25aa82;
-   
-}
-.create-note div textarea{
-    border:none;
-    outline-color: white;
+    border-radius: 15px;    // update
+    border-bottom-style: double;    // new
+    padding: 0;
 
+    div {
+        padding: 10px 10px 0px 10px; // new
+    }
+    .create-note div textarea{
+        border:none;
+        min-width: -webkit-fill-available; // new
+    }
 }
+
 
 .create-note-toolbar{
-    padding: 5px;
-    margin: 2px;
+    justify-content: space-between;
 }
 
 .create-note-close-button{
@@ -48,6 +54,10 @@ $border-color: rgb(100, 200, 50);
     left: 480px;
 }
 
+// new
+// .mat-card>:first-child {
+//     padding: 10px 15px 10px 15px;
+// }
 
 ::ng-deep .mat-form-field-flex > .mat-form-field-infix {
     padding: 0.4em 0px !important;

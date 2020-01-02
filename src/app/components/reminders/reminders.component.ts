@@ -17,7 +17,7 @@ import { EditNoteComponent } from '../edit-note/edit-note.component';
 export class RemindersComponent implements OnInit {
 
   @Input() viewListGrid: boolean;
-  @Output() childmessage = new EventEmitter<any>();
+  @Output() reminderComponentMessage = new EventEmitter<any>();
 
   private reminderNotes: Note[];
   private token: string;
@@ -28,7 +28,8 @@ export class RemindersComponent implements OnInit {
   private datetimereminder = new Date(Date.now());
   public data = {
     dataForUpdate: {},
-    urlCridetial: Note
+    urlCridetial: Note,
+    showMessage: ''
   };
 
   constructor(private noteservice: NoteServiceService,
@@ -41,7 +42,7 @@ export class RemindersComponent implements OnInit {
 
   ngOnInit() {
     this.token = localStorage.getItem('token');
-    this.dataservice.currentLabels.subscribe(labels => this.allLabels = labels);
+    this.dataservice.getLabelNotes.subscribe(labels => this.allLabels = labels);
     this.userReminderNotes();
   }
 
@@ -100,9 +101,10 @@ export class RemindersComponent implements OnInit {
   setReminder(note) {
     const data = {
       dataForUpdate: {reminder: this.datePipe.transform(this.datetimereminder.toISOString(), 'yyyy-MM-dd HH:mm:ss')},
-      urlCridetial: note
+      urlCridetial: note,
+      showMessage: ''
     };
-    this.childmessage.emit(data);
+    this.dataservice.updateNoteDetails(data);
   }
 
   removeLable(note, labelToDelete) {
@@ -112,9 +114,10 @@ export class RemindersComponent implements OnInit {
     console.log('remove this label', labelToDelete, labelList);
     const data = {
       dataForUpdate: { label: labelList },
-      urlCridetial: note
+      urlCridetial: note,
+      showMessage: ''
     };
-    this.childmessage.emit(data);
+    this.dataservice.updateNoteDetails(data);
   }
 
   // add and remove collaborate
@@ -130,9 +133,10 @@ export class RemindersComponent implements OnInit {
         if (note.collaborate.length !== result.length) {
           const data = {
             dataForUpdate: {collaborate: result},
-            urlCridetial: note
+            urlCridetial: note,
+            showMessage: ''
           };
-          this.childmessage.emit(data);
+          this.dataservice.updateNoteDetails(data);
         }
       }
       console.log('Dialog box closed and result is ', result);
@@ -155,9 +159,10 @@ export class RemindersComponent implements OnInit {
     uploadData.append('image', noteImage, noteImage.name);
     const data = {
       dataForUpdate: uploadData,
-      urlCridetial: this.noteIdTemp
+      urlCridetial: this.noteIdTemp,
+      showMessage: 'Image added'
     };
-    this.childmessage.emit(data);
+    this.dataservice.updateNoteDetails(data);
   }
 
   // change note background color
@@ -168,9 +173,10 @@ export class RemindersComponent implements OnInit {
     console.log(color);
     const data = {
       dataForUpdate: noteDetail,
-      urlCridetial: note
+      urlCridetial: note,
+      showMessage: ''
     };
-    this.childmessage.emit(data);
+    this.dataservice.updateNoteDetails(data);
   }
 
 
@@ -182,7 +188,8 @@ export class RemindersComponent implements OnInit {
 
     this.data.dataForUpdate = newDetails;
     this.data.urlCridetial = note;
-    this.childmessage.emit(this.data);
+    this.data.showMessage = 'note trashed';
+    this.dataservice.updateNoteDetails(this.data);
   }
 
   // open dialog edit note
@@ -199,9 +206,10 @@ export class RemindersComponent implements OnInit {
       if (Object.getOwnPropertyNames(result).length > 0) {
         const data = {
           dataForUpdate: result,
-          urlCridetial: note
+          urlCridetial: note,
+          showMessage: ''
         };
-        this.childmessage.emit(data);
+        this.dataservice.updateNoteDetails(data);
       }
       console.log('The dialog has been closed and result is ', result);
     });
@@ -215,6 +223,7 @@ export class RemindersComponent implements OnInit {
 
     this.data.dataForUpdate = noteDetail;
     this.data.urlCridetial = note;
-    this.childmessage.emit(this.data);
+    this.data.showMessage = 'Note archived';
+    this.dataservice.updateNoteDetails(this.data);
   }
 }

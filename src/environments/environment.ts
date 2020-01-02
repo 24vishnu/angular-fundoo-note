@@ -19,7 +19,8 @@ export const environment = {
   apiDeleteUrl: 'api/note/',
   apiReminderUrl: 'api/reminders/',
   apiLabelsNoteUrl: 'api/labelnote/',
-  apiSearchNoteUrl: 'api/elasticsearch/'
+  apiSearchNoteUrl: 'api/elasticsearch/',
+  apiAllUserUrl: 'users/'
 };
 
 /*

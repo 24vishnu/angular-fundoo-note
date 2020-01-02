@@ -10,10 +10,10 @@
                 <mat-label class="search-area">Search</mat-label>
                 <input matInput type="search" 
                 placeholder="Search" 
-                [value]='searchItem'
+                [value]=''
                 (input)='searchNote($event)' 
                 class="search-field"
-                routerLink="search" routerLinkActive="active" (click)="showView('searchFlag')">
+                routerLink="search" routerLinkActive="active">
                 <mat-icon matPrefix>search</mat-icon>
             </mat-form-field>
         </div>
@@ -58,7 +58,6 @@
                     <div class="user-detail">
                         <p>{{userInfo.username}}</p>
                         <p>{{userInfo.email}}</p>
-                        <button mat-raised-button>Manage your Fundoo Account</button>
                     </div>               
                     <button mat-raised-button (click)="signout()">Sign out</button>
                 </div>
@@ -69,9 +68,7 @@
     </mat-toolbar>
 </div>
 
-<mat-sidenav-container>
-    
-    <!-- <mat-sidenav #sidenav mode="side" [(opened)]="opened" fxLayout="column" > -->
+<mat-sidenav-container style="height: 100vh;">
     <mat-sidenav #sidenav [ngClass]="{'sidenav-position-class': naveModeFlag}" [mode]="naveMode" [(opened)]="opened">
         <div *ngIf="naveModeFlag" style="height: 140px;">
             <div style="
@@ -99,25 +96,23 @@
         <mat-nav-list class="sidenav-list">
             <div>
                 <div>
-                    <a mat-list-item routerLink="home" routerLinkActive="active" (click)="showView('noteFlag')">
+                    <a mat-list-item routerLink="home" routerLinkActive="active">
                         <img src="assets/images/sidenav-icon/note.svg" alt="">
                         <span style="margin-left: 30px;">Notes</span>
                     </a>
                 </div>
                 <div>
-                    <a mat-list-item routerLink="reminder" routerLinkActive="active" (click)="showView('reminderFlag')">
+                    <a mat-list-item routerLink="reminder" routerLinkActive="active">
                         <img src="assets/images/sidenav-icon/reminder.svg" alt="">
                         <span style="margin-left: 30px;">Reminders</span>
                     </a>
                 </div>
             </div>   
-              <!-- [routerLink]='["label/{{label.name}}"]'  -->     
             <div>
                 <small class="small">LABELS</small>
                 <div *ngFor="let label of labelsList">
                     <a mat-list-item
                             (click)="notesOfLabel(label.id)" 
-                            (click)="showView('labelFlag')" 
                              [routerLink]="['label/']+label.name"
                              routerLinkActive="active"
                             >
@@ -132,28 +127,23 @@
             </div>
             <div>
                 <div>
-                    <a mat-list-item routerLink="archive" routerLinkActive="active" (click)="showView('archiveFlag')">
+                    <a mat-list-item routerLink="archive" routerLinkActive="active">
                         <img src="assets/images/sidenav-icon/archive.svg" alt="">
                         <span style="margin-left: 30px;">Archive</span>
                     </a>
                 </div>
                 <div>
-                    <a mat-list-item routerLink="trash" routerLinkActive="active" fxLayoutGap="20px" (click)="showView('trashFlag')">
+                    <a mat-list-item routerLink="trash" routerLinkActive="active" fxLayoutGap="20px">
                         <img src="assets/images/sidenav-icon/trash.svg" alt="">
                         <span style="margin-left: 30px;">Trash</span> 
                     </a>
                 </div>
             </div>
         </mat-nav-list>
-    </mat-sidenav>72%
+    </mat-sidenav>
     <mat-sidenav-content class="mat-sidenav-content">
-            <app-addnote *ngIf="!viewFlag['trashFlag']"></app-addnote>        
-            <app-viewnote *ngIf="viewFlag['noteFlag']" (childmessage)="eventListener($event)" [viewListGrid]="viewListGridMessage"></app-viewnote>
-            <app-notes-of-label *ngIf="viewFlag['labelFlag']" [labelId]="setLabelId"></app-notes-of-label>
-            <app-reminders *ngIf="viewFlag['reminderFlag']" (childmessage)="eventListener($event)"></app-reminders>
-            <app-archive *ngIf="viewFlag['archiveFlag']" (childmessage)="eventListener($event)"></app-archive>
-            <app-trash *ngIf="viewFlag['trashFlag']" (childmessage)="eventListener($event)"></app-trash>
-            <app-search-note *ngIf="viewFlag['searchFlag']" (childmessage)="eventListener($event)" [getNotes]="searchedNote"></app-search-note>
+        <router-outlet></router-outlet>
+
     </mat-sidenav-content>
         
 </mat-sidenav-container>

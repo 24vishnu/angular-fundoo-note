@@ -6,7 +6,8 @@ import { AppComponent } from './app.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { MatInputModule, MatButtonModule, MatSelectModule, MatIconModule, MatCardModule,
    MatSnackBarModule, MatFormFieldModule, MatMenuModule, MatToolbarModule, MatListModule,
-   MatDialogModule, MatSidenavModule, MatTooltipModule, MatGridListModule, MatCheckboxModule} from '@angular/material';
+   MatDialogModule, MatSidenavModule, MatTooltipModule, MatGridListModule, MatCheckboxModule,
+   MatAutocompleteModule} from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './components/login/login.component';
@@ -95,6 +96,7 @@ import { SearchNoteComponent } from './components/search-note/search-note.compon
     ScrollingModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
+    MatAutocompleteModule
   ],
   providers: [
         UserService,

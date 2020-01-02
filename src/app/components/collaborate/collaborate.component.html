@@ -47,7 +47,12 @@
             </div>
             <form class="example-form">
                 <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Email to share with" [formControl]="newPerson">
+                    <input matInput placeholder="Email to share with" [formControl]="newPerson" [matAutocomplete]="auto">
+                        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                            {{option.email}}
+                            </mat-option>
+                        </mat-autocomplete>
                     <mat-hint>Errors appear instantly!</mat-hint>
                     <mat-error *ngIf="newPerson.hasError('email')">
                     Please enter a valid email address

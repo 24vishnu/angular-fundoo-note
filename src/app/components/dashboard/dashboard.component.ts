@@ -18,7 +18,6 @@ import { Label } from 'src/app/models/label';
 export class DashboardComponent implements OnInit, DoCheck {
   public viewListGridMessage = false; // parent to chaild communication
   public setLabelId: number;
-  public searchedDdeatail: Note[] = [];
 
   public oneNote: Note;
   public allNotes: Note[];
@@ -26,23 +25,8 @@ export class DashboardComponent implements OnInit, DoCheck {
   private labelsList: Label[];
   public naveMode = 'side';
   public naveModeFlag: boolean;
-  private searchItem = '';
 
-  private token: string;
   private userInfo: any;
-  public searchedNote = {
-    notes: this.searchedDdeatail,
-    searchContentSize: this.searchItem.length
-  };
-
-  viewFlag = {
-    noteFlag: true,
-    reminderFlag: false,
-    archiveFlag: false,
-    trashFlag: false,
-    labelFlag: false,
-    searchFlag: false,
-  };
 
   constructor(private router: Router,
               private dialog: MatDialog,
@@ -60,64 +44,38 @@ export class DashboardComponent implements OnInit, DoCheck {
       this.naveMode = 'side';
       this.naveModeFlag = false;
     }
+
+    if ( window.innerWidth < 600) {
+        this.viewListGridMessage = false;
+        this.dataservice.gridListView = true;
+    } else {
+      this.dataservice.gridListView = this.viewListGridMessage;
+    }
   }
   viewChange() {
-    this.viewListGridMessage = !this.viewListGridMessage;
+    if (window.innerWidth > 599) {
+      this.viewListGridMessage = !this.viewListGridMessage;
+    }
   }
 
 
   ngOnInit() {
-    this.token = localStorage.getItem('token');
-    this.dataservice.currentLabels.subscribe(labels => this.labelsList = labels);
-    this.dataservice.currentMessage.subscribe(notes => this.allNotes = notes);
+    this.dataservice.getLabelNotes.subscribe(labels => this.labelsList = labels);
+    this.dataservice.noteMessage.subscribe(notes => this.allNotes = notes);
     this.dataservice.currentUser.subscribe(user => this.userInfo = user);
 
-    this.viewFlag.archiveFlag = this.router.url.includes('/archive');
-    this.viewFlag.reminderFlag = this.router.url.includes('/reminder');
-    this.viewFlag.trashFlag = this.router.url.includes('/trash');
-    this.viewFlag.labelFlag = this.router.url.includes('/label');
-    if (this.viewFlag.archiveFlag ||
-          this.viewFlag.trashFlag ||
-          this.viewFlag.reminderFlag ||
-          this.viewFlag.labelFlag) {
-      this.viewFlag.noteFlag = false;
-    }
   }
 
   // search notes
   searchNote($event) {
-    this.searchItem = $event.target.value;
-    this.searchedNote.searchContentSize = this.searchItem.length;
-    if (this.searchItem.length > 2) {
-      this.noteservice.searchNotes(this.searchItem, this.token).subscribe(
-        result => {
-          this.searchedNote.notes = result.data;
-        },
-        err => {
-          if (err.status === 401) {
-            localStorage.clear();
-            this.router.navigate(['/login']);
-            alert(err.error.messages[0].message);
-          } else if (err.status === 0) {
-            alert(err.message);
-            } else {
-            console.log(err);
-          }
-        }
-      );
-    } else {
-      this.searchedNote.notes = [];
-    }
+    this.dataservice.searchNote($event);
   }
 
   notesOfLabel(labelId) {
-    this.setLabelId = labelId;
+    this.dataservice.labelIdSearch(labelId);
+    // this.setLabelId = labelId;
   }
 
-  showView(showMe) {
-    Object.keys(this.viewFlag).forEach(v => this.viewFlag[v] = false);
-    this.viewFlag[showMe] = true;
-  }
 
   picChangeDialog() {
     const dialogRef = this.dialog.open(ChangeProfilePictureComponent,
@@ -159,40 +117,6 @@ export class DashboardComponent implements OnInit, DoCheck {
   signout() {
     localStorage.clear();
     this.router.navigate(['/login']);
-  }
-
-  eventListener($event) {
-    this.updateNoteDetails($event.dataForUpdate, $event.urlCridetial.id);
-  }
-
-  updateNoteDetails(newDetails: any, noteId) {
-    console.log(newDetails);
-    this.noteservice.updateNote(newDetails, noteId, this.token).subscribe(
-      result => {
-        console.log('This note is updated just now: -> ', result);
-        this.snackBar.open('data successfully update.')._dismissAfter(2000);
-        this.allNotes = this.allNotes.filter(updatedNote => updatedNote.id !== noteId);
-        if (result.data.is_archive === false && result.data.is_trashed === false) {
-          this.allNotes.push(result.data);
-          console.log(this.allNotes);
-        }
-        this.dataservice.changeNoteMessage(this.allNotes);
-        console.log(result);
-
-      },
-      err => {
-        if (err.status === 404) {
-          console.log('Page not found!');
-          this.snackBar.open('Page not found.', 'close')._dismissAfter(3000);
-        } else if ( err.status === 401) {
-          localStorage.clear();
-          this.router.navigate(['/login']);
-          this.snackBar.open('Your access token is expired.', 'close')._dismissAfter(2000);
-        } else {
-          console.log('failed to update: ', err);
-        }
-      }
-    );
   }
 }
 

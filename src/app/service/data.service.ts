@@ -1,4 +1,4 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { NoteServiceService } from './note-service.service';
 import { LabelService } from './label.service';
@@ -6,12 +6,13 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Note } from '../models/note';
 import { Label } from '../models/label';
 import { UserService } from './user.service';
+import { MatSnackBar } from '@angular/material';
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class DataService implements OnInit {
+export class DataService {
   public allNotes: Note[];
   public trashNotes: Note[];
   public ArchiveNotes: Note[];
@@ -19,6 +20,14 @@ export class DataService implements OnInit {
 
   public pinNotes: Note[];
   public unPinNotes: Note[];
+
+  public gridListView = false;
+  public noteLabelsId: number;
+
+  public searchedNote = {
+    notes: [],
+    searchContentSize: 0
+  };
 
   public userInfo = {
     username: 'Anonymous',
@@ -29,39 +38,38 @@ export class DataService implements OnInit {
   public token = localStorage.getItem('token');
 
   private messageSource = new BehaviorSubject<Note[]>(this.allNotes);
-  currentMessage = this.messageSource.asObservable();
+  noteMessage = this.messageSource.asObservable();
 
   private userDetails = new BehaviorSubject<any>(this.userInfo);
   currentUser = this.userDetails.asObservable();
 
   private labelSource = new BehaviorSubject<Label[]>(this.allLabels);
-  currentLabels = this.labelSource.asObservable();
+  getLabelNotes = this.labelSource.asObservable();
 
   private trashNoteData = new BehaviorSubject<Note[]>(this.trashNotes);
-  currentTrashNote = this.trashNoteData.asObservable();
+  allTrashNote = this.trashNoteData.asObservable();
 
-  private archivehNoteData = new BehaviorSubject<Note[]>(this.ArchiveNotes);
-  currentArchivehNote = this.archivehNoteData.asObservable();
+  private archivedNoteData = new BehaviorSubject<Note[]>(this.ArchiveNotes);
+  allArchivedNote = this.archivedNoteData.asObservable();
+
+  private searchNoteData = new BehaviorSubject<any>(this.searchedNote);
+  searchNoteResult = this.searchNoteData.asObservable();
 
   constructor(
     private noteservice: NoteServiceService,
     private lableservices: LabelService,
     private userService: UserService,
     private router: Router,
-    private activateRoute: ActivatedRoute
+    private activateRoute: ActivatedRoute,
+    private snackBar: MatSnackBar
     ) {
       this.getUserDetails();
       this.get_all_note();
       this.get_all_label();
-      this.getCurrentTrashNotes();
+      this.getTrashNotes();
       this.getCurrentArchiveNotes();
     }
 
-
-  ngOnInit() {
-    // console.log(this.activateRoute);
-    // this.allNotes.sort((a, b) => a.id - b.id);
-  }
   // user details from database like username email and profile pic
   getUserDetails() {
     this.userService.getProfilePic(this.token).subscribe(
@@ -86,7 +94,7 @@ export class DataService implements OnInit {
   }
 
   // Get trash notes from database
-  getCurrentTrashNotes() {
+  getTrashNotes() {
     this.noteservice.getTrashedNotes(this.token).subscribe(
       result => {
         this.trashNotes = result.data;
@@ -180,9 +188,11 @@ export class DataService implements OnInit {
 
   // function for next change for all subscriber components
   changeNoteMessage(message: Note[]) {
+
+    // TODO
     message.sort((a, b) => a.id - b.id);
     this.messageSource.next(message);
-    this.getCurrentTrashNotes();
+    this.getTrashNotes();
     this.getCurrentArchiveNotes();
   }
 
@@ -200,7 +210,67 @@ export class DataService implements OnInit {
   // archive notes update for all subscriber components
   changeArchiveData(archiveData: Note[]) {
     archiveData.sort((a, b) => a.id - b.id);
-    this.archivehNoteData.next(archiveData);
+    this.archivedNoteData.next(archiveData);
   }
 
+  updateNoteDetails(infoForUpdate) {
+    console.log(infoForUpdate);
+    this.noteservice.updateNote(infoForUpdate.dataForUpdate, infoForUpdate.urlCridetial.id, this.token).subscribe(
+      result => {
+        console.log('This note is updated just now: -> ', result);
+        if (infoForUpdate.showMessage !== '') {
+          this.snackBar.open(infoForUpdate.showMessage)._dismissAfter(2000);
+        }
+        this.allNotes = this.allNotes.filter(updatedNote => updatedNote.id !== infoForUpdate.urlCridetial.id);
+        if (result.data.is_archive === false && result.data.is_trashed === false) {
+          this.allNotes.push(result.data);
+          console.log(this.allNotes);
+        }
+        this.changeNoteMessage(this.allNotes);
+        console.log(result);
+
+      },
+      err => {
+        if (err.status === 404) {
+          console.log('Page not found!');
+          this.snackBar.open('Page not found.', 'close')._dismissAfter(3000);
+        } else if ( err.status === 401) {
+          localStorage.clear();
+          this.router.navigate(['/login']);
+          this.snackBar.open('Your access token is expired.', 'close')._dismissAfter(2000);
+        } else {
+          console.log('failed to update: ', err);
+        }
+      }
+    );
+  }
+
+  searchNote($event) {
+    if ($event.target.value.length > 2) {
+      this.searchedNote.searchContentSize = $event.target.value.length;
+      this.noteservice.searchNotes($event.target.value, this.token).subscribe(
+        result => {
+          this.searchedNote.notes = result.data;
+        },
+        err => {
+          if (err.status === 401) {
+            localStorage.clear();
+            this.router.navigate(['/login']);
+            alert(err.error.messages[0].message);
+          } else if (err.status === 0) {
+            alert(err.message);
+            } else {
+            console.log(err);
+          }
+        }
+      );
+    } else {
+      this.searchedNote.notes = [];
+    }
+  }
+
+  labelIdSearch(id) {
+    this.noteLabelsId = id;
+    console.log(this.noteLabelsId);
+  }
 }

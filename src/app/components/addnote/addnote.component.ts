@@ -32,7 +32,7 @@ export class AddnoteComponent implements OnInit {
   */
   ngOnInit() {
     this.token = localStorage.getItem('token');
-    this.dataservice.currentMessage.subscribe(notes => this.allNotes = notes);
+    this.dataservice.noteMessage.subscribe(notes => this.allNotes = notes);
   }
 
   showHideButton() {
@@ -44,7 +44,7 @@ export class AddnoteComponent implements OnInit {
       // show data on console
       console.log(this.noteData);
       // if user enter note title or note description then add note
-      if (this.noteData.title != null || this.noteData.content != null) {
+      if (this.noteData.title !== '' || this.noteData.content !== '') {
         // post data on backend api
         this.noteService.addNote(this.noteData, this.token).subscribe(
           result => {

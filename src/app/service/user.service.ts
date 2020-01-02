@@ -14,6 +14,7 @@ export class UserService {
   private signupUrl = environment.apiRegisterUrl;
   private picUrl = environment.apiUserPicUrl;
   private picUpdateUrl = environment.apiUpdatePicUrl;
+  private allUserUrl = environment.apiAllUserUrl;
 
   constructor(private http: HttpClient) { }
 
@@ -39,6 +40,12 @@ export class UserService {
   }
   setProfilePic(newImage, token) {
     return this.http.put<any>(this.baseUrl + this.picUpdateUrl, newImage, {
+      headers: new HttpHeaders().append('Authorization', 'Bearer ' + token)
+    });
+  }
+
+  getCollaborators(token) {
+    return this.http.get<any>(this.baseUrl + this.allUserUrl, {
       headers: new HttpHeaders().append('Authorization', 'Bearer ' + token)
     });
   }
