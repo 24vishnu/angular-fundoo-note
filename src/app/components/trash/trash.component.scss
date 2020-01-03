@@ -1,0 +1,44 @@
+.container{
+    margin-top: 32px;
+    flex-direction: row;
+    box-sizing: border-box;
+    display: flex;
+    margin-bottom: 70px;
+}
+
+.notes-container{
+    width: 33%;
+}
+mat-card{
+    border: 1px solid dotted green;
+    margin: 0.5em;
+    padding: 0.5rem;
+}
+@media screen and (max-width: 834px) {
+    #container {
+        margin: 0;
+        padding-right: 10%;
+        padding-left: 10%;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    .notes-container{
+        width: 49%;
+    }
+}
+
+
+@media screen and (max-width: 599px) {
+    #container {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+    }
+    .notes-container{
+        width: 100%;
+        height: 100%;
+    }
+}
+

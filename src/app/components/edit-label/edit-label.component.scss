@@ -1,0 +1,81 @@
+.container {
+  margin: 0;
+  padding: 0;
+  width: 300px;
+  height: 350px;
+  // display: flex;
+  // justify-content: center;
+  // border: 1.5px solid dotted red;
+  .label-close-icon{
+    padding: 0;
+    width: 45px;
+  }
+}
+.edit-label-title{
+  color: #202124;
+  letter-spacing: .00625em;
+  font-family: sans-serif;
+  font-size: 1.25rem;
+  font-weight: 500;
+  line-height: 1.5rem;
+  height: 25px;
+}
+
+.create-new-label{
+  border: 1px solid dotted yellow;
+}
+
+.button-done{
+  border-top: 1px solid #dadce0;
+  padding: 15px 10px;
+  text-align: right;
+}
+// .all-label-container{
+//   border: 1.5px solid black;
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+// .container {
+//     outline: none;
+//     overflow: hidden;
+//     .div-title {
+//       display: flex;
+//       justify-content: flex-start;
+//       margin-left: 5%;
+//     }
+//   }
+//   .labels-div {
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     .label-icon {
+//       margin-right: 30px;
+//       height: 18px;
+//       width: 18px;
+//     }
+//   }
+//   .input-create-label {
+//     outline: none;
+//     border-top: none;
+//     border-left: none;
+//     border-right: none;
+//   }
+//   .button-done {
+//     display: flex;
+//     justify-content: flex-end;
+//     width: 100%;
+//   }
+
+//   .example-full-width {
+//       width: 100px;
+//   }

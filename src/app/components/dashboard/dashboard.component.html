@@ -1,0 +1,149 @@
+<div class="menu">
+    <mat-toolbar color="primary" fxLayout="row">
+        <div class="title-bar" fxFlex="22" fxFlex.sm="50" fxFlex.xs="50" fxLayout="row">                   
+            <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
+            <img src="assets/images/icon/keep.png" alt="fundoo icon" width="45px" height="45px" class="fundoo-icon" fxHide.xs="true">
+            <p>Fundoo</p>
+        </div>
+        <div fxFlex="60%" fxHide.sm="true" fxHide.xs="true">
+            <mat-form-field appearance="outline">
+                <mat-label class="search-area">Search</mat-label>
+                <input matInput type="search" 
+                    placeholder="Search" 
+                    [value]=''
+                    (input)='searchNote($event)' 
+                    class="search-field"
+                    routerLink="search" routerLinkActive="active">
+                <mat-icon matPrefix>search</mat-icon>
+            </mat-form-field>
+        </div>
+        <div  fxFlex="22" fxFlex.sm='50' fxFlex.xs="50" fxLayoutAlign="end center" fxLayout="row" >
+            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                <mat-icon>settings</mat-icon>
+            </button>
+                <mat-menu #menu="matMenu">  
+                <button mat-menu-item>                  
+                    <p>settings</p> 
+                </button>
+                <button mat-menu-item>                    
+                    <p>Enable dark theam</p> 
+                </button>
+                <button mat-menu-item> 
+                    <p>Send feedback</p> 
+                </button>
+                <button mat-menu-item> 
+                    <p>Help</p>
+                        <p>keyboard shortcuts</p> 
+                </button>   
+                </mat-menu>
+                <button mat-icon-button><mat-icon routerLink="" routerLinkActive="active" class="mat-icon-setting">refresh</mat-icon></button>
+                <button mat-icon-button>
+                    <mat-icon class="mat-icon-setting" *ngIf="!viewListGridMessage" (click)="viewChange()">view_stream</mat-icon>
+                    <mat-icon class="mat-icon-setting" *ngIf="viewListGridMessage" (click)="viewChange()">dashboard</mat-icon>
+                </button>
+                
+                <button mat-icon-button *ngIf="!naveModeFlag"><mat-icon class="mat-icon-setting">apps</mat-icon></button>
+                
+            <button mat-button [matMenuTriggerFor]="beforeMenu"><img src="{{userInfo.image_url}}" alt="profile pic"
+                    class="header-profile-pic"></button>
+            <mat-menu #beforeMenu="matMenu">
+                <div fxLayout="column" fxLayoutGap="20px" style="padding: 20px;">
+                    <div class="profile-menu">
+                        <img mat-menu-item src="{{ userInfo.image_url }}" alt="profile pic">
+                    
+                        <div>
+                            <button style="border-radius: 50%;"> <mat-icon (click)="picChangeDialog()">photo_camera</mat-icon> </button>
+                        </div>
+                    </div>
+                    <div class="user-detail">
+                        <p>{{userInfo.username}}</p>
+                        <p>{{userInfo.email}}</p>
+                    </div>               
+                    <button mat-raised-button (click)="signout()">Sign out</button>
+                </div>
+
+            </mat-menu>
+        </div>
+
+    </mat-toolbar>
+</div>
+
+<mat-sidenav-container style="height: 100vh;">
+    <mat-sidenav #sidenav [ngClass]="{'sidenav-position-class': naveModeFlag}" [mode]="naveMode" [(opened)]="opened">
+        <div *ngIf="naveModeFlag" style="height: 140px;">
+            <div style="
+                    display: flex;
+                    flex-direction: row-reverse;
+                    height: 50%;
+                    border-bottom-style: inset;">
+                <button mat-icon-button>
+                    <mat-icon class="mat-icon-setting">apps</mat-icon>
+                </button>    
+            </div>
+            <div style="
+                    display: flex;
+                    justify-content: center;
+                    font-size: xx-large;
+                    height: 50%;
+                    border-bottom-style: inset;">
+                    <span style="color: rgba(34, 34, 216, 0.788);">F</span>
+                    <span style="color: rgba(209, 12, 22, 0.788);">u</span>
+                    <span style="color: rgba(216, 143, 34, 0.788);">n</span>
+                    <span style="color: rgba(34, 34, 216, 0.788);">d</span>
+                    <span style="color: rgba(34, 216, 49, 0.788);">o</span>
+                    <span style="color: rgba(209, 12, 22, 0.788);">o</span> Note</div>
+        </div>
+        <mat-nav-list class="sidenav-list">
+            <div>
+                <div>
+                    <a mat-list-item routerLink="home" routerLinkActive="active">
+                        <img src="assets/images/sidenav-icon/note.svg" alt="">
+                        <span style="margin-left: 30px;">Notes</span>
+                    </a>
+                </div>
+                <div>
+                    <a mat-list-item routerLink="reminder" routerLinkActive="active">
+                        <img src="assets/images/sidenav-icon/reminder.svg" alt="">
+                        <span style="margin-left: 30px;">Reminders</span>
+                    </a>
+                </div>
+            </div>   
+            <div>
+                <small class="small">LABELS</small>
+                <div *ngFor="let label of labelsList">
+                    <a mat-list-item
+                            (click)="notesOfLabel(label.id)" 
+                             [routerLink]="['label/']+label.name"
+                             routerLinkActive="active"
+                            >
+                        <img src="assets/images/sidenav-icon/label.svg" alt="">
+                        <span style="margin-left: 30px;">{{label.name}}</span>
+                    </a>
+                </div>
+                <a mat-list-item [routerLink]=""  (click)="openDialog()">
+                    <img src="assets/images/sidenav-icon/edit-label.svg" alt="">
+                    <span style="margin-left: 30px;">Edit labels</span></a>
+                
+            </div>
+            <div>
+                <div>
+                    <a mat-list-item routerLink="archive" routerLinkActive="active">
+                        <img src="assets/images/sidenav-icon/archive.svg" alt="">
+                        <span style="margin-left: 30px;">Archive</span>
+                    </a>
+                </div>
+                <div>
+                    <a mat-list-item routerLink="trash" routerLinkActive="active" fxLayoutGap="20px">
+                        <img src="assets/images/sidenav-icon/trash.svg" alt="">
+                        <span style="margin-left: 30px;">Trash</span> 
+                    </a>
+                </div>
+            </div>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content class="mat-sidenav-content">
+        <router-outlet></router-outlet>
+
+    </mat-sidenav-content>
+        
+</mat-sidenav-container>

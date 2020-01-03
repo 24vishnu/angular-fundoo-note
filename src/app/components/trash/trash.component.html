@@ -1,0 +1,62 @@
+<div class="container">
+    <div fxFlex='20' fxFlex.sm='0' fxFlex.xs='0' fxFlex.lt-md = '10'></div>    
+    <div fxLayout="row wrap" fxFlex.xs='100' fxFlex.lt-md = '62' fxFlex.lt-sm = '75' class="one-note">                
+        <div class="notes-container" fxFlex.xs='100' fxFlex.sm='50' [ngStyle]="changeList()" *ngFor="let note of trashedNotes?.reverse()">
+            <mat-card (click)="temp()" [style.background-color]="note.change_color">
+                <div>
+                    <div class='note-image-div' *ngIf='note.image !== null'>
+                        <img src="{{note.image}}" alt="picture" style="width: 100%;
+                        height: auto">
+                    </div>
+                    <div class="note-title"> {{note.title}} </div>
+                    <div class="note-content"> {{note.content}} </div>
+                    <div class="label-content" fxLayoutGap="4px">
+                        <div style="display: flex;
+                                    flex-direction: row;
+                                    height: fit-content;
+                                    flex-wrap: wrap;">
+                                <span class="chip" 
+                                *ngIf="getReminder(note.reminder)"
+                                style="background-color: rgba(255,255,255,.4);
+                                        border-radius: 10px;
+                                        padding: 5px;
+                                        height: fit-content;
+                                        align-self: center;">
+                                        <div>{{reminderData}}</div>
+                                </span>
+                                <span class="chip" *ngFor="let col of note.collaborate">
+                                        <div mat-card-avatar 
+                                            matTooltip="{{col}}"
+                                                style="background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+                                                background-size: cover;">
+                                        </div>
+                                </span>
+                            <div class="chip" *ngFor="let onelabel of note.label"
+                                style="padding: 5px;
+                                        background-color: #bbc7c7;
+                                        margin-left: 5%;
+                                        margin-top: 5%;
+                                        border-radius: 10px 10px 10px 10px;
+                                        height: min-content;"
+                            >{{onelabel}}
+                                <i matTooltip="Remove Label" class='material-icons close' (click)="removeLable(note,onelabel)"
+                                style="vertical-align: middle; 
+                                        color: rgba(0,0,0,.7);
+                                        font-size: medium;"
+                                >close                                        
+                                </i>
+                            </div>
+                        </div>                                
+                    </div>
+                </div>
+                <div>
+                    <div id="hover-show-content">
+                        <span matTooltip="Delete forever"><mat-icon style="cursor: pointer;" (click)="delete(note.id)">delete_forever</mat-icon></span>
+                        <span matTooltip="Restore"><mat-icon style="cursor: pointer;" (click)="restoreNote(note.id)">restore_from_trash</mat-icon></span>
+                    </div>
+                </div>
+            </mat-card>
+        </div>
+    </div>
+    <div fxFlex='20' fxFlex.sm='0' fxFlex.xs='0' fxFlex.lt-md = '10'></div>
+</div>
