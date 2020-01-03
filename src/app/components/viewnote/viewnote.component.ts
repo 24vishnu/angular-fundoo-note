@@ -55,7 +55,6 @@ export class ViewnoteComponent implements OnInit, DoCheck {
       urlCridetial: note,
       showMessage: ''
     };
-    console.log(data);
 
     this.dataservice.updateNoteDetails(data);
   }
@@ -83,12 +82,10 @@ export class ViewnoteComponent implements OnInit, DoCheck {
       noteLabels = noteLabels.filter(label => label !== updatelabel);
       this.data.dataForUpdate = { label: noteLabels};
       this.data.urlCridetial = note;
-      console.log('if : ', this.data);
     } else {
       noteLabels = noteLabels.concat([updatelabel]);
       this.data.dataForUpdate = { label: noteLabels};
       this.data.urlCridetial = note;
-      console.log('else : ', this.data);
     }
     this.dataservice.updateNoteDetails(this.data);
   }
@@ -96,8 +93,6 @@ export class ViewnoteComponent implements OnInit, DoCheck {
   removeLable(note, labelToDelete) {
     let labelList = [...note.label];
     labelList = labelList.filter(label => label !== labelToDelete);
-    // remove label form note and update note with updated labels
-    console.log('remove this label', labelToDelete, labelList);
     const data = {
       dataForUpdate: { label: labelList },
       urlCridetial: note,
@@ -109,8 +104,6 @@ export class ViewnoteComponent implements OnInit, DoCheck {
   addLabel(note, newLabel) {
     const labelList = [...note.label];
     labelList.push(newLabel);
-    // add label into note and update note with updated labels
-    console.log('add this label', newLabel);
     const data = {
       dataForUpdate: { label: labelList },
       urlCridetial: note,
@@ -121,7 +114,6 @@ export class ViewnoteComponent implements OnInit, DoCheck {
 
 
   moveTrash(note) {
-    console.log(note);
     const noteDetail = {
       is_trashed: true
     };
@@ -131,17 +123,6 @@ export class ViewnoteComponent implements OnInit, DoCheck {
     this.dataservice.updateNoteDetails(this.data);
   }
 
-
-  // changeList() {
-  //   // console.log($event.target);
-  //   let style = {};
-  //   if (this.dataservice.gridListView) {
-  //     style = {
-  //      display: 'grid'
-  //     };
-  //   }
-  //   return style;
-  // }
   noteColor(color) {
     const style = {
       'background-color': color,
@@ -164,7 +145,6 @@ export class ViewnoteComponent implements OnInit, DoCheck {
     const noteDetail = {
     change_color: color
     };
-    console.log(color);
     const data = {
       dataForUpdate: noteDetail,
       urlCridetial: note,
@@ -188,11 +168,6 @@ export class ViewnoteComponent implements OnInit, DoCheck {
       showMessage: 'Image added'
     };
     this.dataservice.updateNoteDetails(data);
-  }
-
-  test(noteId) {
-    console.log('test method', noteId);
-
   }
 
   openDialog(note) {

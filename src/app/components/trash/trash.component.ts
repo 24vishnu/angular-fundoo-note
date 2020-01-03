@@ -28,6 +28,7 @@ export class TrashComponent implements OnInit {
 
   ngOnInit() {
     this.token = localStorage.getItem('token');
+    this.dataservice.getTrashNotes();
     this.dataservice.allTrashNote.subscribe(notes => this.trashedNotes = notes);
   }
 
@@ -75,10 +76,6 @@ export class TrashComponent implements OnInit {
         showMessage: ''
       };
       this.dataservice.updateNoteDetails(data);
-    }
-
-    temp() {
-      console.log(this.trashedNotes);
     }
 
   delete(noteId) {

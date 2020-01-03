@@ -35,7 +35,6 @@ export class RegistrationComponent implements OnInit {
   }
 
   registerUser() {
-    console.log(this.registerUserData);
     this.userService.registerUser(this.registerUserData).subscribe(
       res => {
         this.snackBar.open('registration success', 'close', {

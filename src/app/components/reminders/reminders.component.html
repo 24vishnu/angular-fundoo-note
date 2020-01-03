@@ -1,9 +1,9 @@
 <div>
     <app-addnote></app-addnote>
     <div class="container">
-        <div fxFlex='20' fxFlex.sm='0' fxFlex.xs='0' fxFlex.lt-md = '10'></div>    
-        <div fxLayout="row wrap" fxFlex.xs='100' fxFlex.lt-md = '62' fxFlex.lt-sm = '75' class="one-note">                
-            <div class="notes-container" fxFlex.xs='100' fxFlex.sm='50' [ngStyle]="changeList()" *ngFor="let note of reminderNotes?.reverse()">
+        <!-- <div fxFlex='20' fxFlex.sm='0' fxFlex.xs='0' fxFlex.lt-md = '10'></div>     -->
+        <div class="one-note">                
+            <div class="notes-container" fxFlex.xs='100' fxFlex.sm='50' *ngFor="let note of reminderNotes?.reverse()">
                         <mat-card [style.background-color]="note.change_color">
                         <div (click)="openDialog(note)">
                                 <div class='note-image-div' *ngIf='note.image !== null'>
@@ -110,6 +110,6 @@
                         </mat-menu>
             </div>
         </div>
-        <div fxFlex='20' fxFlex.sm='0' fxFlex.xs='0' fxFlex.lt-md = '10'></div>
+        <!-- <div fxFlex='20' fxFlex.sm='0' fxFlex.xs='0' fxFlex.lt-md = '10'></div> -->
     </div>
 </div>

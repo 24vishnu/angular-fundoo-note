@@ -7,6 +7,7 @@ import { Note } from '../models/note';
 import { Label } from '../models/label';
 import { UserService } from './user.service';
 import { MatSnackBar } from '@angular/material';
+import { map } from 'rxjs/operators';
 
 
 @Injectable({
@@ -66,8 +67,8 @@ export class DataService {
       this.getUserDetails();
       this.get_all_note();
       this.get_all_label();
-      this.getTrashNotes();
-      this.getCurrentArchiveNotes();
+      // this.getTrashNotes();
+      // this.getCurrentArchiveNotes();
     }
 
   // user details from database like username email and profile pic
@@ -99,7 +100,6 @@ export class DataService {
       result => {
         this.trashNotes = result.data;
         this.changeTrashData(this.trashNotes);
-        // console.log('result in data services', result);
       },
       err => {
         if (err.status === 401) {
@@ -121,7 +121,6 @@ export class DataService {
       result => {
         this.ArchiveNotes = result.data;
         this.changeArchiveData(this.ArchiveNotes);
-        // console.log('result in data services', result);
       },
       err => {
         if (err.status === 401) {
@@ -165,7 +164,6 @@ export class DataService {
       result => {
         this.allLabels = result.data;
         this.changeLables(this.allLabels);
-        // console.log(result)
       },
       err => {
         if (err.status === 401) {
@@ -189,11 +187,8 @@ export class DataService {
   // function for next change for all subscriber components
   changeNoteMessage(message: Note[]) {
 
-    // TODO
-    message.sort((a, b) => a.id - b.id);
+    message.sort((note1, note2) => note2.id - note1.id);
     this.messageSource.next(message);
-    this.getTrashNotes();
-    this.getCurrentArchiveNotes();
   }
 
   // function for next change of label data
@@ -203,7 +198,7 @@ export class DataService {
 
   // trash notes update for all subscriber component
   changeTrashData(trashData: Note[]) {
-    trashData.sort((a, b) => a.id - b.id);
+    trashData.sort((note1, note2) => note1.id - note2.id);
     this.trashNoteData.next(trashData);
   }
 
@@ -214,7 +209,6 @@ export class DataService {
   }
 
   updateNoteDetails(infoForUpdate) {
-    console.log(infoForUpdate);
     this.noteservice.updateNote(infoForUpdate.dataForUpdate, infoForUpdate.urlCridetial.id, this.token).subscribe(
       result => {
         console.log('This note is updated just now: -> ', result);
@@ -224,7 +218,6 @@ export class DataService {
         this.allNotes = this.allNotes.filter(updatedNote => updatedNote.id !== infoForUpdate.urlCridetial.id);
         if (result.data.is_archive === false && result.data.is_trashed === false) {
           this.allNotes.push(result.data);
-          console.log(this.allNotes);
         }
         this.changeNoteMessage(this.allNotes);
         console.log(result);
@@ -232,8 +225,7 @@ export class DataService {
       },
       err => {
         if (err.status === 404) {
-          console.log('Page not found!');
-          this.snackBar.open('Page not found.', 'close')._dismissAfter(3000);
+          this.snackBar.open('Invalid request.', 'close')._dismissAfter(3000);
         } else if ( err.status === 401) {
           localStorage.clear();
           this.router.navigate(['/login']);

@@ -1,6 +1,5 @@
-import { Component, OnInit, Input, OnChanges, EventEmitter, Output, DoCheck } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, DoCheck } from '@angular/core';
 import { NoteServiceService } from 'src/app/service/note-service.service';
-import { ActivatedRoute } from '@angular/router';
 import { Note } from 'src/app/models/note';
 import { Label } from 'src/app/models/label';
 import { MatDialog } from '@angular/material';
@@ -15,15 +14,9 @@ import { CollaborateComponent } from '../collaborate/collaborate.component';
   styleUrls: ['./notes-of-label.component.scss'],
   providers: [DatePipe]
 })
-export class NotesOfLabelComponent implements OnInit, OnChanges, DoCheck {
-
-  // dummy() {
-  //   // private notes: any;
-  //   // private token = localStorage.getItem('token');
-  //   // @Input() labelId: number;
+export class NotesOfLabelComponent implements OnInit, DoCheck {
 
   private datetimereminder = new Date(Date.now());
-
   private getNote: Note[] = [];
   private allLabels: Label[];
   private noteIdTemp: number;
@@ -51,11 +44,6 @@ export class NotesOfLabelComponent implements OnInit, OnChanges, DoCheck {
   ) {
   }
 
-  ngOnChanges() {
-        // this.getLabelsNotes();
-        // this.labelId = this.dataservice.noteLabelsId;
-        console.log(this.labelId);
-      }
   ngDoCheck() {
     if (this.labelId !== this.dataservice.noteLabelsId) {
       this.labelId = this.dataservice.noteLabelsId;
@@ -69,7 +57,6 @@ export class NotesOfLabelComponent implements OnInit, OnChanges, DoCheck {
   }
 
   getLabelsNotes() {
-        console.log(this.labelId);
         this.noteservice.getLabelsNote(this.labelId, localStorage.getItem('token')).subscribe(
           result => {
             this.getNote = result.data;
@@ -87,18 +74,17 @@ export class NotesOfLabelComponent implements OnInit, OnChanges, DoCheck {
       urlCridetial: note,
       showMessage: ''
     };
-    console.log(data);
 
     this.dataservice.updateNoteDetails(data);
   }
+
+
   setReminder(note) {
     const data = {
       dataForUpdate: {reminder: this.datePipe.transform(this.datetimereminder.toISOString(), 'yyyy-MM-dd HH:mm:ss')},
       urlCridetial: note,
       showMessage: ''
     };
-    console.log(typeof data.dataForUpdate.reminder);
-    console.log(this.datePipe.transform(this.datetimereminder.toISOString(), 'yyyy-MM-dd HH:mm:ss'));
     this.dataservice.updateNoteDetails(data);
   }
 
@@ -117,13 +103,11 @@ export class NotesOfLabelComponent implements OnInit, OnChanges, DoCheck {
       noteLabels = noteLabels.filter(label => label !== updatelabel);
       this.data.dataForUpdate = { label: noteLabels};
       this.data.urlCridetial = note;
-      console.log('if : ', this.data);
     } else {
       noteLabels = noteLabels.concat([updatelabel]);
       this.data.dataForUpdate = { label: noteLabels};
       this.data.urlCridetial = note;
       this.data.showMessage = '';
-      console.log('else : ', this.data);
     }
     this.dataservice.updateNoteDetails(this.data);
   }
@@ -131,8 +115,6 @@ export class NotesOfLabelComponent implements OnInit, OnChanges, DoCheck {
   removeLable(note, labelToDelete) {
     let labelList = [...note.label];
     labelList = labelList.filter(label => label !== labelToDelete);
-    // remove label form note and update note with updated labels
-    console.log('remove this label', labelToDelete, labelList);
     const data = {
       dataForUpdate: { label: labelList },
       urlCridetial: note,
@@ -144,8 +126,6 @@ export class NotesOfLabelComponent implements OnInit, OnChanges, DoCheck {
   addLabel(note, newLabel) {
     const labelList = [...note.label];
     labelList.push(newLabel);
-    // add label into note and update note with updated labels
-    console.log('add this label', newLabel);
     const data = {
       dataForUpdate: { label: labelList },
       urlCridetial: note,
@@ -239,11 +219,6 @@ export class NotesOfLabelComponent implements OnInit, OnChanges, DoCheck {
       showMessage: ''
     };
     this.dataservice.updateNoteDetails(data);
-  }
-
-  test(noteId) {
-    console.log('test method', noteId);
-
   }
 
   openDialog(note) {

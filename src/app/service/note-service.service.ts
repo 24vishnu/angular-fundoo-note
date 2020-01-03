@@ -22,7 +22,6 @@ export class NoteServiceService {
   constructor(private http: HttpClient) { }
 
   addNote(noteData, userToken) {
-    console.log(userToken);
     return this.http.post<any>(this.baseUrl + this.addNoteUrl, noteData, {
       headers: new HttpHeaders().append('Authorization', 'Bearer ' + userToken)
     });
@@ -41,7 +40,6 @@ export class NoteServiceService {
   }
 
   updateNote(modifedData, noteId, token): Observable<any> {
-    // console.log('update note service called',modifedData, noteId);
     return this.http.put(this.baseUrl + this.noteDetailUrl + noteId, modifedData, {
       headers: new HttpHeaders().append('Authorization', 'Bearer ' + token)
     });

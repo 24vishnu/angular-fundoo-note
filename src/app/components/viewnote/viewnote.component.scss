@@ -22,8 +22,12 @@
     color: transparent;
 }
 
+.unpin-container {
+    justify-content: flex-end;
+}
 .container {
     justify-content: flex-end;
+    margin-bottom: 100px;
 }
 
 .one-note{

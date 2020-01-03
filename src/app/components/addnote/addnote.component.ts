@@ -41,8 +41,6 @@ export class AddnoteComponent implements OnInit {
     if (this.showNoteContent) {
       this.noteData.title = this.title.value;
       this.noteData.content = this.content.value;
-      // show data on console
-      console.log(this.noteData);
       // if user enter note title or note description then add note
       if (this.noteData.title !== '' || this.noteData.content !== '') {
         // post data on backend api
@@ -50,11 +48,8 @@ export class AddnoteComponent implements OnInit {
           result => {
             this.snackBar.open('Note successfully added', 'close')
               ._dismissAfter(2500);
-            // print the result on console
-            console.log(result);
             this.allNotes.push(result.data);
             this.dataservice.changeNoteMessage(this.allNotes);
-            console.log('After update data is :', this.allNotes);
           },
           err => {
             // print if error occur during add note data  in database

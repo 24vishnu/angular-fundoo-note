@@ -9,7 +9,6 @@ import { NoteServiceService } from 'src/app/service/note-service.service';
 import { Note } from 'src/app/models/note';
 import { Label } from 'src/app/models/label';
 
-
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -63,7 +62,6 @@ export class DashboardComponent implements OnInit, DoCheck {
     this.dataservice.getLabelNotes.subscribe(labels => this.labelsList = labels);
     this.dataservice.noteMessage.subscribe(notes => this.allNotes = notes);
     this.dataservice.currentUser.subscribe(user => this.userInfo = user);
-
   }
 
   // search notes
@@ -73,7 +71,6 @@ export class DashboardComponent implements OnInit, DoCheck {
 
   notesOfLabel(labelId) {
     this.dataservice.labelIdSearch(labelId);
-    // this.setLabelId = labelId;
   }
 
 
@@ -85,7 +82,6 @@ export class DashboardComponent implements OnInit, DoCheck {
       });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog has been closed: ', result);
       if (result !== undefined) {
         this.userInfo.image_url = result.image_url;
       }

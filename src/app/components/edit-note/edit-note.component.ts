@@ -13,15 +13,11 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./edit-note.component.scss'],
   providers: [DatePipe]
 })
-export class EditNoteComponent implements OnInit, AfterContentInit, OnDestroy, OnChanges {
+export class EditNoteComponent implements OnInit, AfterContentInit, OnDestroy {
   token = localStorage.getItem('token');
   public noteStyle;
   public editNote: Note;
   public newData = {};
-
-  ngOnChanges() {
-    console.log(this.editNote);
-  }
 
   ngOnDestroy() {
     this.closeDialog();
@@ -43,7 +39,6 @@ export class EditNoteComponent implements OnInit, AfterContentInit, OnDestroy, O
 
   ngOnInit() {
     this.editNote = this.data;
-    console.log(this.editNote);
   }
 
   showHideButton() {
@@ -60,7 +55,6 @@ editedTime() {
   }
 
   closeDialog() {
-    console.log(this.editNote);
     this.dialogRef.close(this.newData);
   }
 

@@ -27,7 +27,7 @@ export class SearchNoteComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.dataservice.searchNoteResult.subscribe(labels => this.getNotes = labels);
+    this.dataservice.searchNoteResult.subscribe(searchedNote => this.getNotes = searchedNote);
     this.token = localStorage.getItem('token');
   }
 
@@ -62,7 +62,6 @@ export class SearchNoteComponent implements OnInit {
   removeLable(note, labelToDelete) {
     let labelList = [...note.label];
     labelList = labelList.filter(label => label !== labelToDelete);
-    console.log('remove this label', labelToDelete, labelList);
     const data = {
       dataForUpdate: { label: labelList },
       urlCridetial: note,

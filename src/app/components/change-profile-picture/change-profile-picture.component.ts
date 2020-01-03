@@ -63,7 +63,6 @@ export class ChangeProfilePictureComponent implements OnInit {
     uploadData.append('image', this.newImage, this.newImage.name);
     this.userservice.setProfilePic(uploadData, this.token).subscribe(
       result => {
-        console.log(result);
         this.dialogRef.close(result.data);
       },
       err => {

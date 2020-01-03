@@ -8,11 +8,6 @@ import { UserService } from 'src/app/service/user.service';
 import { Observable } from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 
-export interface CollaboratorUser {
-  username: string;
-  email: string;
-}
-
 
 @Component({
   selector: 'app-collaborate',
@@ -25,8 +20,8 @@ export class CollaborateComponent implements OnInit {
   public newPerson = new FormControl('', [Validators.email, ]);
   private collaboratePerson: string[] = [];
 
-  private options: CollaboratorUser[] = [];
-  private filteredOptions: Observable<CollaboratorUser[]>;
+  options: string[] = [];
+  filteredOptions: Observable<string[]>;
 
   constructor(
     private dataservice: DataService,
@@ -38,7 +33,6 @@ export class CollaborateComponent implements OnInit {
 
   ngOnInit() {
     this.token = localStorage.getItem('token');
-    console.log(this.data.collaborate);
     this.collaboratePerson = [...this.data.collaborate];
     this.dataservice.currentUser.subscribe(user => this.userInfo = user);
     this.userCollaborators();
@@ -46,26 +40,19 @@ export class CollaborateComponent implements OnInit {
     this.filteredOptions = this.newPerson.valueChanges
       .pipe(
         startWith(''),
-        map(value => typeof value === 'string' ? value : value.name),
-        map(name => name ? this._filter(name) : this.options.slice())
+        map(value => this._filter(value))
       );
   }
-
-  displayFn(user?: CollaboratorUser): string | undefined {
-    return user ? user.email : undefined;
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+    return this.options.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
   }
 
-  private _filter(name: string): CollaboratorUser[] {
-    const filterValue = name.toLowerCase();
-
-    return this.options.filter(option => option.email.toLowerCase().indexOf(filterValue) === 0);
-  }
 // ----------------------------------
   userCollaborators() {
     this.userservices.getCollaborators(this.token).subscribe(
       result => {
-        this.options = result.data;
-        console.log(result);
+        this.options = result.data.map(collaborator => collaborator.email);
       },
       err => {
         this.snackBar.open('Server error', 'close')._dismissAfter(2000);
@@ -82,7 +69,6 @@ export class CollaborateComponent implements OnInit {
   addPerson() {
     if ( !this.newPerson.hasError('email') ) {
       if (this.newPerson.value !== '') {
-        console.log(this.newPerson);
         if (this.data.collaborate.indexOf(this.newPerson.value) !== -1) {
           console.log('this person already added!');
         } else {
@@ -100,7 +86,6 @@ export class CollaborateComponent implements OnInit {
   }
 
   closeDialog() {
-    console.log(this.data);
     this.dialogRef.close(this.collaboratePerson);
   }
 }

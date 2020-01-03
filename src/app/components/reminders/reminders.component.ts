@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, DoCheck} from '@angular/core';
 import { NoteServiceService } from 'src/app/service/note-service.service';
 import { MatSnackBar, MatDialog } from '@angular/material';
 import { Note } from 'src/app/models/note';
@@ -14,9 +14,10 @@ import { EditNoteComponent } from '../edit-note/edit-note.component';
   styleUrls: ['./reminders.component.scss'],
   providers: [DatePipe]
 })
-export class RemindersComponent implements OnInit {
+export class RemindersComponent implements OnInit, DoCheck {
 
-  @Input() viewListGrid: boolean;
+  private viewListGrid: boolean;
+
   @Output() reminderComponentMessage = new EventEmitter<any>();
 
   private reminderNotes: Note[];
@@ -31,7 +32,9 @@ export class RemindersComponent implements OnInit {
     urlCridetial: Note,
     showMessage: ''
   };
-
+  ngDoCheck() {
+    this.viewListGrid = this.dataservice.gridListView;
+  }
   constructor(private noteservice: NoteServiceService,
               private snackbar: MatSnackBar,
               private dataservice: DataService,
@@ -62,34 +65,6 @@ export class RemindersComponent implements OnInit {
     );
   }
 
-  // change view list to grid and grid to list
-  changeList() {
-    let style = {};
-    if (this.viewListGrid) {
-      style = {
-        width: '100%',
-        'flex-flow': 'column',
-        'box-sizing': 'border-box',
-        'flex-direction': 'column',
-        'max-width': '100%'
-      };
-    } else if (window.innerWidth >= 600 && window.innerWidth < 900) {
-      style = {
-        'flex-flow': 'row',
-        'box-sizing': 'border-box',
-        'flex-direction': 'row',
-        'max-width': '50%'
-      };
-    } else if (window.innerWidth >= 900) {
-      style = {
-        'flex-flow': 'row',
-        'box-sizing': 'border-box',
-        'flex-direction': 'row',
-        'max-width': '33%'
-      };
-    }
-    return style;
-  }
   // get and set reminder
   getReminder(reminder) {
     if (reminder !== null && ((Date.parse(reminder) / 1000) - (Date.now() / 1000)) > 0) {
@@ -110,8 +85,6 @@ export class RemindersComponent implements OnInit {
   removeLable(note, labelToDelete) {
     let labelList = [...note.label];
     labelList = labelList.filter(label => label !== labelToDelete);
-    // remove label form note and update note with updated labels
-    console.log('remove this label', labelToDelete, labelList);
     const data = {
       dataForUpdate: { label: labelList },
       urlCridetial: note,
@@ -154,7 +127,6 @@ export class RemindersComponent implements OnInit {
   onFileSelected(target) {
     const noteImage = target.files[0];
     const uploadData = new FormData();
-    console.log(noteImage);
 
     uploadData.append('image', noteImage, noteImage.name);
     const data = {
@@ -170,7 +142,6 @@ export class RemindersComponent implements OnInit {
     const noteDetail = {
     change_color: color
     };
-    console.log(color);
     const data = {
       dataForUpdate: noteDetail,
       urlCridetial: note,

@@ -1,6 +1,6 @@
 <div>
     <app-addnote></app-addnote>
-    <div class="container">
+    <div class="unpin-container">
         <div class="one-note" 
         [ngClass]="{'ng-one-note-grid': viewListGrid, 'ng-one-note-flex': !viewListGrid }">
             <div class="notes-container" *ngFor="let note of getNote?.reverse()">

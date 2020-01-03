@@ -41,6 +41,7 @@ export class ArchiveComponent implements OnInit {
 
   ngOnInit() {
     this.token = localStorage.getItem('token');
+    this.dataservice.getCurrentArchiveNotes();
     this.dataservice.allArchivedNote.subscribe(notes => this.archiveNotes = notes);
     this.dataservice.getLabelNotes.subscribe(labels => this.allLabels = labels);
   }
@@ -107,7 +108,6 @@ export class ArchiveComponent implements OnInit {
     let labelList = [...note.label];
     labelList = labelList.filter(label => label !== labelToDelete);
     // remove label form note and update note with updated labels
-    console.log('remove this label', labelToDelete, labelList);
     const data = {
       dataForUpdate: { label: labelList },
       urlCridetial: note,
@@ -135,7 +135,6 @@ export class ArchiveComponent implements OnInit {
           this.dataservice.updateNoteDetails(data);
         }
       }
-      console.log('Dialog box closed and result is ', result);
     },
       err => {
         console.log('Some thing is wrong: ', err);
@@ -150,7 +149,6 @@ export class ArchiveComponent implements OnInit {
   onFileSelected(target) {
     const noteImage = target.files[0];
     const uploadData = new FormData();
-    console.log(noteImage);
 
     uploadData.append('image', noteImage, noteImage.name);
     const data = {
@@ -166,7 +164,6 @@ export class ArchiveComponent implements OnInit {
     const noteDetail = {
     change_color: color
     };
-    console.log(color);
     const data = {
       dataForUpdate: noteDetail,
       urlCridetial: note,
@@ -177,7 +174,6 @@ export class ArchiveComponent implements OnInit {
 
   // move note into trash notes list
   moveTrash(note) {
-    console.log(note);
     const noteDetail = {
       is_trashed: true
     };
@@ -206,7 +202,10 @@ export class ArchiveComponent implements OnInit {
         };
         this.dataservice.updateNoteDetails(data);
       }
-      console.log('The dialog has been closed and result is ', result);
+    },
+    err => {
+      alert('Error');
+      console.log(err);
     });
   }
 
@@ -215,7 +214,6 @@ export class ArchiveComponent implements OnInit {
     const newDetails = {
       is_archive: false
     };
-    console.log(note);
     this.data.dataForUpdate = newDetails;
     this.data.urlCridetial = note;
     this.data.showMessage = 'Note unarchived';
