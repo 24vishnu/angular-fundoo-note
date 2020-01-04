@@ -10,12 +10,9 @@ $border-color: #92968e;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 30px;
-    width: 50%;
-    max-width: 50%;
+    width: 598px;
     padding: 8px;
-    // border: $border-color 1px solid;
-    border-radius: 6px;
+    border-radius: 10px;
     color: rgb(151, 151, 151);
     box-shadow: 0 0px 0px 1px rgba(0,0,0,.2), 0 2px 2px 0 rgba(24, 20, 19, 0), 0 5px 2px 0 rgba(0,0,0,.12)
 }
@@ -28,8 +25,7 @@ $border-color: #92968e;
     display: flex;
     justify-content: center;
     flex-direction: column;
-    width: 50%;
-    max-width: 60%;
+    width: 598px;
     border: $border-color 1px solid;
     border-radius: 15px;    // update
     border-bottom-style: double;    // new
@@ -37,6 +33,7 @@ $border-color: #92968e;
 
     div {
         padding: 10px 10px 0px 10px; // new
+        width: inherit;
     }
     .create-note div textarea{
         border:none;
@@ -54,11 +51,6 @@ $border-color: #92968e;
     left: 480px;
 }
 
-// new
-// .mat-card>:first-child {
-//     padding: 10px 15px 10px 15px;
-// }
-
 ::ng-deep .mat-form-field-flex > .mat-form-field-infix {
     padding: 0.4em 0px !important;
   }
@@ -71,4 +63,47 @@ $border-color: #92968e;
     .mat-form-field-label {
     transform: translateY(-1.1em) scale(0.75);
     width: 133.33333%;
+  }
+
+  @media only screen and (max-width: 1100px) {
+      .create-note-button, .create-note {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 470px;
+        padding: 8px;
+        border-radius: 10px;
+        color: rgb(151, 151, 151);
+        box-shadow: 0 0px 0px 1px rgba(0,0,0,.2), 0 2px 2px 0 rgba(24, 20, 19, 0), 0 5px 2px 0 rgba(0,0,0,.12)
+      }    
+  }
+
+// @media only screen and (max-width: 1024px) {
+//     .create-note-button {
+//         display: flex;
+//         justify-content: space-between;
+//         align-items: center;
+//         width: 598px;
+//         padding: 8px;
+//         border-radius: 10px;
+//         color: rgb(151, 151, 151);
+//         box-shadow: 0 0px 0px 1px rgba(0,0,0,.2), 0 2px 2px 0 rgba(24, 20, 19, 0), 0 5px 2px 0 rgba(0,0,0,.12)
+//       }    
+//   }
+
+@media only screen and (max-width: 835px) {
+    .create-note-button, .create-note {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 470px;
+        padding: 8px;
+        border-radius: 10px;
+        color: rgb(151, 151, 151);
+        box-shadow: 0 0px 0px 1px rgba(0,0,0,.2), 0 2px 2px 0 rgba(24, 20, 19, 0), 0 5px 2px 0 rgba(0,0,0,.12)
+      }    
+  }
+
+@media only screen and (max-width: 599px) {
+   
   }
